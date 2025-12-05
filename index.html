@@ -10,14 +10,14 @@
   </script>
   <style>
     :root {
-      --bg: #1a1a1a;
+      --bg: linear-gradient(180deg, #1a1a1a 0%, #0f0f2b 100%);
       --text: #e5e5e5;
       --accent: #9cc2ff;
     }
     [data-theme="light"] {
-      --bg: #fafafa;
-      --text: #222;
-      --accent: #3366cc;
+      --bg: linear-gradient(180deg, #f2f4ff 0%, #e7ebff 100%);
+      --text: #1b1b2e;
+      --accent: #355ccf;
     }
     body {
       font-family: "Helvetica Neue", Arial, sans-serif;
@@ -64,10 +64,10 @@
   <header>
     <h1>Your Name</h1>
     <p>Harmonic Analysis · Groups · Duality</p>
-    <div class="social-icons" style="margin:1rem 0; font-size:1.5rem;">
-      <a href="#" style="margin:0 0.5rem; color:var(--accent);"><i class="fab fa-orcid"></i></a>
-      <a href="#" style="margin:0 0.5rem; color:var(--accent);"><i class="fas fa-book"></i></a>
-      <a href="#" style="margin:0 0.5rem; color:var(--accent);"><i class="fab fa-linkedin"></i></a>
+    <div class="social-icons" style="margin:1rem 0; font-size:1.7rem; display:flex; justify-content:center; gap:1.2rem;">
+      <a href="#" style="color:var(--accent); filter:drop-shadow(0 0 4px var(--accent));"><i class="fab fa-orcid"></i></a>
+      <a href="#" style="color:var(--accent); filter:drop-shadow(0 0 4px var(--accent));"><i class="fas fa-book"></i></a>
+      <a href="#" style="color:var(--accent); filter:drop-shadow(0 0 4px var(--accent));"><i class="fab fa-linkedin"></i></a>
     </div>
     <nav>
       <a href="#duality">Duality</a>
@@ -77,7 +77,7 @@
       <a href="#contact">Contact</a>
     </nav>
     <button id="themeToggle" style="margin-top:1rem;padding:0.4rem 0.8rem;border-radius:6px;border:1px solid #444;background:#222;color:#ccc;cursor:pointer;">Toggle Theme</button>
-    <div id="waveform" style="margin-top:2rem;height:40px;width:100%;background:linear-gradient(90deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.02) 100%);background-size:200% auto;animation:wave 6s linear infinite;"></div>
+    <div id="waveform" style="margin-top:2rem;height:40px;width:100%;background:linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);background-size:200% auto;animation:wave 6s linear infinite;"></div>
   </header>
 
   <section id="duality">
@@ -137,9 +137,3 @@
   </footer>
 </body>
 </html>
-
-       
-   
-      
-    
-
