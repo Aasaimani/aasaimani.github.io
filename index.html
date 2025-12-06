@@ -109,6 +109,14 @@
   cursor: pointer;
 }
 
+  #content {
+    margin-top: 430px; /* space for fixed header */
+    padding: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* ---- SECTION VISIBILITY ---- */
   .section {
     display: none;
@@ -126,7 +134,7 @@
 
    
 /* Waveform bar stays full width */
-#waveform {
+/* #waveform {
   margin-top: 1.5rem;
   height: 45px;
   width: 100%;
@@ -137,13 +145,16 @@
   );
   background-size: 200% auto;
   animation: wave 6s linear infinite;
-}
+} */
 
-    @keyframes wave {
+    /* @keyframes wave {
       0% { background-position:0% 0%; }
       100% { background-position:200% 0%; }
-    }
-
+    } */
+ @keyframes wave {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
     /* Global link styling */
 a {
   color: var(--accent);      /* or any color you prefer */
@@ -155,7 +166,7 @@ a:hover {
 }
 
 a:visited {
-  color: var(--accent);      /* keeps visited links same colour */
+  color: var(--bg);      /* keeps visited links same colour */
 }
 
    #modules h2 {
