@@ -131,17 +131,16 @@
     <h3>Course Title: Advanced Harmonic Analysis</h3>
     <p>Lecture notes, short explanations, and examples from the course.</p>
 
-    <div id="haa-lectures" class="lecture-list"></div>
+    <div id="haa-lectures" class="lecture-list"> <p>Lectures:</p> </div>
   </div>
 </section>
 
 <script>
   const list = document.getElementById("haa-lectures");
-
   for (let i = 1; i <= 23; i++) {
     const a = document.createElement("a");
     a.href = `modules/harmonic-analysis/lecture${i}.pdf`; 
-    a.textContent = `Lecture ${i}`;
+    a.textContent = `${i}`;
     a.className = "lecture-link";
     list.appendChild(a);
   }
