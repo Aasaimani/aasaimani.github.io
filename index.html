@@ -93,6 +93,22 @@ nav a {
   color: #ccc;
   cursor: pointer;
 }
+    <style>
+  .page-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    padding: 2rem 1rem;
+  }
+
+  .page-section.active {
+    display: block;
+    opacity: 1;
+  }
+
+  nav a {
+    cursor: pointer;
+  }
 
 /* Waveform bar stays full width */
 #waveform {
@@ -191,7 +207,7 @@ a:visited {
 </header>
 
 
-  <section id="support">
+  <section id="support" class="page-section active">
   <h2>Support</h2>
   <p> 
    Since October 2024, I have been serving as a Guest Faculty in the Department of Mathematics at Pondicherry University, 
@@ -204,7 +220,7 @@ a:visited {
   </p>
 </section>
 
-  <section id="duality">
+  <section id="duality" class="page-section active">
     <h2>Duality</h2>
     <p>
       My work focuses on the interface between algebraic structure and analytic behaviour. I study
@@ -217,7 +233,7 @@ a:visited {
     </p>
   </section>
 
-  <section id="spectrum">
+  <section id="spectrum" class="page-section active">
     <h2>Spectrum</h2>
     <p>Selected papers and preprints with short summaries.</p>
     <ul class="publist">
@@ -226,7 +242,7 @@ a:visited {
     </ul>
   </section>
 
-  <section id="representations">
+  <section id="representations" class="page-section active">
     <h2>Representations</h2>
     <p>Talks, seminar presentations, and collaborations.</p>
     <ul>
@@ -235,7 +251,7 @@ a:visited {
     </ul>
   </section>
 
- <section id="modules">
+ <section id="modules" class="page-section active">
   <h2>Modules</h2>
 
   <div class="module-card">
@@ -397,6 +413,26 @@ window.addEventListener("scroll", () => {
   scrollFactor += 0.003;     // adjust for sensitivity
 });
 </script>
+
+  <script>
+  const links = document.querySelectorAll("nav a");
+  const sections = document.querySelectorAll(".page-section");
+
+  links.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = link.getAttribute("href").replace("#", "");
+
+      sections.forEach(sec => {
+        sec.classList.remove("active");
+      });
+
+      document.getElementById(target).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+</script>
+
 
 </body>
 </html>
