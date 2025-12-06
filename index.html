@@ -7,167 +7,235 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-  :root {
-    --bg: #0f0f14;
-    --fg: #e5e5e5;
-    --accent: #6ae3ff;
-    --accent-soft: rgba(106,227,255,0.35);
-  }
+:root {
+  --bg: #0f0f14;
+  --fg: #e5e5e5;
+  --accent: #6ae3ff;
+  --accent-soft: rgba(106,227,255,0.35);
+}
 
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: system-ui, sans-serif;
-  }
+[data-theme="light"] {
+  --bg: #fafafa;
+  --fg: #222;
+  --accent: #3366cc;
+  --accent-soft: rgba(51,102,204,0.25);
+}
 
-  /* ---- FIXED HEADER ---- */
-  header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #0f0f14ee;
-    backdrop-filter: blur(6px);
-    z-index: 1000;
-    padding: 2rem 1rem 1rem;
-    text-align: center;
-    border-bottom: 1px solid #333;
-  }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
 
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: auto;
-    flex-wrap: wrap;
-  }
+/* =================== HEADER =================== */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(15,15,20,0.93);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  padding: 2rem 1rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  transition: background 0.3s;
+}
 
-  .left-block { flex: 1; text-align: left; }
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: auto;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
 
-  .right-block img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    object-fit: cover;
-    transition: 0.2s ease;
-  }
+.left-block {
+  flex: 1;
+  text-align: left;
+}
 
-  .tagline { opacity: .85; margin-top: .3rem; }
+.right-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
 
-  .social-icons {
-    margin: .8rem 0;
-    font-size: 1.7rem;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
+.right-block img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  transition: border 0.3s;
+}
 
-  .social-icons a {
-    color: var(--accent);
-    filter: drop-shadow(0 0 4px var(--accent));
-  }
+.header-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
 
-  nav {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
+.cv-btn, .theme-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid #444;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--accent);
+  background: #222;
+  transition: 0.3s ease;
+}
 
-  nav a {
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.05rem;
-    color: var(--accent);
-    padding: 0.3rem 0.4rem;
-    transition: 0.3s ease;
-  }
+.cv-btn:hover, .theme-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
 
-  nav a:hover { border-bottom: 1px solid var(--accent); }
+/* Social icons */
+.social-icons {
+  margin: .8rem 0;
+  font-size: 1.7rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.social-icons a {
+  color: var(--accent);
+  filter: drop-shadow(0 0 4px var(--accent));
+  transition: color 0.3s;
+}
 
-  #themeToggle {
+/* Navigation */
+nav {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+nav a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--accent);
+  padding: 0.3rem 0.4rem;
+  transition: 0.3s ease;
+}
+nav a:hover { border-bottom: 1px solid var(--accent); }
+
+/* Mobile menu button */
+#mobileMenuBtn { display: none; }
+
+/* =================== CONTENT =================== */
+#content {
+  margin-top: 470px;
+  padding: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section { display: none; animation: fade .5s ease; }
+.section.active { display: block; }
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================== WAVEFORM =================== */
+#waveform {
+  margin-top: 1.5rem;
+  height: 35px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.06) 100%);
+  background-size: 200% auto;
+  animation: wave 6s linear infinite;
+  transition: background 0.3s;
+}
+@keyframes wave {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* =================== MODULE GRID =================== */
+.grid-list {
+  display: grid;
+  gap: .8rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.lecture-link {
+  display: block;
+  padding: .4rem .6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: transform .12s ease, box-shadow .12s ease, color 0.3s;
+}
+.lecture-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px var(--accent-soft);
+}
+
+/* =================== MOBILE =================== */
+@media (max-width: 768px) {
+  .header-content { flex-direction: column; align-items: center; }
+  .right-block img { width: 150px; height: 150px; }
+  .header-actions { flex-direction: row; }
+  nav { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+  #mobileMenuBtn {
+    display: inline-block;
     margin-top: 1rem;
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 1rem;
     border-radius: 6px;
-    border: 1px solid #444;
-    background: #222;
-    color: #ccc;
+    border: none;
     cursor: pointer;
   }
+}
 
-  #content {
-    margin-top: 500px; /* space for fixed header */
-    padding: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* =================== FOOTER =================== */
+footer {
+  position: fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#111;
+  color:#ccc;
+  padding:.8rem 1rem;
+  border-top:1px solid #333;
+  text-align:center;
+  backdrop-filter:blur(4px);
+  transition: background 0.3s, color 0.3s;
+}
+footer a { color: var(--accent); transition: color 0.3s; }
 
-  .section { display: none; animation: fade .5s ease; }
-  .section.active { display: block; }
-
-  @keyframes fade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes wave {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  /* --------- GRID LECTURE LIST (Option 3) --------- */
-  .grid-list {
-    display: grid;
-    gap: .8rem;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  }
-
-  .lecture-link {
-    display: block;
-    padding: .4rem .6rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.05);
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    text-align: center;
-    transition: transform .12s ease, box-shadow .12s ease;
-  }
-
-  .lecture-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px var(--accent-soft);
-  }
-
-  /* --------- EPICYCLE & WAVEFORM --------- */
-  #epicycleCanvas { width: 100%; max-width: 350px; height: auto; }
-  #waveform { margin-top: 1.5rem; height: 35px; }
-
-  /* --------- MOBILE STYLES --------- */
-  @media (max-width: 768px) {
-    header { padding: 1.5rem 0.5rem; }
-    header h1 { font-size: 1.85rem; }
-    header img { width: 150px; height: 150px; }
-    nav { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-    #mobileMenuBtn { display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: var(--bg); font-size: 1rem; border-radius: 6px; cursor: pointer; border: none; }
-    nav a { font-size: 1.15rem; padding: 0.6rem; }
-    .social-icons { font-size: 1.6rem; }
-    #waveform { height: 28px; }
-  }
 </style>
 </head>
 
-<body>
+<body data-theme="dark">
+
 <header>
   <div class="header-content">
     <div class="left-block">
-      <canvas id="epicycleCanvas" width="280" height="140"></canvas>
+      <canvas id="epicycleCanvas"></canvas>
+
       <h1>XX</h1>
       <p class="tagline">Harmonic Analysis · Groups · Duality</p>
 
@@ -189,9 +257,11 @@
     </div>
 
     <div class="right-block">
-      <img src="Aasai_2.JPEG" alt="Portrait">
-      <a href="CV.pdf" target="_blank" style="color:var(--accent);">CV</a>
-      <button id="themeToggle">Toggle Theme</button>
+      <img src="yourphoto.JPEG" alt="Portrait">
+      <div class="header-actions">
+        <a href="CV.pdf" target="_blank" class="cv-btn">CV</a>
+        <button id="themeToggle" class="theme-btn">Toggle Theme</button>
+      </div>
     </div>
   </div>
 
@@ -199,26 +269,10 @@
 </header>
 
 <div id="content">
-  <div id="support" class="section active">
-    <h2>Support</h2>
-    <p>I began my research career...</p>
-  </div>
-
-  <div id="duality" class="section">
-    <h2>Duality</h2>
-    <p>My work focuses on...</p>
-  </div>
-
-  <div id="spectrum" class="section">
-    <h2>Spectrum</h2>
-    <p>Selected papers...</p>
-  </div>
-
-  <div id="representations" class="section">
-    <h2>Representations</h2>
-    <p>Talks and seminars...</p>
-  </div>
-
+  <div id="support" class="section active"><h2>Support</h2><p>I began my research career...</p></div>
+  <div id="duality" class="section"><h2>Duality</h2><p>My work focuses on...</p></div>
+  <div id="spectrum" class="section"><h2>Spectrum</h2><p>Selected papers...</p></div>
+  <div id="representations" class="section"><h2>Representations</h2><p>Talks and seminars...</p></div>
   <div id="modules" class="section">
     <h2>Modules</h2>
     <div class="module-card">
@@ -229,14 +283,14 @@
   </div>
 </div>
 
-<footer style="position:fixed; bottom:0; left:0; width:100%; background:#111; color:#ccc; padding:.8rem 1rem; border-top:1px solid #333; text-align:center; backdrop-filter:blur(4px);">
-  <span>Contact: <a href="mailto:fmanimic@gmail.com" style="color:var(--accent);">fmanimic@gmail.com</a></span>
-  , <a href="mailto:aasaimanit@pondiuni.ac.in" style="color:var(--accent);">aasaimanit@pondiuni.ac.in</a>
-  · <a href="Mani_CV_Dec_2025.pdf" target="_blank" style="color:var(--accent);">CV</a>
+<footer>
+  <span>Contact: <a href="mailto:fmanimic@gmail.com">fmanimic@gmail.com</a></span>,
+  <a href="mailto:aasaimanit@pondiuni.ac.in">aasaimanit@pondiuni.ac.in</a>
+  · <a href="Mani_CV_Dec_2025.pdf" target="_blank">CV</a>
 </footer>
 
 <script>
-/* Navigation section switch */
+// Navigation
 document.querySelectorAll("nav a").forEach(link => {
   link.addEventListener("click", () => {
     const target = link.getAttribute("href").replace("#","");
@@ -247,13 +301,20 @@ document.querySelectorAll("nav a").forEach(link => {
   });
 });
 
-/* Mobile menu toggle */
+// Mobile menu
 document.getElementById("mobileMenuBtn").addEventListener("click", () => {
   const nav = document.querySelector("header nav");
   nav.style.display = nav.style.display === "flex" ? "none" : "flex";
 });
 
-/* Generate lecture links */
+// Theme toggle
+document.getElementById("themeToggle").addEventListener("click", () => {
+  const body = document.body;
+  const current = body.getAttribute('data-theme');
+  body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+});
+
+// Lecture links
 const list = document.getElementById("haa-lectures");
 for (let i = 1; i <= 23; i++) {
   const a = document.createElement("a");
@@ -263,62 +324,47 @@ for (let i = 1; i <= 23; i++) {
   list.appendChild(a);
 }
 
-/* Theme toggle */
-const toggle=document.getElementById('themeToggle');
-toggle.addEventListener('click',()=> {
-  const current=document.body.getAttribute('data-theme');
-  document.body.setAttribute('data-theme', current==='light'?'dark':'light');
-});
-
-/* Epicycle animation */
+// Epicycle dynamic scaling
 const canvas = document.getElementById("epicycleCanvas");
 const ctx = canvas.getContext("2d");
-let baseSpeed = 0.012;
-let scrollFactor = 0;
-let time = 0;
+let baseSpeed = 0.012, scrollFactor = 0, time = 0;
 const trail = [];
+
+function resizeCanvas() {
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientWidth * 0.5; // maintain 2:1 ratio
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
 function draw() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   const cx = canvas.width/2, cy = canvas.height/2;
-  const harmonics = [1,3,5];
-  const radii = [35,18,10];
-  let x=cx, y=cy;
+  const minDim = Math.min(canvas.width, canvas.height);
+  const harmonics = [1,3,5]; 
+  const radii=[0.2,0.1,0.06].map(f=>f*minDim); // scale with canvas
+  let x=cx, y=cy; 
   ctx.strokeStyle="rgba(255,255,255,0.15)";
-
-  for (let i=0;i<harmonics.length;i++){
+  for(let i=0;i<harmonics.length;i++){
     const r=radii[i], w=harmonics[i];
-    const nx = x + r*Math.cos(time*w);
-    const ny = y + r*Math.sin(time*w);
-    ctx.beginPath();
-    ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.stroke();
+    const nx=x+r*Math.cos(time*w), ny=y+r*Math.sin(time*w);
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.stroke();
     x=nx; y=ny;
   }
-
-  trail.push({x,y});
-  if(trail.length>200) trail.shift();
-
+  trail.push({x,y}); if(trail.length>200) trail.shift();
   ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue("--accent");
-  ctx.beginPath();
-  for(let i=0;i<trail.length;i++){
-    const p=trail[i];
-    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
-  }
+  ctx.beginPath(); for(let i=0;i<trail.length;i++){const p=trail[i]; i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}
   ctx.stroke();
-
   ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--accent");
-  ctx.beginPath();
-  ctx.arc(x,y,3,0,Math.PI*2);
-  ctx.fill();
-
-  time += baseSpeed + scrollFactor;
-  scrollFactor *= 0.95;
+  ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+  time+=baseSpeed+scrollFactor; scrollFactor*=0.95;
   requestAnimationFrame(draw);
 }
 draw();
 
 window.addEventListener("scroll",()=>{ scrollFactor += 0.003; });
 </script>
+
 </body>
 </html>
+
