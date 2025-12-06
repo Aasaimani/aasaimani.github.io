@@ -25,20 +25,101 @@
       transition: background 0.3s,color 0.3s;
     }
     header {
-      padding: 3rem 1.5rem;
-      text-align: center;
-      background: rgba(10,10,10,0.4);
-      border-bottom: 1px solid #333;
-      backdrop-filter: blur(4px);
-    }
-    nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: var(--accent);
-    }
-    nav a:hover {
-      opacity: 0.8;
-    }
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 1.5rem 2rem;
+  background: rgba(10,10,10,0.40);
+  border-bottom: 1px solid #333;
+  backdrop-filter: blur(6px);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.left-block {
+  flex: 1;
+  text-align: left;
+}
+
+.right-block img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+}
+
+.tagline {
+  opacity: 0.85;
+  margin-top: 0.3rem;
+}
+
+/* Social icons */
+.social-icons {
+  margin: 0.8rem 0;
+  font-size: 1.7rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons a {
+  color: var(--accent);
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+
+/* Nav links */
+nav {
+  margin-top: 0.8rem;
+}
+
+nav a {
+  margin-right: 1rem;
+  color: var(--accent);
+}
+
+/* Dark/light toggle button */
+#themeToggle {
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #222;
+  color: #ccc;
+  cursor: pointer;
+}
+
+/* Waveform bar stays full width */
+#waveform {
+  margin-top: 1.5rem;
+  height: 45px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.25) 0%,
+    rgba(255,255,255,0.06) 100%
+  );
+  background-size: 200% auto;
+  animation: wave 6s linear infinite;
+}
+
+/* Responsive behavior */
+@media(max-width: 800px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .left-block {
+    text-align: center;
+  }
+}
+
     section {
       max-width: 850px;
       margin: 3rem auto;
@@ -72,31 +153,41 @@ a:visited {
   </style>
 </head>
 <body>
-  <header>
-    <canvas id="epicycleCanvas" width="320" height="160"
-  style="display:block;margin:2rem auto;"></canvas>
+ <header>
+  <div class="header-content">
+    
+    <div class="left-block">
+      <canvas id="epicycleCanvas" width="280" height="140"></canvas>
 
-    <h1>Aasaimani Thamizhazhagan</h1>
-    <img src="Aasai_2.JPEG" alt="Your portrait" 
-       style="width:200px;height:200px;border-radius:50%;margin-top:1rem;
-              border:2px solid var(--accent);object-fit:cover;">
-    <p>Harmonic Analysis · Groups · Duality</p>
-    <div class="social-icons" style="margin:1rem 0; font-size:1.7rem; display:flex; justify-content:center; gap:1.2rem;">
-      <a href="https://orcid.org/0009-0007-7553-4225" style="color:var(--accent); filter:drop-shadow(0 0 4px var(--accent));"><i class="fab fa-orcid"></i></a>
-      <a href="#" style="color:var(--accent); filter:drop-shadow(0 0 4px var(--accent));"><i class="fas fa-book"></i></a>
-      <a href="#" style="color:var(--accent); filter:drop-shadow(0 0 4px var(--accent));"><i class="fab fa-linkedin"></i></a>
+      <h1>Aasaimani Thamizhazhagan</h1>
+      <p class="tagline">Harmonic Analysis · Groups · Duality</p>
+
+      <div class="social-icons">
+        <a href="https://orcid.org/0009-0007-7553-4225"><i class="fab fa-orcid"></i></a>
+        <a href="#"><i class="fas fa-book"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+
+      <nav>
+        <a href="#duality">Duality</a>
+        <a href="#spectrum">Spectrum</a>
+        <a href="#contact">Support</a>
+        <a href="#representations">Representations</a>
+        <a href="#kernel">Kernel</a>
+      </nav>
+
+      <button id="themeToggle">Toggle Theme</button>
     </div>
-    <nav>
-      <a href="#duality">Duality</a>
-      <a href="#spectrum">Spectrum</a>
-      <a href="#contact">Support</a>
-      <a href="#representations">Representations</a>
-      <a href="#kernel">Kernel</a>
-      
-    </nav>
-    <button id="themeToggle" style="margin-top:1rem;padding:0.4rem 0.8rem;border-radius:6px;border:1px solid #444;background:#222;color:#ccc;cursor:pointer;">Toggle Theme</button>
-    <div id="waveform" style="margin-top:2rem;height:40px;width:100%;background:linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);background-size:200% auto;animation:wave 6s linear infinite;"></div>
-  </header>
+
+    <div class="right-block">
+      <img src="Aasai_2.JPEG" alt="Portrait">
+    </div>
+
+  </div>
+
+  <div id="waveform"></div>
+</header>
+
 
   <section id="support">
   <h2>Support</h2>
