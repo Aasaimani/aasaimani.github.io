@@ -127,117 +127,37 @@
   </div>
 </header>
 
+<!-- ===================== CONTENT AREA ===================== -->
 <div id="content">
- <div id="support" class="section">
-  <h2>Support</h2>
-  <p> 
-   Since October 2024, I have been serving as a Guest Faculty in the Department of Mathematics at Pondicherry University, 
-   teaching foundational mathematics courses to engineering students. My academic journey includes two years 
-    as a Postdoctoral Fellow at University of Waterloo, Canada, where I also earned my Ph.D. in 2021 under the 
-    guidance of <a href="https://www.math.uwaterloo.ca/~nspronk/">Dr. Nico Spronk</a> and Dr. Brian Forrest. Just before that fellowship, I spent a year as a Postdoctoral 
-    Fellow at University of Winnipeg, Canada, working with Dr. Ross Stokke and Dr. Matthew Wiersma.
-    I began my research career with an integrated master’s degree from National Institute of Science 
-    Education and Research Bhubaneswar, India.
-  </p>
-</div>
-  <!-- <section id="kernel" style="margin-bottom:10rem;">
-    <h2>Kernel</h2>
-    <p>Notes, sketches, and ongoing work—ideas in development.</p>
-    <ul>
-      <li><a href=""></a></li>
-      <li><a href="#">Fragment on homomorphic images</a></li>
-    </ul>
-  </section> -->
-
-  <!-- <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: your.email@domain.edu</p>
-    <p>CV: <a href="#">Download PDF</a></p>
-  </section> -->
   <div id="duality" class="section active">
     <h2>Duality</h2>
-    <p>
-      My work focuses on the interface between algebraic structure and analytic behaviour. I study
-      Fourier and Fourier–Stieltjes algebras, representation-theoretic function spaces, and how these
-      analytic objects capture the structural features of locally compact groups.
-    </p>
-    <p>
-      A central theme in my research is understanding what aspects of a group are preserved or
-      transformed when viewed through its dual spaces.
-    </p>
+    <p>Content about duality goes here.</p>
   </div>
 
-  <div id="spectrum" class="section active">
+  <div id="spectrum" class="section">
     <h2>Spectrum</h2>
-    <p>Selected papers and preprints with short summaries.</p>
-    <ul class="publist">
-      <li><strong>Title of Paper</strong> — Examines how analytic invariants retain components of group identity.</li>
-      <li><strong>Another Paper</strong> — Investigates structural behaviour of homomorphisms between function algebras.</li>
-    </ul>
+    <p>Content about spectrum goes here.</p>
   </div>
 
-  <div id="representations" class="section active">
+  <div id="support" class="section">
+    <h2>Support</h2>
+    <p>Present position, previous positions, research timeline, etc.</p>
+  </div>
+
+  <div id="representations" class="section">
     <h2>Representations</h2>
-    <p>Talks, seminar presentations, and collaborations.</p>
-    <ul>
-      <li>Talk Title, Venue, Year — Brief focus description.</li>
-      <li>Another Talk, Institution, Year — Short thematic note.</li>
-    </ul>
+    <p>Content on representation theory goes here.</p>
   </div>
 
-  <div id="modules" class="section active">
-    <style>
-    #modules h2 {
-    margin-top: 3rem;
-    border-bottom: 1px solid #444;
-    padding-bottom: .3rem;
-  }
-
-  .module-card {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-    border: 1px solid #333;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(70,70,80,0.3), rgba(30,30,40,0.35));
-  }
-
- .lecture-list {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;        /* allows wrapping */
-    gap: 0.6rem 1rem;       /* vertical + horizontal spacing */
-  }
-
-  .lecture-link {
-    color: var(--accent);
-    text-decoration: none;
-    padding: 0.2rem 0.4rem;
-    border: 1px solid #444;
-    border-radius: 6px;
-  }
-
-  .lecture-link:hover {
-    background: rgba(255,255,255,0.06);
-  }
-
-  </style>
-
-  <h2>Modules</h2>
-
-  <div class="module-card">
-    <h3>Advanced Calculus for Electrical Engineers - Fall 2023, University of Waterloo</h3>
-    <p>Lecture notes, short explanations, and examples from the course.</p>
-
-    <div id="haa-lectures" class="lecture-list"> </div>
+  <div id="kernel" class="section">
+    <h2>Kernel</h2>
+    <p>Content for kernel section.</p>
   </div>
 </div>
 
-   <footer style="position:fixed; bottom:0; left:0; width:100%; background:#111; color:#ccc; padding:0.8rem 1rem; border-top:1px solid #333; text-align:center; backdrop-filter:blur(4px);">
-    <span>Contact: <a href="https://mailto:fmanimic@gmail.com" style="color:var(--accent);">fmanimic@gmail.com</a></span>, <a href="https://mailto:aasaimanit@pondiuni.ac.in" style="color:var(--accent);">aasaimanit@pondiuni.ac.in</a></span> · <a href="Mani_CV_Dec_2025.pdf" target="_blank" style="color:var(--accent);">CV</a>
-  </footer>
-
 <script>
-  document.querySelectorAll("nav a").forEach(link => {
+/* ==================== SECTION SWITCHING ==================== */
+document.querySelectorAll("nav a").forEach(link => {
   link.addEventListener("click", () => {
     const target = link.getAttribute("data-section");
     document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
@@ -245,22 +165,6 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
-  
-  const list = document.getElementById("haa-lectures");
-  for (let i = 1; i <= 23; i++) {
-    const a = document.createElement("a");
-    a.href = `modules/harmonic-analysis/lecture${i}.pdf`; 
-    a.textContent = `${i}`;
-    a.className = "lecture-link";
-    list.appendChild(a);
-  }
-
-
-    const toggle=document.getElementById('themeToggle');
-    toggle.addEventListener('click',()=>{
-      const current=document.body.getAttribute('data-theme');
-      document.body.setAttribute('data-theme', current==='light'?'dark':'light');
-    });
 
 const canvas = document.getElementById("epicycleCanvas");
 const ctx = canvas.getContext("2d");
