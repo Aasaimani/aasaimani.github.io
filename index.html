@@ -124,32 +124,62 @@
     </ul>
   </section>
 
-  <section id="modules" class="section">
-  <h2 class="section-title">Modules</h2>
-  <p class="section-subtitle">
-    Lecture notes, worksheets, and supplementary material prepared for the courses I have taught.
-  </p>
+ <section id="modules">
+  <h2>Modules</h2>
 
-  <div class="module-list">
-    <div class="module-item">
-      <h3>Calculus I (2024)</h3>
-      <p>Complete lecture notes and weekly problem sets.</p>
-      <a href="files/calculus1-notes.pdf" class="module-link">Download PDF</a>
-    </div>
+  <div class="module-card">
+    <h3>Course Title: Advanced Harmonic Analysis</h3>
+    <p>Lecture notes, short explanations, and examples from the course.</p>
 
-    <div class="module-item">
-      <h3>Linear Algebra (2023)</h3>
-      <p>Worksheets, review sheets, and topic summaries.</p>
-      <a href="files/linear-algebra-materials.pdf" class="module-link">Download PDF</a>
-    </div>
-
-    <div class="module-item">
-      <h3>Real Analysis (2022)</h3>
-      <p>Annotated lecture notes with examples and exercises.</p>
-      <a href="files/real-analysis-notes.pdf" class="module-link">Download PDF</a>
-    </div>
+    <div id="haa-lectures" class="lecture-list"></div>
   </div>
 </section>
+
+<script>
+  const list = document.getElementById("haa-lectures");
+
+  for (let i = 1; i <= 23; i++) {
+    const a = document.createElement("a");
+    a.href = `modules/harmonic-analysis/lecture${i}.pdf`; 
+    a.textContent = `Lecture ${i}`;
+    a.className = "lecture-link";
+    list.appendChild(a);
+  }
+</script>
+
+<style>
+  #modules h2 {
+    margin-top: 3rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: .3rem;
+  }
+
+  .module-card {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(70,70,80,0.3), rgba(30,30,40,0.35));
+  }
+
+  .lecture-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+  }
+
+  .lecture-link {
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.2rem 0;
+  }
+
+  .lecture-link:hover {
+    opacity: 0.75;
+  }
+</style>
+
 
   <!-- <section id="kernel" style="margin-bottom:10rem;">
     <h2>Kernel</h2>
