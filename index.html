@@ -186,6 +186,42 @@
   </div>
 
   <div id="modules" class="section active">
+    <style>
+    #modules h2 {
+    margin-top: 3rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: .3rem;
+  }
+
+  .module-card {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(70,70,80,0.3), rgba(30,30,40,0.35));
+  }
+
+ .lecture-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;        /* allows wrapping */
+    gap: 0.6rem 1rem;       /* vertical + horizontal spacing */
+  }
+
+  .lecture-link {
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid #444;
+    border-radius: 6px;
+  }
+
+  .lecture-link:hover {
+    background: rgba(255,255,255,0.06);
+  }
+
+  </style>
+
   <h2>Modules</h2>
 
   <div class="module-card">
