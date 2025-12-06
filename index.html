@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mathematics Researcher – Harmonic Analysis</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
   :root {
     --bg: #0f0f14;
     --fg: #e5e5e5;
     --accent: #6ae3ff;
+    --accent-soft: rgba(106,227,255,0.35);
   }
 
   body {
@@ -27,400 +29,296 @@
     background: #0f0f14ee;
     backdrop-filter: blur(6px);
     z-index: 1000;
-    padding: 1rem 0 0.5rem;
+    padding: 2rem 1rem 1rem;
     text-align: center;
     border-bottom: 1px solid #333;
   }
 
-  header h1 {
-    margin: 0.5rem 0;
-    letter-spacing: 1px;
-    font-weight: 500;
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: auto;
+    flex-wrap: wrap;
   }
 
+  .left-block { flex: 1; text-align: left; }
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1100px;
-  margin: auto;
-}
+  .right-block img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    object-fit: cover;
+    transition: 0.2s ease;
+  }
 
-.left-block {
-  flex: 1;
-  text-align: left;
-}
+  .tagline { opacity: .85; margin-top: .3rem; }
 
-.right-block img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  object-fit: cover;
-}
-
-.tagline {
-  opacity: 0.85;
-  margin-top: 0.3rem;
-}
-
-/* Social icons */
-.social-icons {
-  margin: 0.8rem 0;
-  font-size: 1.7rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.social-icons a {
-  color: var(--accent);
-  filter: drop-shadow(0 0 4px var(--accent));
-}
-
-/* Nav links */
-  nav {
-    margin-top: 1rem;
+  .social-icons {
+    margin: .8rem 0;
+    font-size: 1.7rem;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 1rem;
+  }
+
+  .social-icons a {
+    color: var(--accent);
+    filter: drop-shadow(0 0 4px var(--accent));
+  }
+
+  nav {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
     flex-wrap: wrap;
   }
 
   nav a {
-    color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding: 0.2rem 0.4rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--accent);
+    padding: 0.3rem 0.4rem;
+    transition: 0.3s ease;
   }
 
-  nav a:hover {
-    border-bottom: 1px solid var(--accent);
-  }
+  nav a:hover { border-bottom: 1px solid var(--accent); }
 
-/* Dark/light toggle button */
-#themeToggle {
-  margin-top: 1rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: #222;
-  color: #ccc;
-  cursor: pointer;
-}
+  #themeToggle {
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #222;
+    color: #ccc;
+    cursor: pointer;
+  }
 
   #content {
-    margin-top: 430px; /* space for fixed header */
+    margin-top: 470px; /* space for fixed header */
     padding: 2rem;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* ---- SECTION VISIBILITY ---- */
-  .section {
-    display: none;
-    animation: fade 0.5s ease;
-  }
-
-  .section.active {
-    display: block;
-  }
+  .section { display: none; animation: fade .5s ease; }
+  .section.active { display: block; }
 
   @keyframes fade {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-   
-/* Waveform bar stays full width */
-/* #waveform {
-  margin-top: 1.5rem;
-  height: 45px;
-  width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.25) 0%,
-    rgba(255,255,255,0.06) 100%
-  );
-  background-size: 200% auto;
-  animation: wave 6s linear infinite;
-} */
-
-    /* @keyframes wave {
-      0% { background-position:0% 0%; }
-      100% { background-position:200% 0%; }
-    } */
- @keyframes wave {
+  @keyframes wave {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
-    /* Global link styling */
-/* a {
-  color: var(--accent);      /* or any color you prefer */
-  text-decoration: none;
-}
 
-a:hover {
-  opacity: 0.8;              /* subtle hover effect */
-}
-
-a:visited {
-  color: var(--accent);      /* keeps visited links same colour */
-} */
-
-   #modules h2 {
-    margin-top: 3rem;
-    border-bottom: 1px solid #444;
-    padding-bottom: .3rem;
-  }
-
-  .module-card {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-    border: 1px solid #333;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(70,70,80,0.3), rgba(30,30,40,0.35));
-  }
-
- .lecture-list {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;        /* allows wrapping */
-    gap: 0.6rem 1rem;       /* vertical + horizontal spacing */
+  /* --------- GRID LECTURE LIST (Option 3) --------- */
+  .grid-list {
+    display: grid;
+    gap: .8rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 
   .lecture-link {
+    display: block;
+    padding: .4rem .6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     color: var(--accent);
     text-decoration: none;
-    padding: 0.2rem 0.4rem;
-    border: 1px solid #444;
-    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    transition: transform .12s ease, box-shadow .12s ease;
   }
 
   .lecture-link:hover {
-    background: rgba(255,255,255,0.06);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px var(--accent-soft);
   }
 
-  </style>
+  /* --------- EPICYCLE & WAVEFORM --------- */
+  #epicycleCanvas { width: 100%; max-width: 350px; height: auto; }
+  #waveform { margin-top: 1.5rem; height: 35px; }
+
+  /* --------- MOBILE STYLES --------- */
+  @media (max-width: 768px) {
+    header { padding: 1.5rem 0.5rem; }
+    header h1 { font-size: 1.85rem; }
+    header img { width: 150px; height: 150px; }
+    nav { display: none; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+    #mobileMenuBtn { display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: var(--bg); font-size: 1rem; border-radius: 6px; cursor: pointer; border: none; }
+    nav a { font-size: 1.15rem; padding: 0.6rem; }
+    .social-icons { font-size: 1.6rem; }
+    #waveform { height: 28px; }
+  }
+</style>
 </head>
+
 <body>
- <header>
+<header>
   <div class="header-content">
-    
     <div class="left-block">
       <canvas id="epicycleCanvas" width="280" height="140"></canvas>
-
-      <h1>Aasaimani Thamizhazhagan</h1>
+      <h1>XX</h1>
       <p class="tagline">Harmonic Analysis · Groups · Duality</p>
 
       <div class="social-icons">
-        <a href="https://orcid.org/0009-0007-7553-4225"><i class="fab fa-orcid"></i></a>
+        <a href="#"><i class="fab fa-orcid"></i></a>
         <a href="#"><i class="fas fa-book"></i></a>
         <a href="#"><i class="fab fa-linkedin"></i></a>
       </div>
 
+      <button id="mobileMenuBtn">Menu</button>
+
       <nav>
         <a href="#support">Support</a>
         <a href="#duality">Duality</a>
-        <a href="#spectrum">Spectrum</a>        
+        <a href="#spectrum">Spectrum</a>
         <a href="#representations">Representations</a>
         <a href="#modules">Modules</a>
       </nav>
-
-      
     </div>
 
     <div class="right-block">
-      <img src="Aasai_2.JPEG" alt="Portrait">
-      <a href="Mani_CV_Dec_2025.pdf" target="_blank" style="color:var(--accent);">CV</a>
+      <img src="yourphoto.JPEG" alt="Portrait">
+      <a href="CV.pdf" target="_blank" style="color:var(--accent);">CV</a>
       <button id="themeToggle">Toggle Theme</button>
     </div>
-
   </div>
 
   <div id="waveform"></div>
 </header>
 
 <div id="content">
- <div id="support" class="section active">
-  <h2>Support</h2>
-  <p> 
-   Since October 2024, I have been serving as a Guest Faculty in the Department of Mathematics at Pondicherry University, 
-   teaching foundational mathematics courses to engineering students. My academic journey includes two years 
-    as a Postdoctoral Fellow at University of Waterloo, Canada, where I also earned my Ph.D. in 2021 under the 
-    guidance of <a href="https://www.math.uwaterloo.ca/~nspronk/">Dr. Nico Spronk</a> and Dr. Brian Forrest. Just before that fellowship, I spent a year as a Postdoctoral 
-    Fellow at University of Winnipeg, Canada, working with Dr. Ross Stokke and Dr. Matthew Wiersma.
-    I began my research career with an integrated master’s degree from National Institute of Science 
-    Education and Research Bhubaneswar, India.
-  </p>
-</div>
-  <!-- <section id="kernel" style="margin-bottom:10rem;">
-    <h2>Kernel</h2>
-    <p>Notes, sketches, and ongoing work—ideas in development.</p>
-    <ul>
-      <li><a href=""></a></li>
-      <li><a href="#">Fragment on homomorphic images</a></li>
-    </ul>
-  </section> -->
+  <div id="support" class="section active">
+    <h2>Support</h2>
+    <p>I began my research career...</p>
+  </div>
 
-  <!-- <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: your.email@domain.edu</p>
-    <p>CV: <a href="#">Download PDF</a></p>
-  </section> -->
   <div id="duality" class="section">
     <h2>Duality</h2>
-    <p>
-      My work focuses on the interface between algebraic structure and analytic behaviour. I study
-      Fourier and Fourier–Stieltjes algebras, representation-theoretic function spaces, and how these
-      analytic objects capture the structural features of locally compact groups.
-    </p>
-    <p>
-      A central theme in my research is understanding what aspects of a group are preserved or
-      transformed when viewed through its dual spaces.
-    </p>
+    <p>My work focuses on...</p>
   </div>
 
   <div id="spectrum" class="section">
     <h2>Spectrum</h2>
-    <p>Selected papers and preprints with short summaries.</p>
-    <ul class="publist">
-      <li><strong>Title of Paper</strong> — Examines how analytic invariants retain components of group identity.</li>
-      <li><strong>Another Paper</strong> — Investigates structural behaviour of homomorphisms between function algebras.</li>
-    </ul>
+    <p>Selected papers...</p>
   </div>
 
   <div id="representations" class="section">
     <h2>Representations</h2>
-    <p>Talks, seminar presentations, and collaborations.</p>
-    <ul>
-      <li>Talk Title, Venue, Year — Brief focus description.</li>
-      <li>Another Talk, Institution, Year — Short thematic note.</li>
-    </ul>
+    <p>Talks and seminars...</p>
   </div>
 
   <div id="modules" class="section">
-  <h2>Modules</h2>
-
-  <div class="module-card">
-    <h3>Advanced Calculus for Electrical Engineers - Fall 2023, University of Waterloo</h3>
-    <p>Lecture notes, short explanations, and examples from the course.</p>
-
-    <div id="haa-lectures" class="lecture-list"> </div>
+    <h2>Modules</h2>
+    <div class="module-card">
+      <h3>Advanced Calculus</h3>
+      <p>Lecture notes, examples, explanations.</p>
+      <div id="haa-lectures" class="grid-list"></div>
+    </div>
   </div>
 </div>
 
-   <footer style="position:fixed; bottom:0; left:0; width:100%; background:#111; color:#ccc; padding:0.8rem 1rem; border-top:1px solid #333; text-align:center; backdrop-filter:blur(4px);">
-    <span>Contact: <a href="https://mailto:fmanimic@gmail.com" style="color:var(--accent);">fmanimic@gmail.com</a></span>, <a href="https://mailto:aasaimanit@pondiuni.ac.in" style="color:var(--accent);">aasaimanit@pondiuni.ac.in</a></span> · <a href="Mani_CV_Dec_2025.pdf" target="_blank" style="color:var(--accent);">CV</a>
-  </footer>
+<footer style="position:fixed; bottom:0; left:0; width:100%; background:#111; color:#ccc; padding:.8rem 1rem; border-top:1px solid #333; text-align:center; backdrop-filter:blur(4px);">
+  <span>Contact: <a href="mailto:fmanimic@gmail.com" style="color:var(--accent);">fmanimic@gmail.com</a></span>
+  , <a href="mailto:aasaimanit@pondiuni.ac.in" style="color:var(--accent);">aasaimanit@pondiuni.ac.in</a>
+  · <a href="Mani_CV_Dec_2025.pdf" target="_blank" style="color:var(--accent);">CV</a>
+</footer>
 
 <script>
-  document.querySelectorAll("nav a").forEach(link => {
+/* Navigation section switch */
+document.querySelectorAll("nav a").forEach(link => {
   link.addEventListener("click", () => {
-    const target = link.getAttribute("data-section");
+    const target = link.getAttribute("href").replace("#","");
     document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
     document.getElementById(target).classList.add("active");
+    if(window.innerWidth <= 768) document.querySelector("header nav").style.display = "none";
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
-  
-  const list = document.getElementById("haa-lectures");
-  for (let i = 1; i <= 23; i++) {
-    const a = document.createElement("a");
-    a.href = `modules/harmonic-analysis/lecture${i}.pdf`; 
-    a.textContent = `${i}`;
-    a.className = "lecture-link";
-    list.appendChild(a);
-  }
 
+/* Mobile menu toggle */
+document.getElementById("mobileMenuBtn").addEventListener("click", () => {
+  const nav = document.querySelector("header nav");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+});
 
-    const toggle=document.getElementById('themeToggle');
-    toggle.addEventListener('click',()=>{
-      const current=document.body.getAttribute('data-theme');
-      document.body.setAttribute('data-theme', current==='light'?'dark':'light');
-    });
+/* Generate lecture links */
+const list = document.getElementById("haa-lectures");
+for (let i = 1; i <= 23; i++) {
+  const a = document.createElement("a");
+  a.href = `modules/harmonic-analysis/lecture${i}.pdf`;
+  a.textContent = `Lecture ${i}`;
+  a.className = "lecture-link";
+  list.appendChild(a);
+}
 
+/* Theme toggle */
+const toggle=document.getElementById('themeToggle');
+toggle.addEventListener('click',()=> {
+  const current=document.body.getAttribute('data-theme');
+  document.body.setAttribute('data-theme', current==='light'?'dark':'light');
+});
+
+/* Epicycle animation */
 const canvas = document.getElementById("epicycleCanvas");
 const ctx = canvas.getContext("2d");
-
-let baseSpeed = 0.012;       // baseline animation speed
-let scrollFactor = 0;        // extra speed from scroll
+let baseSpeed = 0.012;
+let scrollFactor = 0;
 let time = 0;
-
-// Store traced points
 const trail = [];
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const cx = canvas.width/2, cy = canvas.height/2;
+  const harmonics = [1,3,5];
+  const radii = [35,18,10];
+  let x=cx, y=cy;
+  ctx.strokeStyle="rgba(255,255,255,0.15)";
 
-  const cx = canvas.width / 2;
-  const cy = canvas.height / 2;
-
-  // Fourier series parameters
-  const harmonics = [1, 3, 5];       // odd harmonics for wave-like motion
-  const radii = [35, 18, 10];        // radii decrease
-  const speeds = harmonics.map(h => h);
-
-  let x = cx;
-  let y = cy;
-
-  ctx.strokeStyle = "rgba(255,255,255,0.15)";
-
-  // Draw epicycles
-  for (let i = 0; i < harmonics.length; i++) {
-    const r = radii[i];
-    const w = speeds[i];
-
-    const nx = x + r * Math.cos(time * w);
-    const ny = y + r * Math.sin(time * w);
-
-    // Circle
+  for (let i=0;i<harmonics.length;i++){
+    const r=radii[i], w=harmonics[i];
+    const nx = x + r*Math.cos(time*w);
+    const ny = y + r*Math.sin(time*w);
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.arc(x,y,r,0,Math.PI*2);
     ctx.stroke();
-
-    x = nx;
-    y = ny;
+    x=nx; y=ny;
   }
 
-  // Add traced point
-  trail.push({x, y});
-  if (trail.length > 300) trail.shift();
+  trail.push({x,y});
+  if(trail.length>200) trail.shift();
 
-  // Draw trail (curve)
-  ctx.strokeStyle = "var(--accent)";
+  ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue("--accent");
   ctx.beginPath();
-  for (let i = 0; i < trail.length; i++) {
-    const p = trail[i];
-    if (i === 0) ctx.moveTo(p.x, p.y);
-    else ctx.lineTo(p.x, p.y);
+  for(let i=0;i<trail.length;i++){
+    const p=trail[i];
+    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
   }
   ctx.stroke();
 
-  // Draw final dot
-  ctx.fillStyle = "var(--accent)";
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--accent");
   ctx.beginPath();
-  ctx.arc(x, y, 3, 0, Math.PI * 2);
+  ctx.arc(x,y,3,0,Math.PI*2);
   ctx.fill();
 
-  // Update time with scroll-based boost
   time += baseSpeed + scrollFactor;
-
-  // Slowly decay scroll impulse so it feels natural
   scrollFactor *= 0.95;
-
   requestAnimationFrame(draw);
 }
-
 draw();
 
-// Increase epicycle rotation speed when user scrolls
-window.addEventListener("scroll", () => {
-  scrollFactor += 0.003;     // adjust for sensitivity
-});
+window.addEventListener("scroll",()=>{ scrollFactor += 0.003; });
 </script>
-
-
 </body>
 </html>
