@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mathematics Researcher – Harmonic Analysis</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Site</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
   :root {
     --bg: #0f0f14;
@@ -38,47 +40,6 @@
     font-weight: 500;
   }
 
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1100px;
-  margin: auto;
-}
-
-.left-block {
-  flex: 1;
-  text-align: left;
-}
-
-.right-block img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  object-fit: cover;
-}
-
-.tagline {
-  opacity: 0.85;
-  margin-top: 0.3rem;
-}
-
-/* Social icons */
-.social-icons {
-  margin: 0.8rem 0;
-  font-size: 1.7rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.social-icons a {
-  color: var(--accent);
-  filter: drop-shadow(0 0 4px var(--accent));
-}
-
-/* Nav links */
   nav {
     margin-top: 1rem;
     display: flex;
@@ -97,17 +58,6 @@
   nav a:hover {
     border-bottom: 1px solid var(--accent);
   }
-
-/* Dark/light toggle button */
-#themeToggle {
-  margin-top: 1rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: #222;
-  color: #ccc;
-  cursor: pointer;
-}
 
   #content {
     margin-top: 430px; /* space for fixed header */
@@ -132,115 +82,49 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-   
-/* Waveform bar stays full width */
-/* #waveform {
-  margin-top: 1.5rem;
-  height: 45px;
-  width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.25) 0%,
-    rgba(255,255,255,0.06) 100%
-  );
-  background-size: 200% auto;
-  animation: wave 6s linear infinite;
-} */
-
-    /* @keyframes wave {
-      0% { background-position:0% 0%; }
-      100% { background-position:200% 0%; }
-    } */
- @keyframes wave {
+  /* waveform */
+  @keyframes wave {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
-    /* Global link styling */
-/* a {
-  color: var(--accent);      /* or any color you prefer */
-  text-decoration: none;
-}
-
-a:hover {
-  opacity: 0.8;              /* subtle hover effect */
-}
-
-a:visited {
-  color: var(--accent);      /* keeps visited links same colour */
-} */
-
-   #modules h2 {
-    margin-top: 3rem;
-    border-bottom: 1px solid #444;
-    padding-bottom: .3rem;
-  }
-
-  .module-card {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-    border: 1px solid #333;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(70,70,80,0.3), rgba(30,30,40,0.35));
-  }
-
- .lecture-list {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;        /* allows wrapping */
-    gap: 0.6rem 1rem;       /* vertical + horizontal spacing */
-  }
-
-  .lecture-link {
-    color: var(--accent);
-    text-decoration: none;
-    padding: 0.2rem 0.4rem;
-    border: 1px solid #444;
-    border-radius: 6px;
-  }
-
-  .lecture-link:hover {
-    background: rgba(255,255,255,0.06);
-  }
-
-  </style>
+</style>
 </head>
 
 <body>
- <header>
-  <div class="header-content">
-    
-    <div class="left-block">
-      <canvas id="epicycleCanvas" width="280" height="140"></canvas>
 
-      <h1>Aasaimani Thamizhazhagan</h1>
-      <p class="tagline">Harmonic Analysis · Groups · Duality</p>
+<!-- ===================== HEADER ===================== -->
+<header>
+  <canvas id="epicycleCanvas" width="320" height="160"
+    style="display:block;margin:0 auto 1rem;"></canvas>
 
-      <div class="social-icons">
-        <a href="https://orcid.org/0009-0007-7553-4225"><i class="fab fa-orcid"></i></a>
-        <a href="#"><i class="fas fa-book"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-      </div>
+  <h1>Aasaimani Thamizhazhagan</h1>
 
-      <nav>
-        <a data-section="#support">Support</a>
-        <a data-section="#duality">Duality</a>
-        <a data-section="#spectrum">Spectrum</a>        
-        <a data-section="#representations">Representations</a>
-        <a data-section="#modules">Modules</a>
-      </nav>
+  <img src="Aasai_2.JPEG" alt="Portrait"
+    style="width:150px;height:150px;border-radius:50%;margin-top:1rem;
+           border:2px solid var(--accent);object-fit:cover;">
 
-      
-    </div>
+  <p>Harmonic Analysis · Groups · Duality</p>
 
-    <div class="right-block">
-      <img src="Aasai_2.JPEG" alt="Portrait">
-      <a href="Mani_CV_Dec_2025.pdf" target="_blank" style="color:var(--accent);">CV</a>
-      <button id="themeToggle">Toggle Theme</button>
-    </div>
-
+  <!-- social icons -->
+  <div class="social-icons" style="margin:1rem 0; font-size:1.7rem; display:flex; justify-content:center; gap:1.2rem;">
+    <a href="https://orcid.org/0009-0007-7553-4225" style="color:var(--accent);"><i class="fab fa-orcid"></i></a>
+    <a href="#" style="color:var(--accent);"><i class="fas fa-book"></i></a>
+    <a href="#" style="color:var(--accent);"><i class="fab fa-linkedin"></i></a>
   </div>
 
-  <div id="waveform"></div>
+  <!-- NAV -->
+  <nav>
+    <a data-section="duality">Duality</a>
+    <a data-section="spectrum">Spectrum</a>
+    <a data-section="support">Support</a>
+    <a data-section="representations">Representations</a>
+    <a data-section="kernel">Kernel</a>
+  </nav>
+
+  <div id="waveform" style="margin-top:1rem;height:40px;width:100%;
+         background:linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);
+         background-size:200% auto;animation:wave 6s linear infinite;">
+  </div>
 </header>
 
 <div id="content">
