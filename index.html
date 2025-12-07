@@ -278,7 +278,7 @@ footer a { color: var(--accent); transition: color 0.3s; }
     <div class="module-card">
       <h3>Advanced Calculus</h3>
       <p>Lecture notes, examples, explanations.</p>
-      <div id="haa-lectures" class="grid-list"></div>
+      <div id="haa-lectures" datapath="modules/ECE206UWFall23" class="grid-list"></div>
     </div>
   </div>
 </div>
@@ -318,7 +318,7 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 const list = document.getElementById("haa-lectures");
 for (let i = 1; i <= 23; i++) {
   const a = document.createElement("a");
-  a.href = `modules/harmonic-analysis/lecture${i}.pdf`;
+  a.href = `${base}/lecture${i}.pdf`;
   a.textContent = `Lecture ${i}`;
   a.className = "lecture-link";
   list.appendChild(a);
