@@ -39,17 +39,12 @@ header {
   background: rgba(15,15,20,0.93);
   backdrop-filter: blur(6px);
   z-index: 1000;
-  padding: 2rem 1rem 1rem;
+  padding: 1.5rem 1rem 1rem;
   text-align: center;
   border-bottom: 1px solid #333;
-  transition: background 0.3s;
+  max-height: 60vh;     /* FIX: no full-screen takeover */
+  overflow: hidden;     /* prevents stretching */
 }
-  header {
-  max-height: 70vh;          /* prevents header from taking full screen */
-  overflow: hidden;          /* hides overflow if canvas/image push down */
-  padding-bottom: 1rem;
-}
-
 
 .header-content {
   display: flex;
