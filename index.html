@@ -227,7 +227,12 @@ body[data-theme="light"] .header{
   .main-nav{ display:block; width:100%; text-align:center; margin-top:6px; }
   .main-nav a{ display:block; padding:12px 8px; }
 }
-
+@media (max-width: 768px) {
+  .right-block img {
+    width: 120px;
+    height: 120px;
+  }
+}
 /* small utility to ensure menu visible if toggled collapsed/expanded */
 .main-nav.collapsed{ max-height:0; overflow:hidden; opacity:0; transform:translateY(-6px); pointer-events:none; }
 .main-nav.expanded{ max-height:400px; opacity:1; transform:none; pointer-events:auto; }
@@ -243,7 +248,7 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
 
 /* Global link styling */
  a {
-  color: var(--accent);      /* or any color you prefer */
+  color: var(--link);      /* or any color you prefer */
   text-decoration: none;
 }
 
@@ -252,7 +257,7 @@ a:hover {
 }
 
 a:visited {
-  color: var(--accent);      /* keeps visited links same colour */
+  color: var(--link);      /* keeps visited links same colour */
 } 
 
 
