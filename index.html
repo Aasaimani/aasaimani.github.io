@@ -322,6 +322,7 @@ for (let i = 1; i <= 23; i++) {
   a.href = `${basePath}/lecture${i}.pdf`;          // <-- use datapath
   a.textContent = `Lecture ${i}`;
   a.className = "lecture-link";
+  a.target = "_blank";
   list.appendChild(a);
 }
 
