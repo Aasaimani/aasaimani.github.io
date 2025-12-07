@@ -1,520 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mathematics Researcher – Harmonic Analysis</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-/* ================= COLORS ================= */
-:root {
-  --bg: #0f0f14;
-  --fg: #e5e5e5;
-  --accent: #6ae3ff;
-  --accent-soft: rgba(106,227,255,0.35);
-}
-
-/* light theme variables */
-[data-theme="light"] {
-  --bg: #fafafa;
-  --fg: #222;
-  --accent: #3366cc;
-  --accent-soft: rgba(51,102,204,0.25);
-}
-
-/* base */
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: system-ui, sans-serif;
-  transition: background 0.25s, color 0.25s;
-}
-
-/* =================== HEADER =================== */
-/* header base (dark-mode friendly) */
-header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background: rgba(15,15,20,0.93);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  padding: 1.5rem 1rem 1rem;
-  border-bottom: 1px solid #333;
-  transition: background 0.25s;
-}
-
-/* light theme header override (important for visibility) */
-[data-theme="light"] header {
-  background: rgba(255,255,255,0.92);
-  border-bottom: 1px solid #ddd;
-}
-
-/* container */
-.header-content {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* left column */
-.left-block {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* epicycle canvas: allow scaling and ensure a minimum height */
-#epicycleCanvas {
-  width: 100%;
-  max-width: 320px;
-  min-height: 140px;
-  display: block;
-  margin-bottom: 0.3rem;
-  background: transparent;
-}
-
-/* name & tagline */
-h1 {
-  margin: .2rem 0 0.1rem 0;
-  font-size: 1.75rem;
-  color: var(--fg);
-}
-.tagline {
-  margin: 0;
-  color: var(--accent);
-  font-weight: 500;
-}
-
-/* right column */
-.right-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-  flex-shrink: 0;
-}
-
-.right-block img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--accent);
-  transition: border 0.2s;
-}
-
-/* header actions (CV / theme) */
-.header-actions {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-}
-
-.cv-btn, .theme-btn {
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid #444;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--accent);
-  background: #222;
-  transition: background 0.2s, color 0.2s;
-}
-[data-theme="light"] .cv-btn,
-[data-theme="light"] .theme-btn {
-  background: #fff;
-  border: 1px solid #ccc;
-  color: var(--accent);
-}
-.cv-btn:hover, .theme-btn:hover {
-  background: var(--accent);
-  color: var(--bg);
-}
-
-/* ORCID / arXiv icons (if used) */
-.social-icons {
-  margin-top: 0.4rem;
-  display: flex;
-  gap: 0.8rem;
-  align-items: center;
-}
-.social-icons svg { width: 26px; height: 26px; }
-
-/* ========== NAV & MOBILE MENU ========== */
-/* menu toggle button (mobile only) */
-.menu-toggle {
-  display: none;
-  font-size: 1.6rem;
-  background: none;
-  border: none;
-  color: var(--accent);
-  cursor: pointer;
-  padding: .25rem .5rem;
-}
-
-/* nav (desktop layout) */
-nav {
-  margin-top: 0.6rem;
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-  transition: max-height .4s ease, opacity .25s ease;
-  overflow: hidden;
-  max-height: 500px; /* default desktop visible */
-}
-nav a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  padding: 0.2rem 0.25rem;
-}
-nav a:hover { border-bottom: 1px solid var(--accent); }
-
-/* collapsed mobile state (hidden) */
-nav.collapsed {
-  max-height: 0 !important;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* expanded mobile state (visible) */
-nav.expanded {
-  max-height: 400px;
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* =================== WAVEFORM =================== */
-#waveform {
-  margin-top: 0.8rem;
-  height: 34px;
-  width: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06));
-  background-size: 200% auto;
-  animation: wave 6s linear infinite;
-  transition: background 0.25s;
-}
-@keyframes wave {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* =================== CONTENT ================= */
-#content {
-  margin-top: 2.2rem;
-  padding: 2rem;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.05rem;
-}
-
-/* =================== MODULE GRID =================== */
-.grid-list {
-  display: grid;
-  gap: .8rem;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-}
-.lecture-link {
-  display: block;
-  padding: .45rem .6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.04);
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-  text-align: center;
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.lecture-link:hover { transform: translateY(-3px); box-shadow: 0 8px 22px var(--accent-soft); }
-
-/* =================== RESPONSIVE =================== */
-@media (max-width: 900px) {
-  .header-content { gap: 1rem; }
-  #epicycleCanvas { max-width: 280px; min-height: 120px; }
-  .right-block img { width: 150px; height: 150px; }
-}
-
-/* mobile specific: toggle menu and stack layout */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .left-block { align-items: center; }
-
-  /* show menu toggle */
-  .menu-toggle { display: inline-block; }
-
-  /* nav collapsed by default on mobile */
-  nav { width: 100%; display: block; }
-  nav a { display: block; padding: 0.6rem 0; }
-  nav.collapsed { max-height: 0; opacity: 0; }
-  nav.expanded { max-height: 400px; opacity: 1; }
-}
-
-/* =================== FOOTER =================== */
-footer {
-  position: fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#111;
-  color:#ccc;
-  padding:.6rem 1rem;
-  border-top:1px solid #333;
-  text-align:center;
-  backdrop-filter: blur(4px);
-}
-
-/* small utility */
-.hidden { display:none !important; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X — Homepage</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body data-theme="dark">
+<body>
 
-<header>
-  <div class="header-content">
-
-    <!-- LEFT -->
-    <div class="left-block">
-      <canvas id="epicycleCanvas" aria-hidden="true"></canvas>
-
-      <h1>X</h1>
-      <p class="tagline">Harmonic Analysis · Groups · Duality</p>
-
-      <!-- mobile menu toggle (visible on small screens) -->
-      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="mainNav">☰</button>
-
-      <!-- navigation (will be collapsed on mobile) -->
-      <nav id="mainNav" class="collapsed" role="navigation" aria-label="Main Navigation">
-        <a href="#support">Support</a>
-        <a href="#duality">Duality</a>
-        <a href="#spectrum">Spectrum</a>
-        <a href="#representations">Representations</a>
-        <a href="#modules">Modules</a>
-      </nav>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="right-block">
-      <img src="yourphoto.JPEG" alt="Portrait">
-
-      <div class="header-actions">
-        <a href="CV.pdf" class="cv-btn" target="_blank" rel="noopener">CV</a>
-        <button id="themeToggle" class="theme-btn" aria-pressed="false">Theme</button>
-      </div>
-
-      <div class="social-icons" aria-hidden="true">
-        <!-- ORCID official (use your local file if required) -->
-        <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">
-          <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ORCID iD">
-            <circle cx="128" cy="128" r="128" fill="#A6CE39"/>
-            <path fill="#FFF" d="M86.4 67.2h17.7v121.6H86.4zM94.9 56c-5.7 0-10.2-4.5-10.2-10.2S89.2 35.7 94.9 35.7s10.2 4.5 10.2 10.2-4.6 10.1-10.2 10.1zm32.3 11.2h16.9v16.6h.3c3.7-7.1 12.7-14.5 26.2-14.5 28 0 33.2 18.4 33.2 42.3v46.9h-17.6v-43.9c0-10.5-.2-24-14.6-24-14.6 0-16.8 11.4-16.8 23.2v44.8h-17.6z"/>
-          </svg>
-        </a>
-
-        <!-- arXiv (simple icon) -->
-        <a href="https://arxiv.org" target="_blank" rel="noopener">
-          <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="arXiv">
-            <rect width="72" height="72" rx="8" fill="#B31B1B"/>
-            <path d="M18 18h36v36H18z" fill="none"/>
-            <path d="M22 30h6l4 8h-4l-2-4h-6l-2 4h-4l6-12zm4 4h6l-3-6-3 6z" fill="#fff"/>
-          </svg>
-        </a>
-      </div>
-    </div>
+<header class="site-header">
+  <div class="left-box">
+    <h1 id="user-name">X</h1>
+    <a class="cv-button" href="cv.pdf" target="_blank">CV</a>
   </div>
 
-  <div id="waveform" aria-hidden="true"></div>
+  <div class="right-box">
+    <!-- ORCID -->
+    <a href="https://orcid.org/XXXX-XXXX-XXXX-XXXX" target="_blank" class="icon">
+      <img src="assets/orcid.svg" alt="ORCID">
+    </a>
+
+    <!-- arXiv -->
+    <a href="https://arxiv.org" target="_blank" class="icon">
+      <img src="assets/arxiv.svg" alt="arXiv">
+    </a>
+
+    <!-- Theme toggle -->
+    <button id="theme-toggle" class="toggle-btn">◐</button>
+
+    <!-- Menu toggle -->
+    <button id="nav-toggle" class="menu-btn">☰</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-menu" id="nav-menu">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
-<!-- CONTENT -->
-<main id="content" role="main">
-  <section id="support" class="section active"><h2>Support</h2>
-    <p>I began my research career with an integrated master's degree. (Fill in your details.)</p>
-  </section>
 
-  <section id="duality" class="section"><h2>Duality</h2><p>My work focuses on...</p></section>
+<!-- ---------------- SECTIONS ---------------- -->
 
-  <section id="spectrum" class="section"><h2>Spectrum</h2><p>Selected papers...</p></section>
+<section id="about" class="page-section" style="display:block">
+  <h2>About</h2>
+  <p>Your intro here.</p>
+</section>
 
-  <section id="representations" class="section"><h2>Representations</h2><p>Talks and seminars...</p></section>
+<section id="research" class="page-section">
+  <h2>Research</h2>
+  <p>Research description.</p>
+</section>
 
-  <section id="modules" class="section">
-    <h2>Modules</h2>
-    <div class="module-card">
-      <h3>Advanced Calculus</h3>
-      <p>Lecture notes, examples, explanations.</p>
+<section id="teaching" class="page-section">
+  <h2>Harmonic Analysis Lectures</h2>
 
-      <!-- datapath attribute used by JS to construct links -->
-      <div id="haa-lectures" data-path="modules/ECE206UWFall23" class="grid-list"></div>
-    </div>
-  </section>
-</main>
+  <div id="haa-lectures" datapath="modules/harmonic-analysis" class="grid-list"></div>
+</section>
 
-<footer>
-  <small>Contact: <a href="mailto:example@domain.edu">example@domain.edu</a> · <a href="CV.pdf" target="_blank" rel="noopener">CV</a></small>
-</footer>
+<section id="contact" class="page-section">
+  <h2>Contact</h2>
+  <p>Email: x@example.com</p>
+</section>
+
+<!-- ---------------- SCRIPTS ---------------- -->
 
 <script>
-/* ------------------ Utilities ------------------ */
+/* --- Theme Toggle --- */
+document.getElementById("theme-toggle").onclick = () => {
+  document.documentElement.classList.toggle("light");
+  document.documentElement.classList.toggle("dark");
+};
 
-// Wait for DOM content loaded to ensure elements exist
-window.addEventListener('DOMContentLoaded', () => {
+/* --- Slide-down Menu Toggle --- */
+document.getElementById("nav-toggle").onclick = () => {
+  document.getElementById("nav-menu").classList.toggle("active");
+};
 
-  /* ================= THEME TOGGLE ================= */
-  const themeBtn = document.getElementById('themeToggle');
-  themeBtn.addEventListener('click', () => {
-    const b = document.body;
-    const newTheme = b.dataset.theme === 'light' ? 'dark' : 'light';
-    b.setAttribute('data-theme', newTheme);
-    themeBtn.setAttribute('aria-pressed', String(newTheme === 'light'));
+/* --- Section Switching --- */
+document.querySelectorAll('.nav-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+
+    document.querySelectorAll('section').forEach(s => s.style.display = "none");
+    target.style.display = "block";
+
+    document.getElementById("nav-menu").classList.remove("active");
   });
+});
 
-  /* ================= MOBILE SLIDE MENU ================= */
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
+/* --- Auto-generate Lecture Links --- */
+const list = document.getElementById("haa-lectures");
+const path = list.getAttribute("datapath");
 
-  menuToggle.addEventListener('click', () => {
-    const expanded = mainNav.classList.toggle('expanded');
-    mainNav.classList.toggle('collapsed', !expanded);
-    menuToggle.setAttribute('aria-expanded', String(expanded));
-  });
-
-  // Close mobile nav when a link is clicked (mobile behavior)
-  mainNav.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        mainNav.classList.remove('expanded');
-        mainNav.classList.add('collapsed');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
-
-  /* ================= SECTION NAV SWITCH ================= */
-  document.querySelectorAll('#mainNav a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = link.getAttribute('href').slice(1);
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-
-  /* ================= LECTURE GRID POPULATION ================= */
-  const list = document.getElementById('haa-lectures');
-  if (list) {
-    // read data-path (HTML5 data attribute)
-    const base = list.getAttribute('data-path') || 'modules/harmonic-analysis';
-    // populate first 23 lectures (you can change the number)
-    for (let i = 1; i <= 23; i++) {
-      const a = document.createElement('a');
-      a.href = `${base}/lecture${i}.pdf`;
-      a.textContent = `Lecture ${i}`;
-      a.className = 'lecture-link';
-      a.target = '_blank';             // open in new tab
-      a.rel = 'noopener noreferrer';
-      list.appendChild(a);
-    }
-  }
-
-  /* ================ EPICYCLE CANVAS ================ */
-  const canvas = document.getElementById('epicycleCanvas');
-  const ctx = canvas.getContext && canvas.getContext('2d') ? canvas.getContext('2d') : null;
-
-  function resizeCanvas() {
-    // set pixel size to match CSS size, maintain 2:1 ratio
-    const cssWidth = Math.min(window.innerWidth * 0.9, 320);
-    canvas.style.width = cssWidth + 'px';
-    canvas.width = Math.round(cssWidth * devicePixelRatio);
-    canvas.style.height = (cssWidth * 0.5) + 'px';
-    canvas.height = Math.round(cssWidth * 0.5 * devicePixelRatio);
-    if (ctx) {
-      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-    }
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  if (!ctx) return; // nothing to draw on
-
-  let time = 0;
-  const trail = [];
-
-  function drawEpicycle() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const width = canvas.width / devicePixelRatio;
-    const height = canvas.height / devicePixelRatio;
-    const cx = width / 2;
-    const cy = height / 2;
-
-    const minDim = Math.min(width, height);
-    const harmonics = [1, 3, 5];
-    const radii = [0.22, 0.12, 0.06].map(f => f * minDim);
-
-    let x = cx, y = cy;
-
-    // light stroke for circles
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-    for (let i = 0; i < harmonics.length; i++) {
-      const r = radii[i], w = harmonics[i];
-      const nx = x + r * Math.cos(time * w);
-      const ny = y + r * Math.sin(time * w);
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.stroke();
-      x = nx; y = ny;
-    }
-
-    // push trail point
-    trail.push({ x, y });
-    if (trail.length > 250) trail.shift();
-
-    // computed accent color from CSS variable
-    const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#6ae3ff';
-    ctx.strokeStyle = accent;
-    ctx.fillStyle = accent;
-    ctx.lineWidth = 2;
-
-    // draw trail
-    ctx.beginPath();
-    trail.forEach((p, i) => {
-      if (i === 0) ctx.moveTo(p.x, p.y);
-      else ctx.lineTo(p.x, p.y);
-    });
-    ctx.stroke();
-
-    // draw end dot
-    ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
-    ctx.fill();
-
-    time += 0.012 + (window.pageYOffset ? Math.min(window.pageYOffset / 20000, 0.02) : 0);
-    requestAnimationFrame(drawEpicycle);
-  }
-  requestAnimationFrame(drawEpicycle);
-
-}); // DOMContentLoaded
+for (let i = 1; i <= 23; i++) {
+  const a = document.createElement("a");
+  a.href = `${path}/lecture${i}.pdf`;
+  a.target = "_blank";
+  a.textContent = `Lecture ${i}`;
+  a.className = "lecture-link";
+  list.appendChild(a);
+}
 </script>
 
 </body>
 </html>
+
 
