@@ -317,7 +317,7 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
     <div class="card">
       <h2>Past Teaching</h2>
       <p>Advance</p>
-      <div id="haa-lectures" data-path="modules/ECE206UWFall23" data-count=23 class="grid-list" aria-live="polite"></div>
+      <p>Lecture Notes: <div id="haa-lectures" data-path="modules/ECE206UWFall23" data-count=23 class="grid-list" aria-live="polite"></div></p>
     </div>
     </div>
   </section>
@@ -399,7 +399,7 @@ list.innerHTML = ""; // clear old content
 for (let i = 1; i <= count; i++) {
   const a = document.createElement("a");
   a.href = `${base}/lecture${i}.pdf`;
-  a.textContent = `Lecture ${i}`;
+  a.textContent = `${i}`;
   a.className = "lecture-link";
   a.target = "_blank"; // open in a new tab
   list.appendChild(a);
