@@ -350,7 +350,7 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 const list = document.getElementById("haa-lectures");
 for (let i = 1; i <= 23; i++) {
   const a = document.createElement("a");
-  a.href = `${base}/ECE 206 F23 Lec ${i}.pdf`;
+  a.href = `${base}/lecture${i}.pdf`;
   a.textContent = `Lecture ${i}`;
   a.className = "lecture-link";
   list.appendChild(a);
