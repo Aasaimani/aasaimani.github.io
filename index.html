@@ -254,7 +254,7 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
     <!-- CENTER: title + tagline + menu -->
     <div class="header-center">
       <div class="title-block">
-        <h1 class="site-title">X</h1>
+        <h1 class="site-title">Aasaimani Thamizhazhagan</h1>
         <div class="tagline tagline-glow">Harmonic Analysis · Groups · Duality</div>
       </div>
 
@@ -306,9 +306,13 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
 
   <section id="teaching" class="page-section">
     <div class="card">
-      <h2>Teaching</h2>
-      <p>Lecture notes for the course.</p>
-      <div id="haa-lectures" data-path="modules/ECE206UWFall23" class="grid-list" aria-live="polite"></div>
+      <h2>Current Teaching</h2>
+      <p>Mathematics I for Engineers</p> 
+    </div>
+    <div class="card">
+      <h2>Past Teaching</h2>
+      <p>Advance</p>
+      <div id="haa-lectures" data-path="modules/ECE206UWFall23" data-count=23 class="grid-list" aria-live="polite"></div>
     </div>
     </div>
   </section>
@@ -381,19 +385,21 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
     });
   });
 
-  // populate lectures (open in new tab)
-  if(lecturesHolder){
-    const base = lecturesHolder.dataset.path || 'modules/harmonic-analysis';
-    for(let i=1;i<=23;i++){
-      const a = document.createElement('a');
-      a.href = `${base}/lecture${i}.pdf`;
-      a.textContent = `Lecture ${i}`;
-      a.className = 'lecture-link';
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      lecturesHolder.appendChild(a);
-    }
-  }
+ const list = document.getElementById("haa-lectures");
+const count = parseInt(list.dataset.count);
+const base = list.dataset.path;
+
+list.innerHTML = ""; // clear old content
+
+for (let i = 1; i <= count; i++) {
+  const a = document.createElement("a");
+  a.href = `${base}/lecture${i}.pdf`;
+  a.textContent = `Lecture ${i}`;
+  a.className = "lecture-link";
+  a.target = "_blank"; // open in a new tab
+  list.appendChild(a);
+}
+
 
   // theme toggle (attached to element in previous UI? we'll add a simple hotkey: T toggles)
   // If you want a UI button for theme you can add and wire it; currently body[data-theme] default is dark.
