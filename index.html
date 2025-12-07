@@ -1,111 +1,523 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X — Homepage</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>X — Harmonic Analysis</title>
+<style>
+/* ======== Theme variables ======== */
+:root{
+  --bg-dark: #071018;
+  --card-dark: rgba(255,255,255,0.03);
+  --text-dark: #eaf2ff;
+  --accent-dark: #66aaff;
+
+  --bg-light: #f6f8fb;
+  --card-light: rgba(255,255,255,0.92);
+  --text-light: #0f1720;
+  --accent-light: #003b8b;
+}
+
+/* default theme */
+body[data-theme="dark"]{
+  --bg: var(--bg-dark);
+  --card: var(--card-dark);
+  --text: var(--text-dark);
+  --accent: var(--accent-dark);
+  background: linear-gradient(180deg,#041018 0%, #071018 100%);
+  color: var(--text);
+}
+body[data-theme="light"]{
+  --bg: var(--bg-light);
+  --card: var(--card-light);
+  --text: var(--text-light);
+  --accent: var(--accent-light);
+  background: linear-gradient(180deg,#fafbfd 0%, #eef2f8 100%);
+  color: var(--text);
+}
+
+/* Universal */
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; -webkit-font-smoothing:antialiased;}
+a{color:var(--accent); text-decoration:none;}
+button{font-family:inherit}
+
+/* ======== Header layout C ======== */
+.header {
+  position: sticky;
+  top:0;
+  z-index:1100;
+  padding:14px 18px;
+  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.08));
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+body[data-theme="light"] .header{
+  background: linear-gradient(180deg, rgba(255,255,255,0.80), rgba(255,255,255,0.95));
+  border-bottom:1px solid #e5e9f0;
+}
+
+/* header inner grid */
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns: 220px 1fr 320px; /* Photo | center | epicycle */
+  gap: 18px;
+  align-items:center;
+}
+
+/* LEFT — portrait */
+.header-photo {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+.header-photo img{
+  width:200px; /* you chose A large portrait */
+  height:200px;
+  border-radius:12px;
+  object-fit:cover;
+  border:3px solid var(--accent);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+/* CENTER — name & tagline & menu */
+.header-center{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  text-align:center;
+  min-width:0;
+}
+.site-title{
+  margin:0;
+  font-size:1.6rem;
+  font-weight:700;
+  color:var(--text);
+}
+.tagline{
+  color:var(--accent);
+  font-weight:600;
+  font-size:0.98rem;
+  text-shadow: 0 0 8px rgba(0,0,0,0.08);
+  /* glow will be added dynamically via JS when theme changes */
+}
+
+/* menu row under title */
+.menu-row{
+  margin-top:8px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* hamburger (visible on all screens per your request) */
+.menu-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.12);
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  font-weight:600;
+}
+.menu-btn:focus{outline:2px solid rgba(0,0,0,0.12)}
+
+/* nav — desktop shows by default; mobile collapses */
+.main-nav{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  transition: max-height .36s ease, opacity .28s ease, transform .28s ease;
+}
+.main-nav a{
+  padding:8px 10px;
+  border-radius:8px;
+  color:var(--accent);
+  font-weight:600;
+}
+.main-nav a:hover{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:var(--accent);
+}
+
+/* RIGHT — epicycle column */
+.header-epicycle{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+}
+.epicycle-canvas{
+  width: 320px;
+  height: 160px;
+  border-radius:10px;
+  background:transparent;
+}
+
+/* small social + actions under portrait on narrow screens */
+.header-actions{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.cv-btn{
+  padding:8px 10px;
+  border-radius:8px;
+  background:var(--card);
+  border:1px solid rgba(0,0,0,0.06);
+  color:var(--text);
+  font-weight:700;
+  text-decoration:none;
+}
+
+/* waveform under header */
+.waveform{
+  height:34px;
+  width:100%;
+  margin-top:12px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+  border-radius:8px;
+}
+
+/* ======== Content & sections ======== */
+.container{ max-width:980px; margin:20px auto; padding:16px; }
+.page-section{ display:none; opacity:0; transform:translateY(6px); transition:opacity .28s ease, transform .28s ease; }
+.page-section.active{ display:block; opacity:1; transform:none; }
+.card{
+  background:var(--card);
+  padding:18px;
+  border-radius:12px;
+  box-shadow: 0 8px 24px rgba(2,8,20,0.24);
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* lecture grid */
+.grid-list{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); margin-top:12px; }
+.lecture-link{
+  display:block; padding:10px; border-radius:10px; text-align:center; text-decoration:none;
+  background: rgba(255,255,255,0.02); color:var(--text); border:1px solid rgba(255,255,255,0.03); font-weight:700;
+}
+.lecture-link:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-3px); transition:transform .12s; }
+
+/* footer */
+.footer{ text-align:center; padding:14px 0; color:var(--text); }
+
+/* ======== Responsive tweaks ======== */
+@media (max-width:940px){
+  .header-inner{ grid-template-columns: 180px 1fr 260px; gap:12px; }
+  .epicycle-canvas{ width:260px; height:130px; }
+}
+@media (max-width:720px){
+  /* stack: photo, center, epicycle (responsive) */
+  .header-inner{ grid-template-columns: 1fr; grid-auto-rows:auto; gap:12px; justify-items:center; }
+  .header-photo{ order:1; }
+  .header-center{ order:2; }
+  .header-epicycle{ order:3; }
+  .epicycle-canvas{ width:90%; height:120px; max-width:360px; }
+  .menu-row{ flex-direction:column; gap:10px; }
+  .main-nav{ display:block; width:100%; text-align:center; margin-top:6px; }
+  .main-nav a{ display:block; padding:12px 8px; }
+}
+
+/* small utility to ensure menu visible if toggled collapsed/expanded */
+.main-nav.collapsed{ max-height:0; overflow:hidden; opacity:0; transform:translateY(-6px); pointer-events:none; }
+.main-nav.expanded{ max-height:400px; opacity:1; transform:none; pointer-events:auto; }
+
+/* ensure high contrast for menu button */
+.menu-btn{ border-color: rgba(0,0,0,0.06); }
+body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
+
+/* glow for tagline: will match accent via CSS variable (soft) */
+.tagline-glow{
+  text-shadow: 0 0 12px rgba(102,170,255,0.15);
+}
+
+/* end CSS */
+</style>
 </head>
+<body data-theme="dark">
 
-<body>
+<!-- ========== HEADER (Layout C) ========== -->
+<header class="header" role="banner">
+  <div class="header-inner">
 
-<header class="site-header">
-  <div class="left-box">
-    <h1 id="user-name">X</h1>
-    <a class="cv-button" href="cv.pdf" target="_blank">CV</a>
+    <!-- LEFT: portrait -->
+    <div class="header-photo">
+      <img src="yourphoto.JPEG" alt="Portrait of X" width="200" height="200">
+    </div>
+
+    <!-- CENTER: title + tagline + menu -->
+    <div class="header-center">
+      <div class="title-block">
+        <h1 class="site-title">X</h1>
+        <div class="tagline tagline-glow">Harmonic Analysis · Groups · Duality</div>
+      </div>
+
+      <div class="menu-row">
+        <button id="menuBtn" class="menu-btn" aria-controls="mainNav" aria-expanded="false">☰ Menu</button>
+
+        <nav id="mainNav" class="main-nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#teaching">Teaching</a>
+          <a href="#modules">Modules</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- RIGHT: epicycle -->
+    <div class="header-epicycle">
+      <canvas id="epicycle" class="epicycle-canvas" aria-hidden="true"></canvas>
+    </div>
+
   </div>
 
-  <div class="right-box">
-    <!-- ORCID -->
-    <a href="https://orcid.org/XXXX-XXXX-XXXX-XXXX" target="_blank" class="icon">
-      <img src="assets/orcid.svg" alt="ORCID">
-    </a>
-
-    <!-- arXiv -->
-    <a href="https://arxiv.org" target="_blank" class="icon">
-      <img src="assets/arxiv.svg" alt="arXiv">
-    </a>
-
-    <!-- Theme toggle -->
-    <button id="theme-toggle" class="toggle-btn">◐</button>
-
-    <!-- Menu toggle -->
-    <button id="nav-toggle" class="menu-btn">☰</button>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="nav-menu" id="nav-menu">
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#teaching">Teaching</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <div class="waveform" aria-hidden="true"></div>
 </header>
 
+<!-- ========== MAIN CONTENT ========== -->
+<main class="container" id="content" role="main">
+  <section id="about" class="page-section active">
+    <div class="card">
+      <h2>About</h2>
+      <p>I am a guest faculty in the Department of Mathematics at X University, where I have been teaching introductory mathematics courses to engineering students since October 2024. Previously, I was a postdoctoral fellow for two years (Sep 2022 - May 2024) at B where I earned my Ph.D. in October 2021 under the supervision of X and Y. In between, from Sep 2021 - Aug 2022, I was a postdoctoral fellow in C. I did my integrated masters from D.</p>
+    </div>
+  </section>
 
-<!-- ---------------- SECTIONS ---------------- -->
+  <section id="research" class="page-section">
+    <div class="card">
+      <h2>Research</h2>
+      <p>Selected research interests and summaries.</p>
+    </div>
+  </section>
 
-<section id="about" class="page-section" style="display:block">
-  <h2>About</h2>
-  <p>Your intro here.</p>
-</section>
+  <section id="teaching" class="page-section">
+    <div class="card">
+      <h2>Teaching</h2>
+      <p>Teaching modules, course notes and resources.</p>
+    </div>
+  </section>
 
-<section id="research" class="page-section">
-  <h2>Research</h2>
-  <p>Research description.</p>
-</section>
+  <section id="modules" class="page-section">
+    <div class="card">
+      <h2>Modules — Harmonic Analysis</h2>
+      <p>Lecture notes for the course.</p>
+      <div id="haa-lectures" data-path="modules/harmonic-analysis" class="grid-list" aria-live="polite"></div>
+    </div>
+  </section>
 
-<section id="teaching" class="page-section">
-  <h2>Harmonic Analysis Lectures</h2>
+  <section id="contact" class="page-section">
+    <div class="card">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:x@example.edu">x@example.edu</a></p>
+    </div>
+  </section>
+</main>
 
-  <div id="haa-lectures" datapath="modules/harmonic-analysis" class="grid-list"></div>
-</section>
+<footer class="footer" role="contentinfo">
+  <div>© X — Harmonic Analysis · <a href="CV.pdf" target="_blank" rel="noopener">CV</a></div>
+</footer>
 
-<section id="contact" class="page-section">
-  <h2>Contact</h2>
-  <p>Email: x@example.com</p>
-</section>
-
-<!-- ---------------- SCRIPTS ---------------- -->
-
+<!-- ========== SCRIPTS: UI + Epicycle ========== -->
 <script>
-/* --- Theme Toggle --- */
-document.getElementById("theme-toggle").onclick = () => {
-  document.documentElement.classList.toggle("light");
-  document.documentElement.classList.toggle("dark");
-};
+/* ---------- UI: menu toggle, section switching, lectures ---------- */
+(function(){
+  // elements
+  const menuBtn = document.getElementById('menuBtn');
+  const mainNav = document.getElementById('mainNav');
+  const navLinks = Array.from(mainNav.querySelectorAll('a'));
+  const sections = Array.from(document.querySelectorAll('.page-section'));
+  const lecturesHolder = document.getElementById('haa-lectures');
 
-/* --- Slide-down Menu Toggle --- */
-document.getElementById("nav-toggle").onclick = () => {
-  document.getElementById("nav-menu").classList.toggle("active");
-};
+  // ensure menu visible on load on wider screens; on narrow it can be collapsed
+  function initNavState(){
+    if(window.innerWidth > 720){
+      mainNav.classList.remove('collapsed'); mainNav.classList.add('expanded');
+      menuBtn.setAttribute('aria-expanded','true');
+    } else {
+      mainNav.classList.remove('expanded'); mainNav.classList.add('collapsed');
+      menuBtn.setAttribute('aria-expanded','false');
+    }
+  }
+  initNavState();
+  window.addEventListener('resize', initNavState);
 
-/* --- Section Switching --- */
-document.querySelectorAll('.nav-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    const target = document.querySelector(link.getAttribute('href'));
-    if (!target) return;
-
-    document.querySelectorAll('section').forEach(s => s.style.display = "none");
-    target.style.display = "block";
-
-    document.getElementById("nav-menu").classList.remove("active");
+  // toggle on click (hamburger always visible by design)
+  menuBtn.addEventListener('click', () => {
+    const isExp = mainNav.classList.toggle('expanded');
+    mainNav.classList.toggle('collapsed', !isExp);
+    menuBtn.setAttribute('aria-expanded', String(isExp));
   });
-});
 
-/* --- Auto-generate Lecture Links --- */
-const list = document.getElementById("haa-lectures");
-const path = list.getAttribute("datapath");
+  // section switching: show only clicked section
+  navLinks.forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      sections.forEach(s=> s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if(target) target.classList.add('active');
+      // collapse on small screens
+      if(window.innerWidth <= 720){
+        mainNav.classList.remove('expanded'); mainNav.classList.add('collapsed');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
 
-for (let i = 1; i <= 23; i++) {
-  const a = document.createElement("a");
-  a.href = `${path}/lecture${i}.pdf`;
-  a.target = "_blank";
-  a.textContent = `Lecture ${i}`;
-  a.className = "lecture-link";
-  list.appendChild(a);
-}
+  // populate lectures (open in new tab)
+  if(lecturesHolder){
+    const base = lecturesHolder.dataset.path || 'modules/harmonic-analysis';
+    for(let i=1;i<=23;i++){
+      const a = document.createElement('a');
+      a.href = `${base}/lecture${i}.pdf`;
+      a.textContent = `Lecture ${i}`;
+      a.className = 'lecture-link';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      lecturesHolder.appendChild(a);
+    }
+  }
+
+  // theme toggle (attached to element in previous UI? we'll add a simple hotkey: T toggles)
+  // If you want a UI button for theme you can add and wire it; currently body[data-theme] default is dark.
+  document.addEventListener('keydown', (e)=>{
+    if(e.key.toLowerCase() === 't'){ // press 't' to toggle theme quickly
+      const cur = document.body.getAttribute('data-theme') || 'dark';
+      document.body.setAttribute('data-theme', cur==='dark' ? 'light' : 'dark');
+    }
+  });
+
+})();
+
+/* ---------- EPICYCLE: two intertwined circles with longer fading tail & glow ---------- */
+(function(){
+  const canvas = document.getElementById('epicycle');
+  if(!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+
+  // responsive canvas size
+  function resize(){
+    // css width in px
+    const cssW = Math.min(window.innerWidth * 0.28, 360); // keep it reasonable
+    const cssH = Math.round(cssW * 0.5);
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = Math.round(cssW * ratio);
+    canvas.height = Math.round(cssH * ratio);
+    ctx.setTransform(ratio,0,0,ratio,0,0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // epicycle param: two main harmonics intertwining
+  const harmonics = [
+    {freq: 1, phase:0, rFactor:0.28},
+    {freq:-2, phase:Math.PI/2, rFactor:0.18}
+  ];
+  const trail = [];
+  const maxTrail = 700; // longer tail
+  let t = 0;
+
+  // helper: get accent color (hex) from CSS variable; fallback
+  function getAccent(){
+    const v = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+    // if empty, pick defaults based on theme
+    if(!v) return (document.body.getAttribute('data-theme')==='light' ? '#003b8b' : '#66aaff');
+    return v;
+  }
+  function hexToRgba(hex, a){
+    hex = hex.replace(/\s/g,'');
+    if(hex.startsWith('rgb')) return hex.replace('rgb(','rgba(').replace(')', `,${a})`);
+    if(hex.startsWith('#')){
+      let h = hex.slice(1);
+      if(h.length===3) h = h.split('').map(c=>c+c).join('');
+      const num = parseInt(h,16);
+      const r = (num>>16)&255, g=(num>>8)&255, b=num&255;
+      return `rgba(${r},${g},${b},${a})`;
+    }
+    return hex;
+  }
+
+  function draw(){
+    const W = canvas.clientWidth, H = canvas.clientHeight;
+    ctx.clearRect(0,0,W,H);
+    const cx = W*0.5, cy = H*0.5;
+
+    // compute radii scaled to canvas
+    const radii = harmonics.map(h => h.rFactor * Math.min(W,H));
+
+    // draw base circles lightly
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    let x=cx, y=cy;
+    for(let i=0;i<harmonics.length;i++){
+      const h = harmonics[i];
+      const angle = t * h.freq + h.phase;
+      const r = radii[i];
+      const nx = x + r*Math.cos(angle);
+      const ny = y + r*Math.sin(angle);
+      // circle
+      ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.stroke();
+      // connector
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(nx,ny); ctx.stroke();
+      x = nx; y = ny;
+    }
+
+    // add trail point
+    trail.push({x,y});
+    if(trail.length>maxTrail) trail.shift();
+
+    // compute accent and draw trail with fading alpha
+    const accent = getAccent();
+    ctx.lineWidth = 2;
+    for(let i=1;i<trail.length;i++){
+      const p0 = trail[i-1], p1 = trail[i];
+      const frac = i/trail.length;
+      const a = Math.pow(frac,0.9)*0.9;
+      ctx.strokeStyle = hexToRgba(accent, a);
+      ctx.beginPath();
+      ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
+    }
+
+    // glow dot
+    ctx.fillStyle = hexToRgba(accent,0.95);
+    ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+
+    // small outer glow (soft)
+    ctx.fillStyle = hexToRgba(accent, 0.08);
+    ctx.beginPath(); ctx.arc(x,y,12,0,Math.PI*2); ctx.fill();
+
+    // advance time (slightly speed up on scroll)
+    const scrollBoost = Math.min((window.pageYOffset||0)/20000, 0.06);
+    t += 0.014 + scrollBoost;
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // also update tagline glow to match accent for visual sync
+  function updateTaglineGlow(){
+    const accent = getAccent();
+    const tagline = document.querySelector('.tagline');
+    if(!tagline) return;
+    // compute a soft rgba for glow
+    tagline.style.textShadow = `0 0 10px ${hexToRgba(accent,0.25)}, 0 0 20px ${hexToRgba(accent,0.08)}`;
+  }
+  updateTaglineGlow();
+  // update when theme changes (observer)
+  const obs = new MutationObserver(()=> updateTaglineGlow());
+  obs.observe(document.body, {attributes:true, attributeFilter:['data-theme']});
+
+})();
 </script>
-
 </body>
 </html>
