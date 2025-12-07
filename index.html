@@ -43,7 +43,16 @@ header {
   transition: background 0.3s;
 }
 
-.header-content {
+  .header-content {      /*Add*/
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+/* .header-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -51,8 +60,26 @@ header {
   margin: auto;
   flex-wrap: wrap;
   gap: 1.5rem;
+} */
+
+  #epicycleCanvas { /*Add*/
+  width: 240px;
+  height: 120px;
+  display: block;
 }
 
+  h1 {  /*Add*/
+  margin: .3rem 0 0.2rem 0;
+  font-size: 2rem;
+  color: var(--fg);
+}
+
+.tagline {  /*Add*/
+  margin-top: 0;
+  color: var(--accent);
+  font-weight: 500;
+}
+  
 .left-block {
   flex: 1;
   text-align: left;
@@ -99,19 +126,32 @@ header {
   color: var(--bg);
 }
 
-/* Social icons */
+/* ORCID + arXiv icons */
 .social-icons {
-  margin: .8rem 0;
-  font-size: 1.7rem;
+  margin-top: .6rem;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
   gap: 1rem;
 }
-.social-icons a {
+.social-icons svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--accent);
+  transition: 0.3s;
+}
+.social-icons svg:hover {
+  opacity: 0.7;
+}
+
+  /* ========== MOBILE MENU ========== */
+.menu-toggle { /*Add*/
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
   color: var(--accent);
-  filter: drop-shadow(0 0 4px var(--accent));
-  transition: color 0.3s;
+  cursor: pointer;
+  padding: .3rem .75rem;
+  margin-top: .5rem;
 }
 
 /* Navigation */
@@ -137,11 +177,12 @@ nav a:hover { border-bottom: 1px solid var(--accent); }
 
 /* =================== CONTENT =================== */
 #content {
-  margin-top: 470px;
+  margin-top: 400px;
   padding: 2rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 1.1rem;
 }
 
 .section { display: none; animation: fade .5s ease; }
