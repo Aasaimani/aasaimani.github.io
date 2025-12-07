@@ -126,6 +126,25 @@ h1 {
   opacity: 0.7;
 }
 
+  /* ================= LIGHT THEME FIXES ================= */
+[data-theme="light"] header {
+  background: rgba(255,255,255,0.85);   /* light translucent */
+  border-bottom: 1px solid #ddd;
+}
+
+[data-theme="light"] nav a {
+  color: var(--accent);   /* still blue but readable now */
+}
+
+[data-theme="light"] h1 {
+  color: var(--fg);       /* dark text */
+}
+
+[data-theme="light"] .tagline {
+  color: var(--accent);
+}
+
+
 /* ========== MOBILE MENU ========== */
 .menu-toggle {
   display: none;
