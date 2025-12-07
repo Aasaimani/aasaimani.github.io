@@ -276,25 +276,83 @@ document.getElementById("menuToggle").onclick = () => {
 /* =================== EPICYCLE ANIMATION =================== */
 const canvas = document.getElementById("epicycleCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 240;
-canvas.height = 120;
 
-let t = 0;
+let baseSpeed = 0.012;       // baseline animation speed
+let scrollFactor = 0;        // extra speed from scroll
+let time = 0;
+
+// Store traced points
+const trail = [];
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  let x = 60 + 25 * Math.cos(t);
-  let y = 60 + 25 * Math.sin(t);
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
 
+  // Fourier series parameters
+  const harmonics = [1, 3, 5];       // odd harmonics for wave-like motion
+  const radii = [35, 18, 10];        // radii decrease
+  const speeds = harmonics.map(h => h);
+
+  let x = cx;
+  let y = cy;
+
+  ctx.strokeStyle = "rgba(255,255,255,0.15)";
+
+  // Draw epicycles
+  for (let i = 0; i < harmonics.length; i++) {
+    const r = radii[i];
+    const w = speeds[i];
+
+    const nx = x + r * Math.cos(time * w);
+    const ny = y + r * Math.sin(time * w);
+
+    // Circle
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.stroke();
+
+    x = nx;
+    y = ny;
+  }
+
+  // Add traced point
+  trail.push({x, y});
+  if (trail.length > 300) trail.shift();
+
+  // Draw trail (curve)
+  ctx.strokeStyle = "var(--accent)";
   ctx.beginPath();
-  ctx.arc(x, y, 5, 0, Math.PI * 2);
+  for (let i = 0; i < trail.length; i++) {
+    const p = trail[i];
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  }
+  ctx.stroke();
+
+  // Draw final dot
   ctx.fillStyle = "var(--accent)";
+  ctx.beginPath();
+  ctx.arc(x, y, 3, 0, Math.PI * 2);
   ctx.fill();
 
-  t += 0.05;
+  // Update time with scroll-based boost
+  time += baseSpeed + scrollFactor;
+
+  // Slowly decay scroll impulse so it feels natural
+  scrollFactor *= 0.95;
+
   requestAnimationFrame(draw);
 }
+
 draw();
+
+// Increase epicycle rotation speed when user scrolls
+window.addEventListener("scroll", () => {
+  scrollFactor += 0.003;     // adjust for sensitivity
+});
+
 </script>
 
 </body>
