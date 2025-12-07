@@ -31,7 +31,7 @@ body {
 
 /* =================== HEADER =================== */
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   background: rgba(15,15,20,0.93);
@@ -67,7 +67,23 @@ header {
   height: 120px;
   display: block;
 }
+  
+[data-theme="light"] header {
+  background: rgba(255,255,255,0.85);   /* light translucent */
+  border-bottom: 1px solid #ddd;
+}
 
+[data-theme="light"] nav a {
+  color: var(--accent);   /* still blue but readable now */
+}
+
+[data-theme="light"] h1 {
+  color: var(--fg);       /* dark text */
+}
+
+[data-theme="light"] .tagline {
+  color: var(--accent);
+}
   h1 {  /*Add*/
   margin: .3rem 0 0.2rem 0;
   font-size: 2rem;
