@@ -316,13 +316,15 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 
 // Lecture links
 const list = document.getElementById("haa-lectures");
+const basePath = list.getAttribute("datapath");   // <-- read datapath
 for (let i = 1; i <= 23; i++) {
   const a = document.createElement("a");
-  a.href = `${base}/lecture${i}.pdf`;
+  a.href = `${basePath}/lecture${i}.pdf`;          // <-- use datapath
   a.textContent = `Lecture ${i}`;
   a.className = "lecture-link";
   list.appendChild(a);
 }
+
 
 // Epicycle dynamic scaling
 const canvas = document.getElementById("epicycleCanvas");
