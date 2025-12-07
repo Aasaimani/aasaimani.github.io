@@ -1,113 +1,272 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XXXXXX — Homepage</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>X — Harmonic Analysis</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
-<body>
+<body data-theme="dark">
 
 <header class="site-header">
-  <div class="left-box">
-    <h1 id="user-name">X</h1>
-    <a class="cv-button" href="cv.pdf" target="_blank">CV</a>
+  <div class="header-inner">
+    <!-- LEFT: Epicycle + Title -->
+    <div class="hdr-left">
+      <canvas id="epicycleCanvas" aria-hidden="true"></canvas>
+      <div class="title-block">
+        <h1 id="user-name">X</h1>
+        <div class="tagline">Harmonic Analysis · Groups · Duality</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: portrait, CV, toggle, icons -->
+    <div class="hdr-right">
+      <img src="yourphoto.JPEG" alt="Portrait" class="portrait">
+
+      <div class="header-actions">
+        <a class="cv-btn" href="CV.pdf" target="_blank" rel="noopener">CV</a>
+        <button id="themeToggle" class="theme-btn" aria-pressed="false">Theme</button>
+      </div>
+
+      <div class="social-icons" aria-hidden="true">
+        <!-- Official ORCID green (do not recolor) -->
+        <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">
+          <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="ORCID iD">
+            <circle cx="128" cy="128" r="128" fill="#A6CE39"/>
+            <path fill="#fff" d="M86.4 67.2h17.7v121.6H86.4zM94.9 56c-5.7 0-10.2-4.5-10.2-10.2S89.2 35.7 94.9 35.7s10.2 4.5 10.2 10.2-4.6 10.1-10.2 10.1zm32.3 11.2h16.9v16.6h.3c3.7-7.1 12.7-14.5 26.2-14.5 28 0 33.2 18.4 33.2 42.3v46.9h-17.6v-43.9c0-10.5-.2-24-14.6-24-14.6 0-16.8 11.4-16.8 23.2v44.8h-17.6z"/>
+          </svg>
+        </a>
+
+        <!-- arXiv (simple red icon) -->
+        <a href="https://arxiv.org" target="_blank" rel="noopener">
+          <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" width="28" height="28" role="img" aria-label="arXiv">
+            <rect width="72" height="72" rx="8" fill="#B31B1B"/>
+            <path d="M22 30h6l4 8h-4l-2-4h-6l-2 4h-4l6-12zm4 4h6l-3-6-3 6z" fill="#fff"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- mobile menu button -->
+      <button id="menuToggle" class="menu-btn" aria-expanded="false" aria-controls="mainNav">☰</button>
+    </div>
   </div>
 
-  <div class="right-box">
-    <!-- ORCID -->
-    <a href="https://orcid.org/XXXX-XXXX-XXXX-XXXX" target="_blank" class="icon">
-      <img src="assets/orcid.svg" alt="ORCID">
-    </a>
-
-    <!-- arXiv -->
-    <a href="https://arxiv.org" target="_blank" class="icon">
-      <img src="assets/arxiv.svg" alt="arXiv">
-    </a>
-
-    <!-- Theme toggle -->
-    <button id="theme-toggle" class="toggle-btn">◐</button>
-
-    <!-- Menu toggle -->
-    <button id="nav-toggle" class="menu-btn">☰</button>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="nav-menu" id="nav-menu">
+  <!-- nav (desktop always visible; mobile toggles slide) -->
+  <nav id="mainNav" class="main-nav collapsed" aria-label="Main navigation">
     <a href="#about">About</a>
     <a href="#research">Research</a>
     <a href="#teaching">Teaching</a>
+    <a href="#modules">Modules</a>
     <a href="#contact">Contact</a>
   </nav>
+
+  <div id="waveform" class="waveform" aria-hidden="true"></div>
 </header>
 
+<main id="content" class="content">
+  <section id="about" class="page-section active">
+    <div class="card">
+      <h2>About</h2>
+      <p>I am a guest faculty in the Department of Mathematics at X University, where I have been teaching introductory mathematics courses to engineering students since October 2024. Previously I was a postdoctoral fellow (Sep 2022 – May 2024) at B, and earned my Ph.D. in October 2021 under supervision of X and Y.</p>
+    </div>
+  </section>
 
-<!-- ---------------- SECTIONS ---------------- -->
+  <section id="research" class="page-section">
+    <div class="card">
+      <h2>Research</h2>
+      <p>My work focuses on Fourier and Fourier–Stieltjes algebras, representation-theoretic function spaces, and structural aspects of locally compact groups.</p>
+    </div>
+  </section>
 
-<section id="about" class="page-section" style="display:block">
-  <h2>About</h2>
-  <p>Your intro here.</p>
-</section>
+  <section id="teaching" class="page-section">
+    <div class="card">
+      <h2>Teaching</h2>
+      <p>Courses, modules, and lecture notes.</p>
+    </div>
+  </section>
 
-<section id="research" class="page-section">
-  <h2>Research</h2>
-  <p>Research description.</p>
-</section>
+  <section id="modules" class="page-section">
+    <div class="card">
+      <h2>Modules — Harmonic Analysis</h2>
+      <p>Lecture notes and resources.</p>
+      <div id="haa-lectures" data-path="modules/harmonic-analysis" class="grid-list" aria-live="polite"></div>
+    </div>
+  </section>
 
-<section id="teaching" class="page-section">
-  <h2>Harmonic Analysis Lectures</h2>
+  <section id="contact" class="page-section">
+    <div class="card">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:x@example.edu">x@example.edu</a></p>
+    </div>
+  </section>
+</main>
 
-  <div id="haa-lectures" datapath="modules/harmonic-analysis" class="grid-list"></div>
-</section>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <small>© X — Harmonic Analysis · <a href="CV.pdf" target="_blank" rel="noopener">CV</a></small>
+  </div>
+</footer>
 
-<section id="contact" class="page-section">
-  <h2>Contact</h2>
-  <p>Email: x@example.com</p>
-</section>
-
-<!-- ---------------- SCRIPTS ---------------- -->
-
+<!-- scripts (epicycle + UI) -->
 <script>
-/* --- Theme Toggle --- */
-document.getElementById("theme-toggle").onclick = () => {
-  document.documentElement.classList.toggle("light");
-  document.documentElement.classList.toggle("dark");
-};
+/* ========== UI: theme, nav, sections, lecture loader ========== */
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+  const themeToggle = document.getElementById('themeToggle');
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
 
-/* --- Slide-down Menu Toggle --- */
-document.getElementById("nav-toggle").onclick = () => {
-  document.getElementById("nav-menu").classList.toggle("active");
-};
-
-/* --- Section Switching --- */
-document.querySelectorAll('.nav-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    const target = document.querySelector(link.getAttribute('href'));
-    if (!target) return;
-
-    document.querySelectorAll('section').forEach(s => s.style.display = "none");
-    target.style.display = "block";
-
-    document.getElementById("nav-menu").classList.remove("active");
+  // theme toggle: toggle data-theme attr on body
+  themeToggle.addEventListener('click', () => {
+    const current = body.getAttribute('data-theme') || 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    body.setAttribute('data-theme', next);
+    themeToggle.setAttribute('aria-pressed', String(next === 'light'));
   });
+
+  // mobile menu slide toggle
+  function toggleMenu() {
+    const open = mainNav.classList.toggle('expanded');
+    mainNav.classList.toggle('collapsed', !open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+  }
+  menuToggle.addEventListener('click', toggleMenu);
+
+  // Section switching: show only clicked section
+  document.querySelectorAll('#mainNav a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      // collapse mobile menu if open
+      if (mainNav.classList.contains('expanded')) toggleMenu();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Lecture grid population (data-path)
+  const list = document.getElementById('haa-lectures');
+  if (list) {
+    const base = list.dataset.path || 'modules/harmonic-analysis';
+    for (let i=1;i<=23;i++) {
+      const a = document.createElement('a');
+      a.href = `${base}/lecture${i}.pdf`;
+      a.textContent = `Lecture ${i}`;
+      a.className = 'lecture-link';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      list.appendChild(a);
+    }
+  }
 });
 
-/* --- Auto-generate Lecture Links --- */
-const list = document.getElementById("haa-lectures");
-const path = list.getAttribute("datapath");
+/* ========== EPICYCLE (Fourier style) ========== */
+(function() {
+  const canvas = document.getElementById('epicycleCanvas');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
 
-for (let i = 1; i <= 23; i++) {
-  const a = document.createElement("a");
-  a.href = `${path}/lecture${i}.pdf`;
-  a.target = "_blank";
-  a.textContent = `Lecture ${i}`;
-  a.className = "lecture-link";
-  list.appendChild(a);
-}
+  // responsive canvas sizing (devicePixelRatio aware)
+  function resize() {
+    const maxWidth = Math.min(window.innerWidth * 0.9, 360);
+    const cssW = maxWidth;
+    const cssH = Math.round(cssW * 0.45); // 2.2:1 wide rectangle
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+    const scale = window.devicePixelRatio || 1;
+    canvas.width = Math.round(cssW * scale);
+    canvas.height = Math.round(cssH * scale);
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Fourier epicycle parameters: more harmonics for richer trace
+  const harmonics = [1,2,3,4,5,6]; // frequencies (can be positive/negative)
+  const baseR = 26; // base radius (will be scaled)
+  let time = 0;
+  const trail = [];
+  const maxTrail = 350;
+
+  function draw() {
+    const W = canvas.clientWidth;
+    const H = canvas.clientHeight;
+    ctx.clearRect(0,0, W, H);
+    const cx = W * 0.5;
+    const cy = H * 0.5;
+
+    // scale radii by width
+    const minDim = Math.min(W, H);
+    const radii = harmonics.map((h,i) => baseR * Math.pow(0.62, i) * (minDim/260));
+
+    // Draw epicycles: use alternating signs for variety
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    let x = cx, y = cy;
+    for (let i=0;i<harmonics.length;i++) {
+      const f = harmonics[i];
+      const r = radii[i];
+      const angle = time * (f*0.9); // frequency multiplier
+      const nx = x + r * Math.cos(angle * (i%2===0?1:-1));
+      const ny = y + r * Math.sin(angle * (i%2===0?1:-1));
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI*2);
+      ctx.stroke();
+      // connector
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      ctx.lineTo(nx,ny);
+      ctx.stroke();
+      x = nx; y = ny;
+    }
+
+    // trail push
+    trail.push({x,y});
+    if (trail.length > maxTrail) trail.shift();
+
+    // get accent color from CSS variable (computed)
+    const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#66aaff';
+
+    // draw trail as smooth polyline with decreasing alpha
+    ctx.lineWidth = 2;
+    for (let i=1;i<trail.length;i++) {
+      const p0 = trail[i-1], p1 = trail[i];
+      const alpha = (i / trail.length) ** 1.2;
+      ctx.strokeStyle = hexToRgba(accent, 0.9 * alpha);
+      ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.lineTo(p1.x, p1.y); ctx.stroke();
+    }
+
+    // draw endpoint dot
+    ctx.fillStyle = accent;
+    ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+
+    // advance time (scroll influence)
+    const scrollBoost = (window.pageYOffset || 0) / 25000;
+    time += 0.012 + Math.min(scrollBoost, 0.03);
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // helper: convert hex CSS var like "#66aaff" to rgba with alpha
+  function hexToRgba(hex, alpha) {
+    hex = hex.replace(/\s/g,'');
+    // if rgb() or rgba()
+    if (hex.startsWith('rgb')) return hex;
+    if (hex.startsWith('#')) {
+      const h = hex.slice(1);
+      const bigint = parseInt(h.length===3 ? h.split('').map(c=>c+c).join('') : h, 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+    return hex;
+  }
+})();
 </script>
 
 </body>
 </html>
-
-
