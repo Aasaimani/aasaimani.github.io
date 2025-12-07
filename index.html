@@ -74,6 +74,7 @@ h1 {
 .tagline {
   margin-top: 0;
   color: var(--accent);
+  text-shadow: 0 0 4px var(--accent-soft);
   font-weight: 500;
 }
 
@@ -322,8 +323,8 @@ function draw() {
   if (trail.length > 300) trail.shift();
 
   // Draw trail (curve)
-  ctx.strokeStyle = "var(--accent)";
-  ctx.beginPath();
+ ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue("--accent");
+ ctx.beginPath();
   for (let i = 0; i < trail.length; i++) {
     const p = trail[i];
     if (i === 0) ctx.moveTo(p.x, p.y);
@@ -332,7 +333,7 @@ function draw() {
   ctx.stroke();
 
   // Draw final dot
-  ctx.fillStyle = "var(--accent)";
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--accent");
   ctx.beginPath();
   ctx.arc(x, y, 3, 0, Math.PI * 2);
   ctx.fill();
