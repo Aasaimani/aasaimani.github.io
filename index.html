@@ -44,6 +44,12 @@ header {
   border-bottom: 1px solid #333;
   transition: background 0.3s;
 }
+  header {
+  max-height: 70vh;          /* prevents header from taking full screen */
+  overflow: hidden;          /* hides overflow if canvas/image push down */
+  padding-bottom: 1rem;
+}
+
 
 .header-content {
   display: flex;
