@@ -10,12 +10,15 @@
   --bg-dark: #071018;
   --card-dark: rgba(255,255,255,0.03);
   --text-dark: #eaf2ff;
-  --accent-dark: #66aaff;
+  /* --accent-dark: #66aaff; */
+  
+  --accent-dark: #b889ff;
 
   --bg-light: #f6f8fb;
   --card-light: rgba(255,255,255,0.92);
   --text-light: #0f1720;
-  --accent-light: #003b8b;
+  /* --accent-light: #003b8b; */
+  --accent-light: #6a32c9;
 }
 
 /* default theme */
@@ -278,7 +281,7 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
 
   </div>
 
-  <div class="waveform" aria-hidden="true"></div>
+  <!-- <div class="waveform" aria-hidden="true"></div> -->
 </header>
 
 <!-- ========== MAIN CONTENT ========== -->
@@ -333,13 +336,13 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
   <section id="contact" class="page-section">
     <div class="card">
       <h2>Contact</h2>
-      <p>Email: <a href="mailto:x@example.edu">x@example.edu</a></p>
+      <p>Email: <a href="mailto:fmanimic@gmail.com">fmanimic <it>at</it>gmail <it>dot</it> com</a></p>
     </div>
   </section>
 </main>
 
 <footer class="footer" role="contentinfo">
-  <div>© X — Harmonic Analysis · <a href="CV.pdf" target="_blank" rel="noopener">CV</a></div>
+  <div>© Aasaimani Thamizhazhagan — Non-commutative Harmonic Analysis · <a href="Mani_CV_Dec_2025.pdf" target="_blank" rel="noopener">CV</a></div>
 </footer>
 
 <!-- ========== SCRIPTS: UI + Epicycle ========== -->
@@ -440,7 +443,7 @@ for (let i = 1; i <= count; i++) {
 
   // epicycle param: two main harmonics intertwining
   const harmonics = [
-    {freq: 1, phase:0, rFactor:0.28},
+    {freq: -1, phase:0, rFactor:0.28},
     {freq: 2, phase:Math.PI/2, rFactor:0.18}
   ];
   const trail = [];
