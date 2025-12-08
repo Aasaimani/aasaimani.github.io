@@ -13,6 +13,8 @@
   --bg-dark: #071018;
   --card-dark: rgba(255,255,255,0.03);
   --text-dark: #eaf2ff;
+  --external-link-dark: #ffb34d;
+  --external-link-hover-dark: #ffd08a;
 }
 
 body[data-theme="dark"]{
@@ -21,6 +23,8 @@ body[data-theme="dark"]{
   --text: var(--text-dark);
   --accent: var(--accent-dark-2);
   --accent-soft: var(--accent-soft-dark);
+  --external-link: var(--external-link-dark);
+  --external-link-hover:  var(--external-link-dark-hover);
   background: linear-gradient(180deg,#041018 0%, #071018 100%);
   color: var(--text);
 }
@@ -32,6 +36,8 @@ body[data-theme="light"]{
   --text: #0f1720;
   --accent: #008b74; /* matches H2 suggestion for light */
   --accent-soft: rgba(0,139,116,0.18);
+  --external-link: #cc5500;
+  --external-link-hover: #e67622;
   background: linear-gradient(180deg,#fafbfd 0%, #eef2f8 100%);
   color: var(--text);
 }
@@ -161,6 +167,16 @@ body[data-theme="light"] .header{
   font-size: 1.1rem;
 }
 
+/* External links: any link beginning with http and NOT your domain */
+a[href^="http"]:not([href*="aasaimani.github.io"]) {
+  color: var(--external-link);
+  border-bottom: 1px dashed var(--external-link);
+}
+
+a[href^="http"]:not([href*="aasaimani.github.io"]):hover {
+  color: var(--external-link-hover);
+  border-bottom-color: var(--external-link-hover);
+}
 
 </style>
 </head>
