@@ -5,268 +5,133 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Aasaimani Thamizhazhagan</title>
 <style>
-/* ======== Theme variables ======== */
+/* ===== H2 Accent: Teal / Cyan Mix (dark-friendly) ===== */
 :root{
+  --accent-dark: #0f3f46; /* deep teal */
+  --accent-dark-2: #146d77; /* brighter cyan-teal */
+  --accent-soft-dark: rgba(20,109,119,0.20);
   --bg-dark: #071018;
   --card-dark: rgba(255,255,255,0.03);
   --text-dark: #eaf2ff;
-  --site-dark: #66aaff; 
-  --accent-dark: #b889ff;
-
-  --bg-light: #f6f8fb;
-  --card-light: rgba(255,255,255,0.92);
-  --text-light: #0f1720;
-  --site-light: #003b8b;
-  --accent-light: #6a32c9;
 }
 
-/* default theme */
 body[data-theme="dark"]{
   --bg: var(--bg-dark);
   --card: var(--card-dark);
   --text: var(--text-dark);
-  --accent: var(--accent-dark);
-  --site: var(--site-dark);
+  --accent: var(--accent-dark-2);
+  --accent-soft: var(--accent-soft-dark);
   background: linear-gradient(180deg,#041018 0%, #071018 100%);
   color: var(--text);
 }
+
+/* light theme matching colors */
 body[data-theme="light"]{
-  --bg: var(--bg-light);
-  --card: var(--card-light);
-  --text: var(--text-light);
-  --accent: var(--accent-light);
-  --site: var(--site-light);
+  --bg: #f6f8fb;
+  --card: rgba(255,255,255,0.96);
+  --text: #0f1720;
+  --accent: #008b74; /* matches H2 suggestion for light */
+  --accent-soft: rgba(0,139,116,0.18);
   background: linear-gradient(180deg,#fafbfd 0%, #eef2f8 100%);
   color: var(--text);
 }
 
-/* Universal */
+/* base */
 *{box-sizing:border-box}
-html,body{height:100%; margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; -webkit-font-smoothing:antialiased;}
-a{color:var(--accent); text-decoration:none;}
-button{font-family:inherit}
+html,body{height:100%; margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;}
+a{color:var(--accent); text-decoration:none}
+button{font-family:inherit; cursor:pointer}
 
-/* ======== Header layout C ======== */
-.header {
-  position: sticky;
-  top:0;
-  z-index:1100;
+/* header */
+.header{
+  position:sticky; top:0; z-index:1100;
   padding:14px 18px;
   backdrop-filter: blur(8px);
   background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.08));
   border-bottom:1px solid rgba(255,255,255,0.03);
 }
 body[data-theme="light"] .header{
-  background: linear-gradient(180deg, rgba(255,255,255,0.80), rgba(255,255,255,0.95));
-  border-bottom:1px solid #e5e9f0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.95));
+  border-bottom:1px solid #e6e9f0;
 }
 
-/* header inner grid */
 .header-inner{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns: 220px 1fr 320px; /* Photo | center | epicycle */
-  gap: 18px;
-  align-items:center;
+  max-width:1100px; margin:auto;
+  display:grid; grid-template-columns:220px 1fr 320px; gap:18px; align-items:center; flex-wrap:wrap;
 }
 
-/* LEFT — portrait */
-.header-photo {
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-}
+/* left: portrait */
 .header-photo img{
-  width:200px; /* you chose A large portrait */
-  height:200px;
-  border-radius:12px;
-  object-fit:cover;
-  border:3px solid var(--accent);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  width:200px; height:200px; object-fit:cover; border-radius:12px; border:3px solid var(--accent); box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
-/* CENTER — name & tagline & menu */
-.header-center{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  text-align:center;
-  min-width:0;
-}
-.site-title{
-  margin:0;
-  font-size:1.6rem;
-  font-weight:700;
-  color:var(--text);
-}
-.tagline{
-  color:var(--accent);
-  font-weight:600;
-  font-size:0.98rem;
-  text-shadow: 0 0 8px rgba(0,0,0,0.08);
-  /* glow will be added dynamically via JS when theme changes */
-}
+/* center */
+.header-center{ display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; min-width:0; }
+.name-row{ display:flex; align-items:center; gap:8px; }
+.site-title{ margin:0; font-size:1.5rem; font-weight:700; color:var(--text); }
+.menu-minimal{ display:none; font-size:1.6rem; background:none; border:none; color:var(--accent); opacity:0.75; padding:0 6px; }
+.title-block .tagline{ color:var(--accent); font-weight:600; font-size:0.98rem; }
 
-/* menu row under title */
-.menu-row{
-  margin-top:8px;
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
+/* menu row (nav + theme) */
+.menu-row{ margin-top:8px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
-/* hamburger (visible on all screens per your request) */
-.menu-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 10px;
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,0.12);
-  background:var(--card);
-  color:var(--text);
-  cursor:pointer;
-  font-weight:600;
-}
-.menu-btn:focus{outline:2px solid rgba(0,0,0,0.12)}
+/* nav */
+.main-nav{ display:flex; gap:16px; align-items:center; transition:all .28s ease; }
+.main-nav a{ padding:8px 10px; border-radius:8px; color:var(--accent); font-weight:600; }
+.main-nav a:hover{ background: rgba(255,255,255,0.02) }
 
-/* nav — desktop shows by default; mobile collapses */
-.main-nav{
-  display:flex;
-  gap:16px;
-  align-items:center;
-  transition: max-height .36s ease, opacity .28s ease, transform .28s ease;
-}
-.main-nav a{
-  padding:8px 10px;
-  border-radius:8px;
-  color:var(--accent);
-  font-weight:600;
-}
-.main-nav a:hover{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  color:var(--accent);
-}
+/* theme button */
+.theme-btn{ padding:8px 10px; border-radius:8px; background:var(--card); border:1px solid rgba(0,0,0,0.06); color:var(--text); }
 
-/* RIGHT — epicycle column */
-.header-epicycle{
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-}
-.epicycle-canvas{
-  width: 320px;
-  height: 160px;
-  border-radius:10px;
-  background:transparent;
-}
-
-/* small social + actions under portrait on narrow screens */
-.header-actions{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-.cv-btn{
-  padding:8px 10px;
-  border-radius:8px;
-  background:var(--card);
-  border:1px solid rgba(0,0,0,0.06);
-  color:var(--text);
-  font-weight:700;
-  text-decoration:none;
-}
+/* right: epicycle */
+.header-epicycle{ display:flex; justify-content:flex-end; align-items:center; }
+.epicycle-canvas{ width:320px; height:160px; border-radius:10px; background:transparent; }
 
 /* waveform under header */
-.waveform{
-  height:34px;
-  width:100%;
-  margin-top:12px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
-  border-radius:8px;
-}
+.waveform{ height:34px; width:100%; margin-top:10px; background: linear-gradient(90deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)); border-radius:8px; }
 
-/* ======== Content & sections ======== */
+/* container + cards */
 .container{ max-width:980px; margin:20px auto; padding:16px; }
-.page-section{ display:none; opacity:0; transform:translateY(6px); transition:opacity .28s ease, transform .28s ease; }
+.page-section{ display:none; opacity:0; transform:translateY(6px); transition: opacity .28s ease, transform .28s ease; }
 .page-section.active{ display:block; opacity:1; transform:none; }
-.card{
-  background:var(--card);
-  padding:18px;
-  border-radius:12px;
-  box-shadow: 0 8px 24px rgba(2,8,20,0.24);
-  border:1px solid rgba(255,255,255,0.03);
-}
+.card{ background:var(--card); padding:18px; border-radius:12px; box-shadow: 0 8px 24px rgba(2,8,20,0.24); border:1px solid rgba(255,255,255,0.02); }
 
-/* lecture grid */
-.grid-list{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); margin-top:12px; }
-.lecture-link{
-  display:block; padding:10px; border-radius:10px; text-align:center; text-decoration:none;
-  background: rgba(255,255,255,0.02); color:var(--text); border:1px solid rgba(255,255,255,0.03); font-weight:700;
-}
+/* course UI */
+.course-list{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+.course-btn{ padding:8px 12px; border-radius:9px; background:transparent; border:1px solid var(--accent); color:var(--accent); font-weight:700; cursor:pointer; }
+.course-btn:hover{ background:var(--accent); color:var(--bg); }
+
+/* course content */
+.course-content h3{ margin-top:8px; }
+.grid-list{ display:grid; gap:10px; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); margin-top:12px; }
+.lecture-link{ padding:10px; display:block; border-radius:10px; text-align:center; background: rgba(255,255,255,0.02); color:var(--text); font-weight:700; border:1px solid rgba(255,255,255,0.03); text-decoration:none; }
 .lecture-link:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-3px); transition:transform .12s; }
 
-/* footer */
-.footer{ text-align:center; padding:14px 0; color:var(--text); }
-
-/* ======== Responsive tweaks ======== */
-@media (max-width:940px){
-  .header-inner{ grid-template-columns: 180px 1fr 260px; gap:12px; }
-  .epicycle-canvas{ width:260px; height:130px; }
-}
+/* mobile responsive */
+@media (max-width:940px){ .header-inner{ grid-template-columns:180px 1fr 260px; } .epicycle-canvas{ width:260px; height:130px; } .header-photo img{ width:160px; height:160px; } }
 @media (max-width:720px){
-  /* stack: photo, center, epicycle (responsive) */
-  .header-inner{ grid-template-columns: 1fr; grid-auto-rows:auto; gap:12px; justify-items:center; }
-  .header-photo{ order:1; }
-  .header-center{ order:2; }
-  .header-epicycle{ order:3; }
-  .epicycle-canvas{ width:90%; height:120px; max-width:360px; }
-  .menu-row{ flex-direction:column; gap:10px; }
-  .main-nav{ display:block; width:100%; text-align:center; margin-top:6px; }
-  .main-nav a{ display:block; padding:12px 8px; }
-}
-@media (max-width: 768px) {
-  .right-block img {
-    width: 120px;
-    height: 120px;
-  }
-}
-/* small utility to ensure menu visible if toggled collapsed/expanded */
-.main-nav.collapsed{ max-height:0; overflow:hidden; opacity:0; transform:translateY(-6px); pointer-events:none; }
-.main-nav.expanded{ max-height:400px; opacity:1; transform:none; pointer-events:auto; }
-
-/* ensure high contrast for menu button */
-.menu-btn{ border-color: rgba(0,0,0,0.06); }
-body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
-
-/* glow for tagline: will match accent via CSS variable (soft) */
-.tagline-glow{
-  text-shadow: 0 0 12px rgba(102,170,255,0.15);
+  .header-inner{ grid-template-columns: 1fr; justify-items:center; gap:12px; }
+  .header-photo img{ width:140px; height:140px; border-radius:12px; }
+  .menu-minimal{ display:inline-block; }         /* show ⋮ by name */
+  .main-nav{ display:none; }                     /* hide desktop nav on mobile */
+  .main-nav.expanded{ display:flex; flex-direction:column; gap:8px; width:100%; background:var(--card); padding:10px; border-radius:10px; margin-top:6px; }
+  .menu-row{ width:100%; justify-content:center; }
+  .epicycle-canvas{ width:90%; max-width:360px; height:120px;}
 }
 
-/* Global link styling */
- a {
-  color: var(--site);      /* or any color you prefer */
-  text-decoration: none;
+/* mobile overlay menu (three-dots) */
+.mobile-menu{
+  display:none;
+  position:fixed; right:12px; top:70px; z-index:1500;
+  background:var(--card); padding:10px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.35);
 }
+.mobile-menu a{ display:block; padding:8px 10px; color:var(--text); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.02); }
+.mobile-menu a:last-child{ border-bottom:none; }
 
-a:hover {
-  opacity: 0.8;              /* subtle hover effect */
-}
-
-a:visited {
-  color: var(--site);      /* keeps visited links same colour */
-} 
-
-
-/* end CSS */
 </style>
 </head>
 <body data-theme="dark">
 
-<!-- ========== HEADER (Layout C) ========== -->
 <header class="header" role="banner">
   <div class="header-inner">
 
@@ -277,20 +142,25 @@ a:visited {
 
     <!-- CENTER: title + tagline + menu -->
     <div class="header-center">
-      <div class="title-block">
+      <div class="name-row">
         <h1 class="site-title">Aasaimani Thamizhazhagan</h1>
-        <div class="tagline tagline-glow">Harmonic Analysis · Groups · Duality</div>
+       <button id="mobileDots" class="menu-minimal" aria-label="Open menu">⋮</button>
+      </div>
+
+      <div class="title-block">
+        <div class="tagline">Harmonic Analysis · Groups · Duality</div>
       </div>
 
       <div class="menu-row">
-        <button id="menuBtn" class="menu-btn" aria-controls="mainNav" aria-expanded="false">☰ </button>
-
-        <nav id="mainNav" class="main-nav" aria-label="Primary">
+        <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
           <a href="#about">About</a>
           <a href="#research">Research</a>
           <a href="#teaching">Teaching</a>
+          <a href="#modules">Modules</a>
           <a href="#contact">Contact</a>
         </nav>
+
+        <button id="themeToggle" class="theme-btn" aria-pressed="false" title="Toggle theme">Theme</button>
       </div>
     </div>
 
@@ -302,6 +172,15 @@ a:visited {
   </div>
 
   <!-- <div class="waveform" aria-hidden="true"></div> -->
+
+   <!-- mobile overlay menu (shown when ⋮ clicked) -->
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#modules">Modules</a>
+    <a href="#contact">Contact</a>
+  </div>
 </header>
 
 <!-- ========== MAIN CONTENT ========== -->
@@ -339,9 +218,18 @@ a:visited {
     </div>
     <div class="card">
       <h2>Past Teaching</h2>
-      <p>Advance</p>
+      <!-- <p>Advance</p>
       <p>Lecture Notes: <div id="haa-lectures" data-path="modules/ECE206UWFall23" data-count=23 class="grid-list" aria-live="polite"></div></p>
-    </div>
+    </div> -->
+    <div id="course-list" class="course-list">
+        <button class="course-btn" data-course="ha2024" data-path="courses/HA2024" data-lectures="22" data-assignments="6" data-text="Lecture">Harmonic Analysis (2024)</button>
+
+        <button class="course-btn" data-course="fa2023" data-path="courses/FA2023" data-lectures="18" data-assignments="4" data-text="Lecture">Functional Analysis (2023)</button>
+
+        <button class="course-btn" data-course="la2022" data-path="courses/LA2022" data-lectures="12" data-assignments="3" data-text="Lecture">Linear Algebra (2022)</button>
+      </div>
+
+      <div id="course-content" class="course-content" aria-live="polite"></div>
     </div>
   </section>
 
@@ -367,89 +255,192 @@ a:visited {
 
 <!-- ========== SCRIPTS: UI + Epicycle ========== -->
 <script>
-/* ---------- UI: menu toggle, section switching, lectures ---------- */
+/* ---------- UI: nav, sections, mobile menu, theme ---------- */
 (function(){
-  // elements
-  const menuBtn = document.getElementById('menuBtn');
+  const body = document.body;
   const mainNav = document.getElementById('mainNav');
-  const navLinks = Array.from(mainNav.querySelectorAll('a'));
-  const sections = Array.from(document.querySelectorAll('.page-section'));
-  const lecturesHolder = document.getElementById('haa-lectures');
+  const navLinks = Array.from(document.querySelectorAll('#mainNav a'));
+  const pageSections = Array.from(document.querySelectorAll('.page-section'));
+  const mobileDots = document.getElementById('mobileDots');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const themeToggle = document.getElementById('themeToggle');
 
-  // ensure menu visible on load on wider screens; on narrow it can be collapsed
-  function initNavState(){
-    if(window.innerWidth > 720){
-      mainNav.classList.remove('collapsed'); mainNav.classList.add('expanded');
-      menuBtn.setAttribute('aria-expanded','true');
-    } else {
-      mainNav.classList.remove('expanded'); mainNav.classList.add('collapsed');
-      menuBtn.setAttribute('aria-expanded','false');
-    }
+  // show only About on load
+  function showSectionById(id){
+    pageSections.forEach(s => s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if(el) el.classList.add('active');
   }
-  initNavState();
-  window.addEventListener('resize', initNavState);
+  showSectionById('about');
 
-  // toggle on click (hamburger always visible by design)
-  menuBtn.addEventListener('click', () => {
-    const isExp = mainNav.classList.toggle('expanded');
-    mainNav.classList.toggle('collapsed', !isExp);
-    menuBtn.setAttribute('aria-expanded', String(isExp));
-  });
-
-  // section switching: show only clicked section
-  navLinks.forEach(a=>{
-    a.addEventListener('click', (e)=>{
+  // desktop nav clicking: show section, hide mobile overlay
+  navLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
       e.preventDefault();
       const id = a.getAttribute('href').slice(1);
-      sections.forEach(s=> s.classList.remove('active'));
-      const target = document.getElementById(id);
-      if(target) target.classList.add('active');
-      // collapse on small screens
+      showSectionById(id);
+      // if mobile overlay open, close it
+      mobileMenu.style.display = 'none';
       if(window.innerWidth <= 720){
-        mainNav.classList.remove('expanded'); mainNav.classList.add('collapsed');
-        menuBtn.setAttribute('aria-expanded','false');
+        mainNav.classList.remove('expanded');
       }
       window.scrollTo({top:0, behavior:'smooth'});
     });
   });
 
- const list = document.getElementById("haa-lectures");
-const count = parseInt(list.dataset.count);
-const base = list.dataset.path;
-
-list.innerHTML = ""; // clear old content
-
-for (let i = 1; i <= count; i++) {
-  const a = document.createElement("a");
-  a.href = `${base}/lecture${i}.pdf`;
-  a.textContent = `${i}`;
-  a.className = "lecture-link";
-  a.target = "_blank"; // open in a new tab
-  list.appendChild(a);
-}
-
-
-  // theme toggle (attached to element in previous UI? we'll add a simple hotkey: T toggles)
-  // If you want a UI button for theme you can add and wire it; currently body[data-theme] default is dark.
-  document.addEventListener('keydown', (e)=>{
-    if(e.key.toLowerCase() === 't'){ // press 't' to toggle theme quickly
-      const cur = document.body.getAttribute('data-theme') || 'dark';
-      document.body.setAttribute('data-theme', cur==='dark' ? 'light' : 'dark');
+  // menu ⋮ (mobile) toggle
+  mobileDots.addEventListener('click', (e) => {
+    e.stopPropagation();
+    // toggle mobile-menu element (overlay)
+    if(mobileMenu.style.display === 'block') mobileMenu.style.display = 'none';
+    else mobileMenu.style.display = 'block';
+  });
+  // clicking outside closes mobile menu
+  document.addEventListener('click', (e) => {
+    if(window.innerWidth <= 720){
+      if(mobileMenu && !mobileMenu.contains(e.target) && e.target !== mobileDots){
+        mobileMenu.style.display = 'none';
+      }
     }
   });
 
+  // theme toggle (button)
+  themeToggle.addEventListener('click', () => {
+    const current = body.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', next);
+    themeToggle.setAttribute('aria-pressed', String(next==='light'));
+    // update tagline glow color when theme changes (epicycle updates it too)
+    applyTaglineGlow();
+  });
+
+  // on resize ensure desktop nav visible
+  function adjustNavOnResize(){
+    if(window.innerWidth > 720){
+      mainNav.style.display = 'flex';
+      mainNav.classList.remove('collapsed');
+      mainNav.classList.add('expanded');
+    } else {
+      mainNav.style.display = '';
+      mainNav.classList.remove('expanded');
+      mainNav.classList.add('collapsed');
+    }
+  }
+  window.addEventListener('resize', adjustNavOnResize);
+  adjustNavOnResize();
+
+  // fill mobileMenu links (clone main nav)
+  (function fillMobileMenu(){
+    if(!mobileMenu) return;
+    mobileMenu.innerHTML = '';
+    navLinks.forEach(a=>{
+      const link = a.cloneNode(true);
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = link.getAttribute('href').slice(1);
+        showSectionById(id);
+        mobileMenu.style.display = 'none';
+        window.scrollTo({top:0, behavior:'smooth'});
+      });
+      mobileMenu.appendChild(link);
+    });
+  })();
+
+  /* helper shading for tagline glow - initial */
+  function applyTaglineGlow(){
+    const tagline = document.querySelector('.tagline');
+    if(!tagline) return;
+    const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || (body.getAttribute('data-theme')==='light' ? '#008b74' : '#66aaff');
+    tagline.style.textShadow = `0 0 10px ${hexToRgba(accent,0.20)}, 0 0 18px ${hexToRgba(accent,0.06)}`;
+  }
+  // small hex->rgba
+  function hexToRgba(hex, a){
+    hex = hex.replace(/\s/g,'');
+    if(hex.startsWith('rgb')) return hex;
+    if(hex[0]==='#') {
+      let h = hex.slice(1);
+      if(h.length===3) h = h.split('').map(c=>c+c).join('');
+      const v = parseInt(h,16);
+      const r = (v>>16)&255, g=(v>>8)&255, b=v&255;
+      return `rgba(${r},${g},${b},${a})`;
+    }
+    return hex;
+  }
+  applyTaglineGlow();
+
 })();
 
-/* ---------- EPICYCLE: two intertwined circles with longer fading tail & glow ---------- */
+/* ---------- TEACHING: course -> modules -> lectures ---------- */
+(function(){
+  const courseList = document.getElementById('course-list');
+  const courseContent = document.getElementById('course-content');
+
+  // When a course button clicked, show its modules
+  if(courseList && courseContent){
+    courseList.addEventListener('click', (e) => {
+      const btn = e.target.closest('.course-btn');
+      if(!btn) return;
+      const path = btn.dataset.path || '';
+      const lectures = parseInt(btn.dataset.lectures || '0',10);
+      const assignments = parseInt(btn.dataset.assignments || '0',10);
+      const baseText = btn.dataset.text || 'Lecture';
+      // Build modules listing (for simplicity: treat modules = weeks equal to lectures groups of 5)
+      const modules = Math.ceil(Math.max(lectures,1)/5);
+      let html = `<h3>${btn.textContent}</h3>`;
+      html += `<div class="modules-list">`;
+      for(let m=1;m<=modules;m++){
+        html += `<button class="module-btn" data-path="${path}" data-lectures="${lectures}" data-text="${baseText}" data-module="${m}">Module ${m}</button>`;
+      }
+      html += `</div>`;
+      html += `<div id="module-detail" class="module-detail"></div>`;
+      courseContent.innerHTML = html;
+
+      // attach module click handlers
+      courseContent.querySelectorAll('.module-btn').forEach(mbtn=>{
+        mbtn.addEventListener('click', () => {
+          const module = parseInt(mbtn.dataset.module,10);
+          const total = parseInt(mbtn.dataset.lectures,10);
+          const base = mbtn.dataset.path;
+          const text = mbtn.dataset.text || 'Lecture';
+          // compute range for this module: (m-1)*5+1 .. min(m*5,total)
+          const start = (module-1)*5 + 1;
+          const end = Math.min(module*5, total);
+          let detail = `<h4>Module ${module} — Lectures ${start}–${end}</h4>`;
+          detail += `<div class="grid-list">`;
+          for(let i=start;i<=end;i++){
+            detail += `<a class="lecture-link" href="${base}/lecture${i}.pdf" target="_blank" rel="noopener noreferrer">${text} ${i}</a>`;
+          }
+          detail += `</div>`;
+          // assignments (if any) grouped by module
+          const assignTotal = parseInt(document.querySelector('.course-btn[data-path="'+base+'"]')?.dataset.assignments || '0',10);
+          if(assignTotal>0){
+            const astart = (module-1)*1 + 1;
+            const aend = Math.min(module*1, assignTotal);
+            if(astart<=aend){
+              detail += `<h4 style="margin-top:12px">Assignments</h4><div class="grid-list">`;
+              for(let a=astart;a<=aend;a++){
+                detail += `<a class="lecture-link" href="${base}/assignment${a}.pdf" target="_blank" rel="noopener noreferrer">Assignment ${a}</a>`;
+              }
+              detail += `</div>`;
+            }
+          }
+          const md = document.getElementById('module-detail');
+          if(md) md.innerHTML = detail;
+          window.scrollTo({top:document.getElementById('course-content').offsetTop-20, behavior:'smooth'});
+        });
+      });
+    });
+  }
+})();
+
+/* ---------- EPICYCLE: two intertwined circles + long fading tail + glow ---------- */
 (function(){
   const canvas = document.getElementById('epicycle');
   if(!canvas || !canvas.getContext) return;
   const ctx = canvas.getContext('2d');
 
-  // responsive canvas size
-  function resize(){
-    // css width in px
-    const cssW = Math.min(window.innerWidth * 0.28, 360); // keep it reasonable
+  function resizeCanvas(){
+    const cssW = Math.min(window.innerWidth * 0.28, 360);
     const cssH = Math.round(cssW * 0.5);
     canvas.style.width = cssW + 'px';
     canvas.style.height = cssH + 'px';
@@ -458,33 +449,29 @@ for (let i = 1; i <= count; i++) {
     canvas.height = Math.round(cssH * ratio);
     ctx.setTransform(ratio,0,0,ratio,0,0);
   }
-  resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
 
-  // epicycle param: two main harmonics intertwining
+  // parameters
   const harmonics = [
     {freq: 1, phase:0, rFactor:0.28},
-    {freq: 3, phase:Math.PI/2, rFactor:0.18}
+    {freq:-2, phase: Math.PI/2, rFactor:0.18}
   ];
   const trail = [];
-  const maxTrail = 700; // longer tail
-  let t = 0;
+  const maxTrail = 700;
+  let time = 0;
 
-  // helper: get accent color (hex) from CSS variable; fallback
   function getAccent(){
-    const v = getComputedStyle(document.body).getPropertyValue('--accent').trim();
-    // if empty, pick defaults based on theme
-    if(!v) return (document.body.getAttribute('data-theme')==='light' ? '#003b8b' : '#66aaff');
-    return v;
+    return getComputedStyle(document.body).getPropertyValue('--accent').trim() || (document.body.getAttribute('data-theme')==='light' ? '#008b74' : '#66aaff');
   }
   function hexToRgba(hex, a){
     hex = hex.replace(/\s/g,'');
-    if(hex.startsWith('rgb')) return hex.replace('rgb(','rgba(').replace(')', `,${a})`);
-    if(hex.startsWith('#')){
+    if(hex.startsWith('rgb')) return hex;
+    if(hex.startsWith('#')) {
       let h = hex.slice(1);
       if(h.length===3) h = h.split('').map(c=>c+c).join('');
-      const num = parseInt(h,16);
-      const r = (num>>16)&255, g=(num>>8)&255, b=num&255;
+      const v = parseInt(h,16);
+      const r=(v>>16)&255, g=(v>>8)&255, b=v&255;
       return `rgba(${r},${g},${b},${a})`;
     }
     return hex;
@@ -494,20 +481,16 @@ for (let i = 1; i <= count; i++) {
     const W = canvas.clientWidth, H = canvas.clientHeight;
     ctx.clearRect(0,0,W,H);
     const cx = W*0.5, cy = H*0.5;
-
-    // compute radii scaled to canvas
-    const radii = harmonics.map(h => h.rFactor * Math.min(W,H));
-
-    // draw base circles lightly
+    const minDim = Math.min(W,H);
+    // draw epicycles
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-    let x=cx, y=cy;
+    ctx.strokeStyle = 'rgba(255,255,255,0.10)';
+    let x = cx, y = cy;
     for(let i=0;i<harmonics.length;i++){
-      const h = harmonics[i];
-      const angle = t * h.freq + h.phase;
-      const r = radii[i];
-      const nx = x + r*Math.cos(angle);
-      const ny = y + r*Math.sin(angle);
+      const h = harmonics[i], r = h.rFactor * minDim;
+      const ang = time * h.freq + (h.phase||0);
+      const nx = x + r * Math.cos(ang);
+      const ny = y + r * Math.sin(ang);
       // circle
       ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.stroke();
       // connector
@@ -515,52 +498,41 @@ for (let i = 1; i <= count; i++) {
       x = nx; y = ny;
     }
 
-    // add trail point
+    // push trail
     trail.push({x,y});
     if(trail.length>maxTrail) trail.shift();
 
-    // compute accent and draw trail with fading alpha
     const accent = getAccent();
-    ctx.lineWidth = 2;
+    // draw trail with fading alpha
     for(let i=1;i<trail.length;i++){
       const p0 = trail[i-1], p1 = trail[i];
-      const frac = i/trail.length;
-      const a = Math.pow(frac,0.9)*0.9;
-      ctx.strokeStyle = hexToRgba(accent, a);
-      ctx.beginPath();
-      ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
+      const frac = i / trail.length;
+      const alpha = Math.pow(frac, 0.9) * 0.95;
+      ctx.strokeStyle = hexToRgba(accent, alpha);
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
     }
 
-    // glow dot
-    ctx.fillStyle = hexToRgba(accent,0.95);
+    // endpoint dot + glow
+    ctx.fillStyle = hexToRgba(accent,0.98);
     ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = hexToRgba(accent,0.08);
+    ctx.beginPath(); ctx.arc(x,y,14,0,Math.PI*2); ctx.fill();
 
-    // small outer glow (soft)
-    ctx.fillStyle = hexToRgba(accent, 0.08);
-    ctx.beginPath(); ctx.arc(x,y,12,0,Math.PI*2); ctx.fill();
+    // update tagline glow too
+    const tagline = document.querySelector('.tagline');
+    if(tagline){
+      tagline.style.textShadow = `0 0 12px ${hexToRgba(accent,0.18)}, 0 0 22px ${hexToRgba(accent,0.06)}`;
+    }
 
-    // advance time (slightly speed up on scroll)
-    const scrollBoost = Math.min((window.pageYOffset||0)/20000, 0.06);
-    t += 0.014 + scrollBoost;
-
+    // advance time with slight scroll boost
+    const scrollBoost = Math.min((window.pageYOffset||0)/20000, 0.04);
+    time += 0.014 + scrollBoost;
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
-
-  // also update tagline glow to match accent for visual sync
-  function updateTaglineGlow(){
-    const accent = getAccent();
-    const tagline = document.querySelector('.tagline');
-    if(!tagline) return;
-    // compute a soft rgba for glow
-    tagline.style.textShadow = `0 0 10px ${hexToRgba(accent,0.25)}, 0 0 20px ${hexToRgba(accent,0.08)}`;
-  }
-  updateTaglineGlow();
-  // update when theme changes (observer)
-  const obs = new MutationObserver(()=> updateTaglineGlow());
-  obs.observe(document.body, {attributes:true, attributeFilter:['data-theme']});
-
 })();
+
 </script>
 </body>
 </html>
