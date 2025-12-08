@@ -144,7 +144,13 @@ body[data-theme="light"] .header{
 .mobile-menu a{ display:block; padding:8px 10px; color:var(--text); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.02); }
 .mobile-menu a:last-child{ border-bottom:none; }
 
-
+.social-icons img {
+    height: 26px;
+    vertical-align: middle;
+  }
+  .social-icons a {
+    margin-right: 12px;
+  }
 
 /* External links: any link beginning with http and NOT your domain */
 a[href^="http"]:not([href*="aasaimani.github.io"]) {
@@ -170,6 +176,24 @@ a[href^="http"]:not([href*="aasaimani.github.io"]):hover {
     <!-- LEFT: portrait -->
     <div class="header-photo">
       <img src="Aasai_2.JPEG" alt="Portrait of X" width="200" height="200">
+     <div class="social-icons" style="margin-top:10px;">
+  <!-- ORCID -->
+  <a href="https://orcid.org/XXXX-XXXX-XXXX-XXXX" target="_blank" 
+     title="ORCID">
+    <img src="icons/ORCID-iD_icon_vector.svg" 
+         alt="ORCID iD" 
+         style="height:26px; margin-right:12px; vertical-align:middle;">
+  </a>
+
+  <!-- arXiv -->
+  <a href="https://arxiv.org/a/your-id.html" target="_blank"
+     title="arXiv Author Page">
+    <img src="icons/arxiv-logomark-small.svg" 
+         alt="arXiv" 
+         style="height:26px; vertical-align:middle;">
+  </a>
+</div>
+
     </div>
 
     <!-- CENTER: title + tagline + menu -->
