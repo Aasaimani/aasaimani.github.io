@@ -163,7 +163,6 @@ body[data-theme="light"] .header{
 a[href^="http"]:not([href*="aasaimani.github.io"]) {
   color: var(--external-link);
   border-bottom: 1px dashed var(--external-link);
-  target: _blank;
 }
 
 a[href^="http"]:not([href*="aasaimani.github.io"]):hover {
@@ -396,7 +395,11 @@ ol li:last-child {
     }
   });
 
- 
+ document.querySelectorAll('a[href^="http"]:not([href*="index.html"])')
+  .forEach(link => {
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  });
 
 
   // theme toggle (button)
