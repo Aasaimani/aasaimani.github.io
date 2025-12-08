@@ -370,6 +370,7 @@ ol li:last-child {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       const id = a.getAttribute('href').slice(1);
+      window.location.hash = id;
       showSectionById(id);
       // if mobile overlay open, close it
       mobileMenu.style.display = 'none';
