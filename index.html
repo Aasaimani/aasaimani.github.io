@@ -10,13 +10,13 @@
   --bg-dark: #071018;
   --card-dark: rgba(255,255,255,0.03);
   --text-dark: #eaf2ff;
-  --link-dark: #66aaff; 
+  --site-dark: #66aaff; 
   --accent-dark: #b889ff;
 
   --bg-light: #f6f8fb;
   --card-light: rgba(255,255,255,0.92);
   --text-light: #0f1720;
-  --link-light: #003b8b;
+  --site-light: #003b8b;
   --accent-light: #6a32c9;
 }
 
@@ -26,7 +26,7 @@ body[data-theme="dark"]{
   --card: var(--card-dark);
   --text: var(--text-dark);
   --accent: var(--accent-dark);
-  --link: var(--link-dark);
+  --site: var(--site-dark);
   background: linear-gradient(180deg,#041018 0%, #071018 100%);
   color: var(--text);
 }
@@ -35,7 +35,7 @@ body[data-theme="light"]{
   --card: var(--card-light);
   --text: var(--text-light);
   --accent: var(--accent-light);
-  --link: var(--link-light);
+  --site: var(--site-light);
   background: linear-gradient(180deg,#fafbfd 0%, #eef2f8 100%);
   color: var(--text);
 }
@@ -248,7 +248,7 @@ body[data-theme="light"] .menu-btn{ border-color: rgba(0,0,0,0.08); }
 
 /* Global link styling */
  a {
-  color: var(--link);      /* or any color you prefer */
+  color: var(--site);      /* or any color you prefer */
   text-decoration: none;
 }
 
@@ -257,7 +257,7 @@ a:hover {
 }
 
 a:visited {
-  color: var(--link);      /* keeps visited links same colour */
+  color: var(--site);      /* keeps visited links same colour */
 } 
 
 
@@ -283,7 +283,7 @@ a:visited {
       </div>
 
       <div class="menu-row">
-        <button id="menuBtn" class="menu-btn" aria-controls="mainNav" aria-expanded="false">☰ Menu</button>
+        <button id="menuBtn" class="menu-btn" aria-controls="mainNav" aria-expanded="false">☰ </button>
 
         <nav id="mainNav" class="main-nav" aria-label="Primary">
           <a href="#about">About</a>
