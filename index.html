@@ -46,7 +46,7 @@ button{font-family:inherit; cursor:pointer}
 .header{
   position:sticky; top:0; z-index:1;
   padding:14px 18px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
   background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.08));
   border-bottom:1px solid rgba(255,255,255,0.03);
 }
@@ -120,13 +120,47 @@ body[data-theme="light"] .header{
 }
 
 /* mobile overlay menu (three-dots) */
-.mobile-menu{
+/* .mobile-menu{
   display:none;
   position:fixed; right:12px; top:70px; z-index:1500;
   background:var(--card); padding:10px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.35);
 }
 .mobile-menu a{ display:block; padding:8px 10px; color:var(--text); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.02); }
-.mobile-menu a:last-child{ border-bottom:none; }
+.mobile-menu a:last-child{ border-bottom:none; } */
+
+  #menu-toggle {
+  font-size: 1.7rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+/* drawer appears BELOW the header */
+#mobile-menu {
+  position: fixed;
+  top: 85px;           /* exactly below the header */
+  width: 100%;
+  background: rgba(20,20,20,0.95);
+  backdrop-filter: blur(8px);
+  display: none;
+  flex-direction: column;
+  padding: 10px 0;
+  z-index: 40;
+}
+
+#mobile-menu.show {
+  display: flex;
+}
+
+#mobile-menu a {
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+}
+
 
 </style>
 </head>
@@ -144,7 +178,7 @@ body[data-theme="light"] .header{
     <div class="header-center">
       <div class="name-row">
         <h1 class="site-title">Aasaimani Thamizhazhagan</h1>
-       <button id="mobileDots" class="menu-minimal" aria-label="Open menu">⋮</button>
+       <!-- <button id="mobileDots" class="menu-minimal" aria-label="Open menu">⋮</button> -->
       </div>
 
       <div class="title-block">
@@ -156,10 +190,13 @@ body[data-theme="light"] .header{
           <a href="#about">About</a>
           <a href="#research">Research</a>
           <a href="#teaching">Teaching</a>
-          <a href="#modules">Modules</a>
+          <!-- <a href="#modules">Modules</a> -->
           <a href="#contact">Contact</a>
         </nav>
 
+         <!-- menu button stays in header but drawer appears OUTSIDE -->
+  <button id="menu-toggle" aria-label="Menu">&#9776;</button>
+        
         <button id="themeToggle" class="theme-btn" aria-pressed="false" title="Toggle theme">Theme</button>
       </div>
     </div>
@@ -170,7 +207,7 @@ body[data-theme="light"] .header{
     </div>
 
   </div>
-
+</header>
   <!-- <div class="waveform" aria-hidden="true"></div> -->
 
    <!-- mobile overlay menu (shown when ⋮ clicked) -->
@@ -178,10 +215,10 @@ body[data-theme="light"] .header{
     <a href="#about">About</a>
     <a href="#research">Research</a>
     <a href="#teaching">Teaching</a>
-    <a href="#modules">Modules</a>
+    <!-- <a href="#modules">Modules</a> -->
     <a href="#contact">Contact</a>
   </div>
-</header>
+
 
 <!-- ========== MAIN CONTENT ========== -->
 <main class="container" id="content" role="main">
@@ -304,6 +341,14 @@ body[data-theme="light"] .header{
       }
     }
   });
+
+  const toggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
+
+toggle.addEventListener("click", () => {
+  mobileMenu.classList.toggle("show");
+});
+
 
   // theme toggle (button)
   themeToggle.addEventListener('click', () => {
