@@ -94,7 +94,7 @@ body[data-theme="light"] .header{
 .container{ max-width:980px; margin:20px auto; padding:16px; }
 .page-section{ display:none; opacity:0; transform:translateY(6px); transition: opacity .28s ease, transform .28s ease; }
 .page-section.active{ display:block; opacity:1; transform:none; }
-.card{ background:var(--card); padding:18px; border-radius:12px; box-shadow: 0 8px 24px rgba(2,8,20,0.24); border:1px solid rgba(255,255,255,0.02); }
+.card{ position: relative; z-index: 5; background:var(--card); padding:18px; border-radius:12px; box-shadow: 0 8px 24px rgba(2,8,20,0.24); border:1px solid rgba(255,255,255,0.02); }
 
 /* course UI */
 .course-list{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
