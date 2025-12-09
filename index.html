@@ -419,22 +419,19 @@ ol li:last-child {
 <h2>Past Teaching</h2>
 <div class="teaching-block" data-source="past"></div>
 
-    <div class="card">
+    <!-- <div class="card">
       <h2>Current Teaching</h2>
-     <!-- <div id="course-list" class="course-list"> -->
+  
      <div>
       <button class="course-btn" data-course="btmt171" data-path="modules/BTMT171PUOdd25" data-lectures="3" data-assignments="4" data-text="Lecture">Mathematics I for Engineers (Odd 2025)</button>
      </div>
-      <!-- <div id="course-content" class="course-content" aria-live="polite"></div>
-    </div> -->
+
     </div>
     <div class="card">
       <h2>Past Teaching</h2>
-      <!-- <p>Advance</p>
-      <p>Lecture Notes: <div id="haa-lectures" data-path="modules/ECE206UWFall23" data-count=23 class="grid-list" aria-live="polite"></div></p>
-    </div> -->
+   
     <div id="course-list" class="course-list">
-     <!-- <p>At Pondicherry University</p> -->
+   
      
       <p>At University of Waterloo</p>
      <div>
@@ -447,7 +444,7 @@ ol li:last-child {
 
       <div id="course-content" class="course-content" aria-live="polite"></div>
     </div>
-    </div>
+    </div> -->
   </section>
 
   <!-- <section id="modules" class="page-section">
@@ -597,68 +594,125 @@ ol li:last-child {
 })();
 
 /* ---------- TEACHING: course -> modules -> lectures ---------- */
-(function(){
-  const courseList = document.getElementById('course-list');
-  const courseContent = document.getElementById('course-content');
+// (function(){
+//   const courseList = document.getElementById('course-list');
+//   const courseContent = document.getElementById('course-content');
 
-  // When a course button clicked, show its modules
-  if(courseList && courseContent){
-    courseList.addEventListener('click', (e) => {
-      const btn = e.target.closest('.course-btn');
-      if(!btn) return;
-      const path = btn.dataset.path || '';
-      const lectures = parseInt(btn.dataset.lectures || '0',10);
-      const assignments = parseInt(btn.dataset.assignments || '0',10);
-      const baseText = btn.dataset.text || 'Lecture';
-      // Build modules listing (for simplicity: treat modules = weeks equal to lectures groups of 5)
-      const modules = Math.ceil(Math.max(lectures,1)/5);
-      let html = `<h3>${btn.textContent}</h3>`;
-      html += `<div class="modules-list">`;
-      for(let m=1;m<=modules;m++){
-        html += `<button class="module-btn" data-path="${path}" data-lectures="${lectures}" data-assignments="${assignments}" data-text="${baseText}" data-module="${m}">Module ${m}</button>`;
-      }
-      html += `</div>`;
-      html += `<div id="module-detail" class="module-detail"></div>`;
-      courseContent.innerHTML = html;
+//   // When a course button clicked, show its modules
+//   if(courseList && courseContent){
+//     courseList.addEventListener('click', (e) => {
+//       const btn = e.target.closest('.course-btn');
+//       if(!btn) return;
+//       const path = btn.dataset.path || '';
+//       const lectures = parseInt(btn.dataset.lectures || '0',10);
+//       const assignments = parseInt(btn.dataset.assignments || '0',10);
+//       const baseText = btn.dataset.text || 'Lecture';
+//       // Build modules listing (for simplicity: treat modules = weeks equal to lectures groups of 5)
+//       const modules = Math.ceil(Math.max(lectures,1)/5);
+//       let html = `<h3>${btn.textContent}</h3>`;
+//       html += `<div class="modules-list">`;
+//       for(let m=1;m<=modules;m++){
+//         html += `<button class="module-btn" data-path="${path}" data-lectures="${lectures}" data-assignments="${assignments}" data-text="${baseText}" data-module="${m}">Module ${m}</button>`;
+//       }
+//       html += `</div>`;
+//       html += `<div id="module-detail" class="module-detail"></div>`;
+//       courseContent.innerHTML = html;
 
       // attach module click handlers
-      courseContent.querySelectorAll('.module-btn').forEach(mbtn=>{
-        mbtn.addEventListener('click', () => {
-          const module = parseInt(mbtn.dataset.module,10);
-          const total = parseInt(mbtn.dataset.lectures,10);
-          const assignments = parseInt(mbtn.dataset.assignments || '0');
-          const base = mbtn.dataset.path;
-          const text = mbtn.dataset.text || 'Lecture';
-          // compute range for this module: (m-1)*5+1 .. min(m*5,total)
-          const start = (module-1)*5 + 1;
-          const end = Math.min(module*5, total);
-          let detail = `<h4>Module ${module} — Lectures ${start}–${end}</h4>`;
-          detail += `<div class="grid-list">`;
-          for(let i=start;i<=end;i++){
-            detail += `<a class="lecture-link" href="${base}/lecture${i}.pdf" target="_blank" rel="noopener noreferrer">${text} ${i}</a>`;
-          }
-          detail += `</div>`;
-          // assignments (if any) grouped by module
-          const assignTotal = parseInt(document.querySelector('.course-btn[data-path="'+base+'"]')?.dataset.assignments || '0',10);
-          if(assignTotal>0){
-            const astart = (module-1)*1 + 1;
-            const aend = Math.min(module*1, assignTotal);
-            if(astart<=aend){
-              detail += `<h4 style="margin-top:12px">Assignments</h4><div class="grid-list">`;
-              for(let a=astart;a<=aend;a++){
-                detail += `<a class="lecture-link" href="${base}/assignment${a}.pdf" target="_blank" rel="noopener noreferrer">Assignment ${a}</a>`;
-              }
-              detail += `</div>`;
-            }
-          }
-          const md = document.getElementById('module-detail');
-          if(md) md.innerHTML = detail;
-          window.scrollTo({top:document.getElementById('course-content').offsetTop-20, behavior:'smooth'});
-        });
-      });
-    });
+//       courseContent.querySelectorAll('.module-btn').forEach(mbtn=>{
+//         mbtn.addEventListener('click', () => {
+//           const module = parseInt(mbtn.dataset.module,10);
+//           const total = parseInt(mbtn.dataset.lectures,10);
+//           const assignments = parseInt(mbtn.dataset.assignments || '0');
+//           const base = mbtn.dataset.path;
+//           const text = mbtn.dataset.text || 'Lecture';
+//           // compute range for this module: (m-1)*5+1 .. min(m*5,total)
+//           const start = (module-1)*5 + 1;
+//           const end = Math.min(module*5, total);
+//           let detail = `<h4>Module ${module} — Lectures ${start}–${end}</h4>`;
+//           detail += `<div class="grid-list">`;
+//           for(let i=start;i<=end;i++){
+//             detail += `<a class="lecture-link" href="${base}/lecture${i}.pdf" target="_blank" rel="noopener noreferrer">${text} ${i}</a>`;
+//           }
+//           detail += `</div>`;
+//           // assignments (if any) grouped by module
+//           const assignTotal = parseInt(document.querySelector('.course-btn[data-path="'+base+'"]')?.dataset.assignments || '0',10);
+//           if(assignTotal>0){
+//             const astart = (module-1)*1 + 1;
+//             const aend = Math.min(module*1, assignTotal);
+//             if(astart<=aend){
+//               detail += `<h4 style="margin-top:12px">Assignments</h4><div class="grid-list">`;
+//               for(let a=astart;a<=aend;a++){
+//                 detail += `<a class="lecture-link" href="${base}/assignment${a}.pdf" target="_blank" rel="noopener noreferrer">Assignment ${a}</a>`;
+//               }
+//               detail += `</div>`;
+//             }
+//           }
+//           const md = document.getElementById('module-detail');
+//           if(md) md.innerHTML = detail;
+//           window.scrollTo({top:document.getElementById('course-content').offsetTop-20, behavior:'smooth'});
+//         });
+//       });
+//     });
+//   }
+// })();
+
+ /* ---------------------------------------------
+   DUMMY TEACHING DATA (replace later if needed)
+--------------------------------------------- */
+const teachingData = {
+  current: {
+    "University of Toronto": [
+      {
+        title: "MATH 101 – Calculus I",
+        path: "/dummy/calculus1",
+        lectures: 42,
+        assignments: 8,
+        text: "Lecture"
+      },
+      {
+        title: "MATH 203 – Linear Algebra",
+        path: "/dummy/linear-algebra",
+        lectures: 28,
+        assignments: 4,
+        text: "Topic"
+      }
+    ],
+
+    "University of British Columbia": [
+      {
+        title: "Functional Analysis",
+        path: "/dummy/functional-analysis",
+        lectures: 36,
+        assignments: 6,
+        text: "Lecture"
+      }
+    ]
+  },
+
+  past: {
+    "IIT Hyderabad": [
+      {
+        title: "Engineering Mathematics",
+        path: "/dummy/engg-math",
+        lectures: 30,
+        assignments: 5,
+        text: "Lecture"
+      }
+    ],
+
+    "Memorial University": [
+      {
+        title: "Real Analysis II",
+        path: "/dummy/real-analysis",
+        lectures: 45,
+        assignments: 9,
+        text: "Lecture"
+      }
+    ]
   }
-})();
+};
+
 
  function createAccordion(title, contentHTML) {
   return `
