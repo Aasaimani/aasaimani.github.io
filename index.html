@@ -731,7 +731,10 @@ const teachingData = {
 function createTeachingComponent(container, groups) {
   let html = "";
 
-  Object.keys(groups).forEach(univ => {
+  const univNames = Object.keys(groups);
+  const singleUniversity = univNames.length === 1;
+
+  univNames.forEach(univ => {
     let courseHTML = `<div class="course-list">`;
 
     groups[univ].forEach((course, i) => {
@@ -744,7 +747,22 @@ function createTeachingComponent(container, groups) {
     });
 
     courseHTML += `<div class="course-content" data-university="${univ}"></div></div>`;
-    html += createAccordion(univ, courseHTML);
+
+    // If ONLY ONE university → keep accordion open
+    const isOpen = singleUniversity ? 'style="display:block"' : '';
+
+    html += `
+      <div class="teaching-accordion">
+        <div class="teaching-accordion-header">
+          ${univ}
+          <svg class="chevron" viewBox="0 0 24 24" 
+               style="${singleUniversity ? 'transform:rotate(180deg)' : ''}">
+            <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+          </svg>
+        </div>
+        <div class="teaching-accordion-content" ${isOpen}>${courseHTML}</div>
+      </div>
+    `;
   });
 
   container.innerHTML = html;
@@ -752,15 +770,21 @@ function createTeachingComponent(container, groups) {
   /* ---------- ACCORDION TOGGLE ---------- */
   container.querySelectorAll('.teaching-accordion-header').forEach(header => {
     header.addEventListener("click", () => {
-      const acc = header.parentElement;
       const content = header.nextElementSibling;
       const icon = header.querySelector(".chevron");
 
       const isOpen = content.style.display === "block";
 
-      document.querySelectorAll(".teaching-accordion-content").forEach(c => c.style.display = "none");
-      document.querySelectorAll(".chevron").forEach(c => c.style.transform = "rotate(0deg)");
+      // Close all
+      document.querySelectorAll(".teaching-accordion-content").forEach(c => {
+        if (!c.closest('.teaching-block').isSameNode(container)) return;
+        c.style.display = "none";
+      });
+      document.querySelectorAll(".chevron").forEach(c => {
+        c.style.transform = "rotate(0deg)";
+      });
 
+      // Open clicked (unless it was open)
       if (!isOpen) {
         content.style.display = "block";
         icon.style.transform = "rotate(180deg)";
