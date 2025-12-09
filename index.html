@@ -233,6 +233,11 @@ body[data-theme="light"] .header{
   border-color: var(--accent);
 }
 
+ .empty-message {
+  padding: 1rem;
+  opacity: 0.7;
+  font-style: italic;
+}
 
 /* mobile responsive */
 @media (max-width:940px){ .header-inner{ grid-template-columns:180px 1fr 260px; } .epicycle-canvas{ width:260px; height:130px; } .header-photo img{ width:160px; height:160px; } }
@@ -665,10 +670,10 @@ const teachingData = {
     "Pondicherry University": [
       {
         title: "Mathematics I for Engineers",
-        path: "/modules/BTMT171PUOdd25",
+        path: "modules/BTMT171PUOdd25",
         lectures: 2,
         assignments: 4,
-        text: "Lecture"
+        text: ""
       }
     ]
   },
@@ -677,9 +682,9 @@ const teachingData = {
     "Pondicherry University": [
       {
         title: "Mathematics II for Engineers (Even 2025)",
-        path: "/dummy/engg-math",
-        lectures: 30,
-        assignments: 5,
+        path: "/",
+        lectures: 0,
+        assignments: 0,
         text: "Lecture"
       },
      {
@@ -825,7 +830,7 @@ function createTeachingComponent(container, groups) {
     for (let i = start; i <= end; i++) {
       detail += `
         <a href="${course.path}/lecture${i}.pdf" target="_blank">
-          ${course.text} ${i}
+          Lecture ${i}
         </a>`;
     }
 
