@@ -674,14 +674,16 @@ const teachingData = {
   },
 
   past: {
-    "IIT Hyderabad": [
+    "Pondicherry University": [
       {
-        title: "Engineering Mathematics",
+        title: "Mathematics II for Engineers (Even 2025)",
         path: "/dummy/engg-math",
         lectures: 30,
         assignments: 5,
         text: "Lecture"
-      }
+      },
+     {
+      
     ],
 
     "Memorial University": [
@@ -849,6 +851,26 @@ document.querySelectorAll(".teaching-block").forEach(block => {
   createTeachingComponent(block, teachingData[source]);
 });
 
+function loadCourseContent(univ, index) {
+  const course = groups[univ][index];
+  const container = document.querySelector(
+    `.course-content[data-university="${univ}"]`
+  );
+
+  if (!course.modules || course.modules.length === 0) {
+    container.innerHTML = `
+      <div class="empty-message">
+        <p>No content available for this course.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Otherwise load modules normally
+  container.innerHTML = course.modules
+    .map(m => `<div class="module-item">${m}</div>`)
+    .join("");
+}
 
 /* ---------- EPICYCLE: two intertwined circles + long fading tail + glow ---------- */
 (function(){
