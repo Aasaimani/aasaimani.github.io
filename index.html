@@ -113,15 +113,126 @@ body[data-theme="light"] .header{
 .card{ position: relative; z-index: 10; background:var(--card); padding:18px; border-radius:12px; box-shadow: 0 8px 24px rgba(2,8,20,0.24); border:1px solid rgba(255,255,255,0.02); }
 
 /* course UI */
-.course-list{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+/* .course-list{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
 .course-btn{ padding:8px 8px; border-radius:9px; background:transparent; border:1px solid var(--accent); color:var(--accent); font-weight:700; cursor:pointer; }
-.course-btn:hover{ background:var(--accent); color:var(--bg); }
+.course-btn:hover{ background:var(--accent); color:var(--bg); } */
 
 /* course content */
-.course-content h3{ margin-top:8px; }
+/* .course-content h3{ margin-top:8px; }
 .grid-list{ display:grid; gap:10px; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); margin-top:12px; }
 .lecture-link{ padding:10px; display:block; border-radius:10px; text-align:center; background: rgba(255,255,255,0.02); color:var(--text); font-weight:700; border:1px solid rgba(255,255,255,0.03); text-decoration:none; }
-.lecture-link:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-3px); transition:transform .12s; }
+.lecture-link:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-3px); transition:transform .12s; } */
+
+ /* ----------------------------------------
+   ACCORDION — matches your website theme
+----------------------------------------- */
+
+.teaching-accordion {
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--accent-soft);
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Heading of each University block */
+.teaching-accordion-header {
+  padding: 14px 18px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--accent-soft);
+  background: linear-gradient(
+    90deg,
+    var(--accent-soft) 0%,
+    transparent 70%
+  );
+}
+
+.teaching-accordion-header:hover {
+  background: var(--accent-soft);
+}
+
+.teaching-accordion-header svg {
+  width: 18px; height: 18px;
+  transition: transform 0.25s ease;
+  opacity: 0.85;
+}
+
+/* content slides down */
+.teaching-accordion-content {
+  display: none;
+  padding: 16px 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(-4px); }
+  to   { opacity:1; transform: translateY(0px); }
+}
+
+/* Course buttons */
+.course-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 6px 0;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 1px solid var(--accent-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.course-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* Modules */
+.modules-list button {
+  margin: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-soft);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.modules-list button:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* Lecture grid */
+.grid-list {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.grid-list a {
+  padding: 6px 8px;
+  text-decoration: none;
+  color: var(--accent);
+  border: 1px dashed var(--accent-soft);
+  border-radius: 6px;
+  background: var(--card);
+}
+
+.grid-list a:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
 
 /* mobile responsive */
 @media (max-width:940px){ .header-inner{ grid-template-columns:180px 1fr 260px; } .epicycle-canvas{ width:260px; height:130px; } .header-photo img{ width:160px; height:160px; } }
@@ -301,6 +412,13 @@ ol li:last-child {
   </section>
 
   <section id="teaching" class="page-section">
+
+   <h2>Current Teaching</h2>
+<div class="teaching-block" data-source="current"></div>
+
+<h2>Past Teaching</h2>
+<div class="teaching-block" data-source="past"></div>
+
     <div class="card">
       <h2>Current Teaching</h2>
      <!-- <div id="course-list" class="course-list"> -->
@@ -497,7 +615,7 @@ ol li:last-child {
       let html = `<h3>${btn.textContent}</h3>`;
       html += `<div class="modules-list">`;
       for(let m=1;m<=modules;m++){
-        html += `<button class="module-btn" data-path="${path}" data-lectures="${lectures}" data-text="${baseText}" data-module="${m}">Module ${m}</button>`;
+        html += `<button class="module-btn" data-path="${path}" data-lectures="${lectures}" data-assignments="${assignments}" data-text="${baseText}" data-module="${m}">Module ${m}</button>`;
       }
       html += `</div>`;
       html += `<div id="module-detail" class="module-detail"></div>`;
@@ -508,6 +626,7 @@ ol li:last-child {
         mbtn.addEventListener('click', () => {
           const module = parseInt(mbtn.dataset.module,10);
           const total = parseInt(mbtn.dataset.lectures,10);
+          const assignments = parseInt(mbtn.dataset.assignments || '0');
           const base = mbtn.dataset.path;
           const text = mbtn.dataset.text || 'Lecture';
           // compute range for this module: (m-1)*5+1 .. min(m*5,total)
@@ -540,6 +659,135 @@ ol li:last-child {
     });
   }
 })();
+
+ function createAccordion(title, contentHTML) {
+  return `
+    <div class="teaching-accordion">
+      <div class="teaching-accordion-header">
+        ${title}
+        <svg class="chevron" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+        </svg>
+      </div>
+      <div class="teaching-accordion-content">${contentHTML}</div>
+    </div>
+  `;
+}
+
+function createTeachingComponent(container, groups) {
+  let html = "";
+
+  Object.keys(groups).forEach(univ => {
+    let courseHTML = `<div class="course-list">`;
+
+    groups[univ].forEach((course, i) => {
+      courseHTML += `
+        <button class="course-btn"
+          data-university="${univ}"
+          data-index="${i}"
+        >${course.title}</button>
+      `;
+    });
+
+    courseHTML += `<div class="course-content" data-university="${univ}"></div></div>`;
+    html += createAccordion(univ, courseHTML);
+  });
+
+  container.innerHTML = html;
+
+  /* ---------- ACCORDION TOGGLE ---------- */
+  container.querySelectorAll('.teaching-accordion-header').forEach(header => {
+    header.addEventListener("click", () => {
+      const acc = header.parentElement;
+      const content = header.nextElementSibling;
+      const icon = header.querySelector(".chevron");
+
+      const isOpen = content.style.display === "block";
+
+      document.querySelectorAll(".teaching-accordion-content").forEach(c => c.style.display = "none");
+      document.querySelectorAll(".chevron").forEach(c => c.style.transform = "rotate(0deg)");
+
+      if (!isOpen) {
+        content.style.display = "block";
+        icon.style.transform = "rotate(180deg)";
+      }
+    });
+  });
+
+  /* ---------- COURSE CLICK ---------- */
+  container.addEventListener("click", (e) => {
+    const btn = e.target.closest(".course-btn");
+    if (!btn) return;
+
+    const univ = btn.dataset.university;
+    const index = parseInt(btn.dataset.index, 10);
+    const course = groups[univ][index];
+
+    const courseContent = container.querySelector(
+      `.course-content[data-university="${univ}"]`
+    );
+
+    const modules = Math.ceil(course.lectures / 5);
+
+    let out = `<h4>${course.title}</h4><div class="modules-list">`;
+    for (let m = 1; m <= modules; m++) {
+      out += `<button class="module-btn" data-module="${m}">Module ${m}</button>`;
+    }
+    out += `</div><div class="module-detail"></div>`;
+
+    courseContent.innerHTML = out;
+  });
+
+  /* ---------- MODULE CLICK ---------- */
+  container.addEventListener("click", (ev) => {
+    const mbtn = ev.target.closest(".module-btn");
+    if (!mbtn) return;
+
+    const courseContent = mbtn.closest(".course-content");
+    const univ = courseContent.dataset.university;
+
+    const course = groups[univ].find(c =>
+      c.title === courseContent.querySelector("h4").textContent
+    );
+
+    const moduleNum = parseInt(mbtn.dataset.module, 10);
+    const start = (moduleNum - 1) * 5 + 1;
+    const end = Math.min(moduleNum * 5, course.lectures);
+
+    let detail = `
+      <h5>Module ${moduleNum} — Lectures ${start}–${end}</h5>
+      <div class="grid-list">
+    `;
+
+    for (let i = start; i <= end; i++) {
+      detail += `
+        <a href="${course.path}/lecture${i}.pdf" target="_blank">
+          ${course.text} ${i}
+        </a>`;
+    }
+
+    detail += `</div>`;
+
+    if (moduleNum <= course.assignments) {
+      detail += `
+        <h5 style="margin-top:12px">Assignments</h5>
+        <div class="grid-list">
+          <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
+            Assignment ${moduleNum}
+          </a>
+        </div>`;
+    }
+
+    courseContent.querySelector(".module-detail").innerHTML = detail;
+  });
+}
+
+/* ---------- INIT ---------- */
+document.querySelectorAll(".teaching-block").forEach(block => {
+  const source = block.dataset.source;
+  createTeachingComponent(block, teachingData[source]);
+});
+
 
 /* ---------- EPICYCLE: two intertwined circles + long fading tail + glow ---------- */
 (function(){
