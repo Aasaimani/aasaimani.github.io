@@ -868,7 +868,7 @@ function createTeachingComponent(container, groups) {
 
       // Each assignment becomes a "module"
       for (let a = 1; a <= assignments; a++) {
-        out += `<button class="module-btn" data-module="${a}">Assignment ${a}</button>`;
+        out += `<button class="module-btn" data-module="${a}"><a href="${course.path}/assignment${a}.pdf" target="_blank">Assignment ${a}</a></button>`;
       }
 
       out += `</div><div class="module-detail"></div>`;
