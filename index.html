@@ -733,13 +733,6 @@ const teachingData = {
         lectures: 0,
         assignments: 0,
         text: "Lecture"
-     },
-      {
-        title: "Calculus for Engineering",
-        path: "modules/MATH116UWFall2019",
-        lectures: 0,
-        assignments: 0,
-        text: "Lecture"
      }
     ]
   }
@@ -824,29 +817,41 @@ function createTeachingComponent(container, groups) {
     });
   });
 
-  /* ---------- COURSE CLICK ---------- */
-  container.addEventListener("click", (e) => {
-    const btn = e.target.closest(".course-btn");
-    if (!btn) return;
+ /* ---------- COURSE CLICK ---------- */
+container.addEventListener("click", (e) => {
+  const btn = e.target.closest(".course-btn");
+  if (!btn) return;
 
-    const univ = btn.dataset.university;
-    const index = parseInt(btn.dataset.index, 10);
-    const course = groups[univ][index];
+  const univ = btn.dataset.university;
+  const index = parseInt(btn.dataset.index, 10);
+  const course = groups[univ][index];
 
-    const courseContent = container.querySelector(
-      `.course-content[data-university="${univ}"]`
-    );
+  const courseContent = container.querySelector(
+    `.course-content[data-university="${univ}"]`
+  );
 
-    const modules = Math.ceil(course.lectures / 5);
+  /* ---- OPTION A: If no lectures or no data → show placeholder ---- */
+  if (!course.lectures || course.lectures === 0 || !course.path) {
+    courseContent.innerHTML = `
+      <h4>${course.title}</h4>
+      <div class="empty-message">
+        <p>No content available for this course.</p>
+      </div>
+    `;
+    return; // stop execution
+  }
 
-    let out = `<h4>${course.title}</h4><div class="modules-list">`;
-    for (let m = 1; m <= modules; m++) {
-      out += `<button class="module-btn" data-module="${m}">Module ${m}</button>`;
-    }
-    out += `</div><div class="module-detail"></div>`;
+  /* ---- Otherwise load normal modules ---- */
+  const modules = Math.ceil(course.lectures / 5);
 
-    courseContent.innerHTML = out;
-  });
+  let out = `<h4>${course.title}</h4><div class="modules-list">`;
+  for (let m = 1; m <= modules; m++) {
+    out += `<button class="module-btn" data-module="${m}">Module ${m}</button>`;
+  }
+  out += `</div><div class="module-detail"></div>`;
+
+  courseContent.innerHTML = out;
+});
 
   /* ---------- MODULE CLICK ---------- */
   container.addEventListener("click", (ev) => {
@@ -890,33 +895,6 @@ function createTeachingComponent(container, groups) {
 
     courseContent.querySelector(".module-detail").innerHTML = detail;
   });
-}
-
-/* ---------- INIT ---------- */
-document.querySelectorAll(".teaching-block").forEach(block => {
-  const source = block.dataset.source;
-  createTeachingComponent(block, teachingData[source]);
-});
-
-function loadCourseContent(univ, index) {
-  const course = groups[univ][index];
-  const container = document.querySelector(
-    `.course-content[data-university="${univ}"]`
-  );
-
-  if (!course.modules || course.modules.length === 0) {
-    container.innerHTML = `
-      <div class="empty-message">
-        <p>No content available for this course.</p>
-      </div>
-    `;
-    return;
-  }
-
-  // Otherwise load modules normally
-  container.innerHTML = course.modules
-    .map(m => `<div class="module-item">${m}</div>`)
-    .join("");
 }
 
 /* ---------- EPICYCLE: two intertwined circles + long fading tail + glow ---------- */
