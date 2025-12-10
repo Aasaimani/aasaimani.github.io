@@ -867,10 +867,16 @@ function createTeachingComponent(container, groups) {
       let out = `<h4>${course.title.trim()}</h4><div class="modules-list">`;
 
       // Each assignment becomes a "module"
+      <div class="grid-list">
       for (let a = 1; a <= assignments; a++) {
-        out += `<button class="module-btn" data-module="${a}">Assignment ${a}</button>`;
+        out += `<a href="${course.path}/assignment${a}.pdf" target="_blank">Assignment ${a}</a>`;
       }
-
+      </div>
+ //     <div class="grid-list">
+    //       <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
+    //         Assignment ${moduleNum}
+    //       </a>
+    //     </div>
       out += `</div><div class="module-detail"></div>`;
       courseContent.innerHTML = out;
       return;
@@ -940,16 +946,16 @@ function createTeachingComponent(container, groups) {
     }
 
     // ----- CASE B: No lectures, ONLY assignments -----
-    if (lectures === 0 && assignments > 0) {
-      courseContent.querySelector(".module-detail").innerHTML = `
-        <h5>Assignment ${moduleNum}</h5>
-        <div class="grid-list">
-          <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
-            Assignment ${moduleNum}
-          </a>
-        </div>
-      `;
-    }
+    // if (lectures === 0 && assignments > 0) {
+    //   courseContent.querySelector(".module-detail").innerHTML = `
+    //     <h5>Assignment ${moduleNum}</h5>
+    //     <div class="grid-list">
+    //       <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
+    //         Assignment ${moduleNum}
+    //       </a>
+    //     </div>
+    //   `;
+    // }
   });
 }
 
@@ -985,7 +991,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const harmonics = [
     {freq: 1, phase:0, rFactor:0.25},
     {freq:-2, phase:Math.PI/4, rFactor:0.18},
-    {freq: 5, phase:0, rFactor:0.10} //Math.PI/2
+    {freq: 3, phase:0, rFactor:0.10} //Math.PI/2
   ];
   const trail = [];
   const maxTrail = 700;
