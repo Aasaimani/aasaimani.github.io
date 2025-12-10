@@ -740,26 +740,13 @@ const teachingData = {
 };
 
 
- function createAccordion(title, contentHTML) {
-  return `
-    <div class="teaching-accordion">
-      <div class="teaching-accordion-header">
-        ${title}
-        <svg class="chevron" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M7 10l5 5 5-5z"/>
-        </svg>
-      </div>
-      <div class="teaching-accordion-content">${contentHTML}</div>
-    </div>
-  `;
-}
-
+// ---------------------- MAIN COMPONENT ----------------------
 function createTeachingComponent(container, groups) {
   let html = "";
-
   const univNames = Object.keys(groups);
   const singleUniversity = univNames.length === 1;
 
+  // ----- Build Accordions -----
   univNames.forEach(univ => {
     let courseHTML = `<div class="course-list">`;
 
@@ -768,13 +755,12 @@ function createTeachingComponent(container, groups) {
         <button class="course-btn"
           data-university="${univ}"
           data-index="${i}"
-        >${course.title}</button>
+        >${course.title.trim()}</button>
       `;
     });
 
     courseHTML += `<div class="course-content" data-university="${univ}"></div></div>`;
 
-    // If ONLY ONE university → keep accordion open
     const isOpen = singleUniversity ? 'style="display:block"' : '';
 
     html += `
@@ -793,24 +779,23 @@ function createTeachingComponent(container, groups) {
 
   container.innerHTML = html;
 
-  /* ---------- ACCORDION TOGGLE ---------- */
+
+  // ------------------ ACCORDION TOGGLE ------------------
   container.querySelectorAll('.teaching-accordion-header').forEach(header => {
     header.addEventListener("click", () => {
       const content = header.nextElementSibling;
       const icon = header.querySelector(".chevron");
-
       const isOpen = content.style.display === "block";
 
-      // Close all
       document.querySelectorAll(".teaching-accordion-content").forEach(c => {
         if (!c.closest('.teaching-block').isSameNode(container)) return;
         c.style.display = "none";
       });
+
       document.querySelectorAll(".chevron").forEach(c => {
         c.style.transform = "rotate(0deg)";
       });
 
-      // Open clicked (unless it was open)
       if (!isOpen) {
         content.style.display = "block";
         icon.style.transform = "rotate(180deg)";
@@ -818,43 +803,63 @@ function createTeachingComponent(container, groups) {
     });
   });
 
- /* ---------- COURSE CLICK ---------- */
-container.addEventListener("click", (e) => {
-  const btn = e.target.closest(".course-btn");
-  if (!btn) return;
 
-  const univ = btn.dataset.university;
-  const index = parseInt(btn.dataset.index, 10);
-  const course = groups[univ][index];
 
-  const courseContent = container.querySelector(
-    `.course-content[data-university="${univ}"]`
-  );
+  // ------------------ COURSE CLICK ------------------
+  container.addEventListener("click", (e) => {
+    const btn = e.target.closest(".course-btn");
+    if (!btn) return;
 
-  /* ---- OPTION A: If no lectures or no data → show placeholder ---- */
-  if (!course.lectures || !course.path) {
-    courseContent.innerHTML = `
-      <h4>${course.title}</h4>
-      <div class="empty-message">
-        <p>No content available for this course.</p>
-      </div>
-    `;
-    return; // stop execution
-  }
+    const univ = btn.dataset.university;
+    const index = Number(btn.dataset.index);
+    const course = groups[univ][index];
+    const courseContent = container.querySelector(
+      `.course-content[data-university="${univ}"]`
+    );
 
-  /* ---- Otherwise load normal modules ---- */
-  const modules = Math.ceil(course.lectures / 5);
+    const lectures = Number(course.lectures ?? 0);
+    const assignments = Number(course.assignments ?? 0);
 
-  let out = `<h4>${course.title}</h4><div class="modules-list">`;
-  for (let m = 1; m <= modules; m++) {
-    out += `<button class="module-btn" data-module="${m}">Module ${m}</button>`;
-  }
-  out += `</div><div class="module-detail"></div>`;
+    // --- CASE 1: No content at all ---
+    if (lectures === 0 && assignments === 0) {
+      courseContent.innerHTML = `
+        <h4>${course.title.trim()}</h4>
+        <div class="empty-message">
+          <p>No content available for this course.</p>
+        </div>
+      `;
+      return;
+    }
 
-  courseContent.innerHTML = out;
-});
+    // --- CASE 2: No lectures but assignments exist ---
+    if (lectures === 0 && assignments > 0) {
+      let out = `<h4>${course.title.trim()}</h4><div class="modules-list">`;
 
-  /* ---------- MODULE CLICK ---------- */
+      // Each assignment becomes a "module"
+      for (let a = 1; a <= assignments; a++) {
+        out += `<button class="module-btn" data-module="${a}">Assignment ${a}</button>`;
+      }
+
+      out += `</div><div class="module-detail"></div>`;
+      courseContent.innerHTML = out;
+      return;
+    }
+
+    // --- CASE 3: Normal case (lectures exist) ---
+    const modules = Math.ceil(lectures / 5);
+
+    let out = `<h4>${course.title.trim()}</h4><div class="modules-list">`;
+    for (let m = 1; m <= modules; m++) {
+      out += `<button class="module-btn" data-module="${m}">Module ${m}</button>`;
+    }
+    out += `</div><div class="module-detail"></div>`;
+
+    courseContent.innerHTML = out;
+  });
+
+
+
+  // ------------------ MODULE CLICK ------------------
   container.addEventListener("click", (ev) => {
     const mbtn = ev.target.closest(".module-btn");
     if (!mbtn) return;
@@ -862,41 +867,69 @@ container.addEventListener("click", (e) => {
     const courseContent = mbtn.closest(".course-content");
     const univ = courseContent.dataset.university;
 
-    const course = groups[univ].find(c =>
-      c.title === courseContent.querySelector("h4").textContent
-    );
+    const title = courseContent.querySelector("h4").textContent.trim();
+    const course = groups[univ].find(c => c.title.trim() === title);
 
-    const moduleNum = parseInt(mbtn.dataset.module, 10);
-    const start = (moduleNum - 1) * 5 + 1;
-    const end = Math.min(moduleNum * 5, course.lectures);
+    const lectures = Number(course.lectures ?? 0);
+    const assignments = Number(course.assignments ?? 0);
+    const moduleNum = Number(mbtn.dataset.module);
 
-    let detail = `
-      <h5>Module ${moduleNum} — Lectures ${start}–${end}</h5>
-      <div class="grid-list">
-    `;
+    // ----- CASE A: Lectures exist -----
+    if (lectures > 0) {
+      const start = (moduleNum - 1) * 5 + 1;
+      const end = Math.min(moduleNum * 5, lectures);
 
-    for (let i = start; i <= end; i++) {
-      detail += `
-        <a href="${course.path}/lecture${i}.pdf" target="_blank">
-          Lecture ${i}
-        </a>`;
+      let detail = `
+        <h5>Module ${moduleNum} — Lectures ${start}–${end}</h5>
+        <div class="grid-list">
+      `;
+
+      for (let i = start; i <= end; i++) {
+        detail += `
+          <a href="${course.path}/lecture${i}.pdf" target="_blank">
+            Lecture ${i}
+          </a>`;
+      }
+
+      detail += `</div>`;
+
+      // If assignments exist for this module
+      if (moduleNum <= assignments) {
+        detail += `
+          <h5 style="margin-top:12px">Assignments</h5>
+          <div class="grid-list">
+            <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
+              Assignment ${moduleNum}
+            </a>
+          </div>`;
+      }
+
+      courseContent.querySelector(".module-detail").innerHTML = detail;
+      return;
     }
 
-    detail += `</div>`;
-
-    if (moduleNum <= course.assignments) {
-      detail += `
-        <h5 style="margin-top:12px">Assignments</h5>
+    // ----- CASE B: No lectures, ONLY assignments -----
+    if (lectures === 0 && assignments > 0) {
+      courseContent.querySelector(".module-detail").innerHTML = `
+        <h5>Assignment ${moduleNum}</h5>
         <div class="grid-list">
           <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
             Assignment ${moduleNum}
           </a>
-        </div>`;
+        </div>
+      `;
     }
-
-    courseContent.querySelector(".module-detail").innerHTML = detail;
   });
 }
+
+
+// ---------------------- INIT ----------------------
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".teaching-block").forEach(block => {
+    const source = block.dataset.source;
+    createTeachingComponent(block, teachingData[source]);
+  });
+});
 
 /* ---------- EPICYCLE: two intertwined circles + long fading tail + glow ---------- */
 (function(){
