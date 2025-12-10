@@ -1075,8 +1075,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // parameters
   const harmonics = [
-    {freq: 1, phase:0, rFactor:0.28},
-    {freq: -2, phase:Math.PI/3 rFactor:0.18},
+    {freq: 3, phase:Math.PI/2, rFactor:0.18},
+    {freq: 4, phase:0, rFactor:0.10},
     // {freq: 5, phase:0, rFactor:0.10}, //Math.PI/2
     // {freq: -1, phase:3*Math.PI/4, rFactor:0.15}
   ];
@@ -1114,7 +1114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for(let i=0;i<harmonics.length;i++){
       const h = harmonics[i], r = h.rFactor * minDim;
       const ang = time * h.freq + (h.phase||0);
-      const nx = x + r * Math.cos(ang);
+      const nx = x + r * Math.sin(ang);
       const ny = y + r * Math.sin(ang);
       // circle
       ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.stroke();
