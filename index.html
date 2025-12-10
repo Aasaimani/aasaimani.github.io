@@ -867,16 +867,10 @@ function createTeachingComponent(container, groups) {
       let out = `<h4>${course.title.trim()}</h4><div class="modules-list">`;
 
       // Each assignment becomes a "module"
-     
       for (let a = 1; a <= assignments; a++) {
-        out += ``<button class="module-btn" data-module="${a}">Assignment ${a}</button>`;`;
+        out += `<button class="module-btn" data-module="${a}">Assignment ${a}</button>`;
       }
-    // <a href="${course.path}/assignment${a}.pdf" target="_blank">Assignment ${a}</a>
- //     <div class="grid-list">
-    //       <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
-    //         Assignment ${moduleNum}
-    //       </a>
-    //     </div>
+
       out += `</div><div class="module-detail"></div>`;
       courseContent.innerHTML = out;
       return;
@@ -945,7 +939,7 @@ function createTeachingComponent(container, groups) {
       return;
     }
 
-    ----- CASE B: No lectures, ONLY assignments -----
+    // ----- CASE B: No lectures, ONLY assignments -----
     if (lectures === 0 && assignments > 0) {
       courseContent.querySelector(".module-detail").innerHTML = `
         <h5>Assignment ${moduleNum}</h5>
@@ -989,9 +983,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // parameters
   const harmonics = [
-    {freq: 1, phase:0, rFactor:0.18},
-    {freq: 3, phase:Math.PI/2, rFactor:0.12},
-    {freq: 5, phase:0, rFactor:0.08} //Math.PI/2
+    {freq: 1, phase:0, rFactor:0.25},
+    {freq:-2, phase:Math.PI/4, rFactor:0.18},
+    {freq: 5, phase:0, rFactor:0.10} //Math.PI/2
   ];
   const trail = [];
   const maxTrail = 700;
