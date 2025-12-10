@@ -326,7 +326,55 @@ ol li {
 ol li:last-child {
     margin-bottom: 0;
 }
-  
+
+ .contact-card {
+  padding: 32px;
+  border-radius: 20px;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.section-desc {
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+/* Card items inside the contact section */
+.contact-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.contact-item .icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.contact-item .info h3 {
+  margin-bottom: 6px;
+  color: var(--accent);
+}
+
+.email-link {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.email-link:hover {
+  color: var(--external-link-hover);
+}
+
 </style>
 </head>
 <body data-theme="dark">
@@ -492,10 +540,55 @@ ol li:last-child {
   </section> -->
 
   <section id="contact" class="page-section">
-    <div class="card">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:fmanimic@gmail.com">fmanimic <it>at</it> gmail <it>dot</it> com</a></p>
+ <div class="card contact-card">
+
+    <h2 class="section-title">Contact</h2>
+    <p class="section-desc">
+      Feel free to reach out anytime. You can email me directly or find my address below.
+    </p>
+
+    <!-- Email Card -->
+    <div class="contact-item card">
+      <div class="icon">
+        <!-- email icon -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+
+      <div class="info">
+        <h3>Email</h3>
+        <a href="mailto:yourname@example.com" class="email-link">
+          yourname@example.com
+        </a>
+      </div>
     </div>
+
+    <!-- Address Card -->
+    <div class="contact-item card">
+      <div class="icon">
+        <!-- location icon -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+
+      <div class="info">
+        <h3>Address</h3>
+        <p>
+          Your Name<br>
+          Department / Organisation<br>
+          Street Address Line<br>
+          City, State<br>
+          Postal Code, Country
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
   </section>
 </main>
 
