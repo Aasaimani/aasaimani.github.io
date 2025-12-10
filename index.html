@@ -683,7 +683,6 @@ const teachingData = {
       {
         title: "Mathematics II for Engineers (Even 2025)",
         path: "/",
-        lectures: 0,
         assignments: 0,
         text: "Lecture"
       },
@@ -832,7 +831,7 @@ container.addEventListener("click", (e) => {
   );
 
   /* ---- OPTION A: If no lectures or no data → show placeholder ---- */
-  if (!course.lectures || course.lectures === 0 || !course.path) {
+  if (!course.lectures || !course.path) {
     courseContent.innerHTML = `
       <h4>${course.title}</h4>
       <div class="empty-message">
