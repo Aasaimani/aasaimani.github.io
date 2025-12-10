@@ -940,16 +940,16 @@ function createTeachingComponent(container, groups) {
     }
 
     // ----- CASE B: No lectures, ONLY assignments -----
-    if (lectures === 0 && assignments > 0) {
-      courseContent.querySelector(".module-detail").innerHTML = `
-        <h5>Assignment ${moduleNum}</h5>
-        <div class="grid-list">
-          <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
-            Assignment ${moduleNum}
-          </a>
-        </div>
-      `;
-    }
+    // if (lectures === 0 && assignments > 0) {
+    //   courseContent.querySelector(".module-detail").innerHTML = `
+    //     <h5>Assignment ${moduleNum}</h5>
+    //     <div class="grid-list">
+    //       <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
+    //         Assignment ${moduleNum}
+    //       </a>
+    //     </div>
+    //   `;
+    // }
   });
 }
 
