@@ -58,6 +58,22 @@ html,body{height:100%; margin:0; font-family:Inter,system-ui,-apple-system,"Sego
 a{color:var(--accent); text-decoration:none}
 button{font-family:inherit; cursor:pointer}
 
+ /* blurred header clone */
+.header-blur-clone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height, 260px); /* set this to your header’s height */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  pointer-events: none;
+  opacity: 0;
+  background: transparent;
+  transition: opacity .25s ease;
+  z-index: 9998; /* below cards but above background */
+}
+
 /* header */
 .header{
   position:sticky;
@@ -73,6 +89,7 @@ button{font-family:inherit; cursor:pointer}
   background: rgba(0,0,0,0.15);
 
   border-bottom:1px solid rgba(255,255,255,0.08);
+ transition: opacity .25s ease;
 }
 
 body[data-theme="light"] .header{
@@ -315,6 +332,7 @@ ol li:last-child {
 <body data-theme="dark">
 
 <header class="header" role="banner">
+ <div class="header-blur-clone"></div>
   <div class="header-inner">
 
     <!-- LEFT: portrait -->
