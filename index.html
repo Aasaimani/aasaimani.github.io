@@ -1115,7 +1115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for(let i=0;i<harmonics.length;i++){
       const h = harmonics[i], r = h.rFactor * minDim;
       const ang = time * h.freq + (h.phase||0);
-      const nx = x + r * Math.sin(ang);
+      const nx = x + r * Math.cos(ang);
       const ny = y + r * Math.sin(ang);
       // circle
       ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.stroke();
