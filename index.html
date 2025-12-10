@@ -867,11 +867,11 @@ function createTeachingComponent(container, groups) {
       let out = `<h4>${course.title.trim()}</h4><div class="modules-list">`;
 
       // Each assignment becomes a "module"
-      <div class="grid-list">
+     
       for (let a = 1; a <= assignments; a++) {
-        out += `<a href="${course.path}/assignment${a}.pdf" target="_blank">Assignment ${a}</a>`;
+        out += ``<button class="module-btn" data-module="${a}">Assignment ${a}</button>`;`;
       }
-      </div>
+    // <a href="${course.path}/assignment${a}.pdf" target="_blank">Assignment ${a}</a>
  //     <div class="grid-list">
     //       <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
     //         Assignment ${moduleNum}
@@ -945,17 +945,17 @@ function createTeachingComponent(container, groups) {
       return;
     }
 
-    // ----- CASE B: No lectures, ONLY assignments -----
-    // if (lectures === 0 && assignments > 0) {
-    //   courseContent.querySelector(".module-detail").innerHTML = `
-    //     <h5>Assignment ${moduleNum}</h5>
-    //     <div class="grid-list">
-    //       <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
-    //         Assignment ${moduleNum}
-    //       </a>
-    //     </div>
-    //   `;
-    // }
+    ----- CASE B: No lectures, ONLY assignments -----
+    if (lectures === 0 && assignments > 0) {
+      courseContent.querySelector(".module-detail").innerHTML = `
+        <h5>Assignment ${moduleNum}</h5>
+        <div class="grid-list">
+          <a href="${course.path}/assignment${moduleNum}.pdf" target="_blank">
+            Assignment ${moduleNum}
+          </a>
+        </div>
+      `;
+    }
   });
 }
 
