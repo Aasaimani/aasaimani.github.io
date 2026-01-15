@@ -800,7 +800,7 @@ const teachingData = {
         path: "modules/BTMT171PUOdd2025",
         lectures: 0,
         assignments: 4,
-        text: ""
+        solutions: 0
       }
     ]
   },
@@ -812,14 +812,14 @@ const teachingData = {
         path: "",
         lectures: 0,
         assignments: 0,
-        text: "Lecture"
+        solutions: 0
       },
       {
         title: "Mathematics I for Engineers (Odd 2024)",
         path: "",
         lectures: 0,
         assignments: 0,
-        text: ""
+        solutions: 0
       }
     ],
 
@@ -829,21 +829,21 @@ const teachingData = {
         path: "modules/ECE206UWFall23",
         lectures: 23,
         assignments: 0,
-        text: "Lecture"
+        solutions: 0
       },
      {
         title: "Calculus I for Math Honors",
         path: "modules/MATH137UWFall22",
         lectures: 11,
         assignments: 0,
-        text: "Lecture"
+        solutions: 0
      },
       {
         title: "Calculus for Engineering",
         path: "modules/MATH116UWFall2019",
         lectures: 0,
         assignments: 0,
-        text: "Lecture"
+        solutions: 0
      }
     ],
    
@@ -853,14 +853,14 @@ const teachingData = {
         path: "modules/MATH4101UWWinter22",
         lectures: 0,
         assignments: 10,
-        text: "Lecture"
+        solutions: 10
       },
      {
         title: "Applied Math for Business majors (Fall 2022)",
         path: "",
         lectures: 0,
         assignments: 0,
-        text: "Lecture"
+        solutions: 0
      }
     ]
   }
@@ -946,6 +946,7 @@ function createTeachingComponent(container, groups) {
 
     const lectures = Number(course.lectures ?? 0);
     const assignments = Number(course.assignments ?? 0);
+    const solutions = Number(course.solutions ?? 0);
 
     // --- CASE 1: No content at all ---
     if (lectures === 0 && assignments === 0) {
